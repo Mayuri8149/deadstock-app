@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">       
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="uomForm" autocomplete="off" #uomAssetForm="ngForm" (ngSubmit)="addUom(uomAssetForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Add Asset UOM
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="UOM" formControlName="uom" required>
+                            <mat-error *ngIf="hasError('uom', 'required')">UOM is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input type="number" (keypress)="validateNo($event)" matInput placeholder="Decimal" formControlName="decimal" required>
+                            <mat-error *ngIf="hasError('decimal', 'required')">Decimal is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn">Add</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="dashboard-container">
+	<div class="panel panel-primary headeing" hidden>
+	</div>
+	<div >
+		<div class="docs-component-category-list" *ngIf='role == "admin"' [class.disabled-menu]="!isNotKYC">
+		<div class="row">
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+					routerLink="/assetsummary/assetSummaryDetail">
+					<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+					<mat-card-title class="mat-card-title">Asset Summary</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+					routerLink="/assetsummary/eprAssetSummaryDetail" >
+					<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+					<mat-card-title class="mat-card-title">EPR Asset Summary</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/organizations/organizationDetails" [queryParams]="{ dashboard: '1' }">
+					<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="department">
+					<mat-card-title class="mat-card-title">Organization Details</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card" (click)="OrgSelect()">
+					<img mat-card-image src="/assets/icons/branch.png" alt="Organization Network" style="transform: rotate(70deg);">
+					<mat-card-title class="mat-card-title">Organization Network</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/branches/listofBranches" [queryParams]="{ dashboard: '1' }">
+					<img mat-card-image src="/assets/icons/department_1.svg" alt="department">
+					<mat-card-title class="mat-card-title">Branches</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/loginHistory">
+					<img mat-card-image src="/assets/icons/History_Dashboard.svg" alt="department">
+					<mat-card-title class="mat-card-title">Login History</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/traceability">
+					<img mat-card-image src="/assets/icons/Transactions.svg" alt="department">
+					<mat-card-title class="mat-card-title">Traceability</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/traceabilityBlockchain">
+					<img mat-card-image src="/assets/icons/Transactions.svg" alt="department">
+					<mat-card-title class="mat-card-title">Traceability With Blockchain</mat-card-title>
+				</mat-card>
+			</div>				
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/eprDashboard">
+					<img mat-card-image src="/assets/icons/Define_Categories.svg" alt="department">
+					<mat-card-title class="mat-card-title">EPR Dashboard</mat-card-title>
+				</mat-card>
+			</div>		
+		</div>
+
+		</div>
+		<div class="docs-component-category-list" *ngIf='role == "manager"'>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+					routerLink="/assetsummary/assetSummaryDetail">
+					<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+					<mat-card-title class="mat-card-title">Asset Summary</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+					routerLink="/assetsummary/eprAssetSummaryDetail" >
+					<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+					<mat-card-title class="mat-card-title">EPR Asset Summary</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6" *ngIf="!(entity == 'corporate')">
+				<mat-card class="docs-component-category-list-card mat-card"				
+				routerLink="/branches/listofBranches" [queryParams]="{ dashboard: '1' }">
+					<img mat-card-image src="/assets/icons/department_1.svg" alt="department">
+					<mat-card-title class="mat-card-title">Branches</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/loginHistory">
+					<img mat-card-image src="/assets/icons/Login_History.svg" alt="department">
+					<mat-card-title class="mat-card-title">Login History</mat-card-title>
+				</mat-card>
+			</div>			
+		</div>
+		<div class="docs-component-category-list" *ngIf='role == "reviewer" || role == "certifier"'>
+			
+			<div class="col-lg-3 col-md-4 col-sm-6" *ngIf="!(entity == 'affiliate')">
+				<mat-card class="docs-component-category-list-card mat-card"				
+				routerLink="/branches/listofBranches" [queryParams]="{ dashboard: '1' }">
+					<img mat-card-image src="/assets/icons/department_1.svg" alt="department">
+					<mat-card-title class="mat-card-title">Branches</mat-card-title>
+				</mat-card>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<mat-card class="docs-component-category-list-card mat-card"
+				routerLink="/loginHistory">
+					<img mat-card-image src="/assets/icons/Login_History.svg" alt="department">
+					<mat-card-title class="mat-card-title">Login History</mat-card-title>
+				</mat-card>
+			</div>
+		</div>
+	</div>
+</div>

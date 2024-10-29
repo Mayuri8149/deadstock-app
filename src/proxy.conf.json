@@ -1,0 +1,15 @@
+{
+    "/api": {
+        "target": "http://20.204.96.176:3000",
+        "secure": false
+    },
+
+    "/dafault": {
+        "target": "https://7myvd8v5l5.execute-api.ap-south-1.amazonaws.com",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+          "^/dafault": ""
+        }
+      }
+}

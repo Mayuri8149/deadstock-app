@@ -1,0 +1,77 @@
+<style>
+  html, body {
+    min-height: 100vh !important;
+  }
+</style>
+<div class="row">
+<DIV class="banner-wrapper">
+  <img src="../../assets/img/about-nippyworld@1x.png" class="banner_image" alt="">
+</DIV>
+</div>
+<div class="clearfix"></div>
+<div class="row bg-img">
+<div class="row" style="width: 100%;">
+  <div class="col-lg-12 text-center m-lr-10 pad17_in_a800">
+    <img class="hide_above800 mx-auto" src="../../assets/img/deadstock.png" alt="" style="height: 100px;">
+    <DIV class="text_tracechain_n hide_below800">DeadStock</DIV>
+    <!-- <DIV class=text_trustacross_n>'Trust Across Supply Chain'</DIV>
+    <DIV class=text_blockchainenabled_n>Blockchain Enabled Asset Tracking & Provenance Platform</DIV> -->
+</div>
+</div>
+<div class="row w100p loginPageCls homepage_layout">
+  <div class="col-lg-5 hide_below800" style="position: relative;">
+    <img src="../../assets/img/deadstock.png" alt="" style="height: 100px;position: absolute;left: 35%;top: 21%;">
+  </div>
+  <div class="col-lg-4 col-sm-12 col-xs-12">
+    <form [formGroup]="userLogin" autocomplete="off" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <div class="row" style="background-color: rgb(243, 243, 248, .7);">
+        
+        <div class="col-lg-12 m-lr-10">
+          <div class="login_lbl">Login</div>
+        </div>
+        <div class="col-lg-12 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+          <input matInput type="text" placeholder="Email ID" formControlName="emailId" id="id_emailId" required>
+          <mat-error *ngIf="hasError('emailId', 'required')">Email ID is required!</mat-error>
+          <mat-error *ngIf="hasError('emailId', 'pattern')">Please enter valid email ID!</mat-error>
+        </mat-form-field>
+        </div>
+        <div class="col-lg-12 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+          <input matInput type="password" placeholder="Password" formControlName="password" id="id_password" required>
+          <mat-error *ngIf="hasError('password', 'required')">Password is required!</mat-error>
+          <mat-error *ngIf="hasError('password','pattern')">Password is required without blank spaces!</mat-error>
+        </mat-form-field>
+        </div>
+        <div class="col-lg-12 m-lr-10">
+          <mat-checkbox class="remember-me" style="cursor: pointer;" type="checkbox" name="remember" formControlName="isRememberMe" id="id_chk_isRememberMe">Remember Me</mat-checkbox>
+          <div class="pull-right forgot-password" (click)="goToForgotPassword()" id="id_forgotPassword"> Forgot Password?</div>
+        </div>
+  
+        <div class="col-lg-12">
+          <span class="dont-have-account">Don&#39;t have an account? </span>
+          <span class="span1-oh3OiQ" id="id_gotoSignup" (click)="goToHomepage()">Sign Up</span>
+          <button type="submit" mat-raised-button class="subBtn pull-right" id="id_btn_login">Login</button>
+        </div>  
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<!-- confirmation modal -->
+<ng-template #template>
+  <div class="modal-body text-center">
+      <div class="" style="padding-bottom: 17px;">
+            <label class="mb-0">Please Select Role</label> 
+            <select class="form-control" [(ngModel)]="filter.role">
+              <option value="undefined" hidden disabled>Please select one role </option>
+                <option *ngFor="let list of user.referenceList" value="{{list.role}}">{{list.roleTxt| uppercase}}</option>
+            </select>
+        </div>
+      <p class="mb-0"></p>
+    <button type="button" class="btn btn-secondary mr-4" style=" color: inherit;background: transparent;font-size: 14px;
+    font-weight: 500;" data-dismiss="modal" (click)="confirm()" >Ok</button>
+    <button type="button" class="btn btn-secondary" style=" color: inherit;background: transparent;font-size: 14px;
+    font-weight: 500;border: none;" data-dismiss="modal" (click)="closedModal()" >Cancel</button>
+  </div>
+</ng-template>

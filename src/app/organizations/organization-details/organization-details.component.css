@@ -1,0 +1,75 @@
+.container {
+    padding: 40px 26px;
+}
+.details {
+	padding: 15px 4px;
+}
+.fa-icon {
+    margin-right: 8px;
+}
+.icon-back {
+    font-size: 25px;
+    color: #060303!important;
+}
+.main-head {
+	font-size: 24px;
+    font-weight: 500;
+    color: #001f60;
+}
+.details-body {
+	padding: 1px;
+	margin-top: 35px;
+}
+.label-text {
+	font-size: 14px;
+    font-weight: 600;
+}
+.single-data {
+	padding: 4px 80px;
+}
+.key {
+	width: 235px;
+}
+.value {
+	width: 380px;
+	padding-left: 20px;
+	font-size: 14px;
+}
+.sub-head {
+	font-size: 16px;
+    font-weight: 700;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.header-btns {
+    padding: 9px 2px;
+}
+.add-btn {
+    background-color: #e2be40;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    margin: 2px 4px;
+}
+.add-btn1{
+    background-color: #5b64c8 !important;
+   color: white !important;
+   margin-left: 700px;
+}
+@media (max-width: 767px) {
+    .add-btn1{
+        margin-left: 350px;
+  }
+}
+  @media (max-width: 374px) {
+    .add-btn1{
+     margin-left: 10px;
+  }
+}
+.action-btns {
+    padding: 18px 1px;
+    margin-top: -20px;
+}
+.disabled-menu{
+    pointer-events: none;
+    opacity: 0.4;
+}

@@ -1,0 +1,122 @@
+<div #id_Container class="container">
+	<div class="wrapper bg_white">
+		<div class="outer-div">
+            <div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<a>
+						<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+						</fa-icon>
+					</a>
+				</div>
+			</div>
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<div id="affDiv">
+						<span id="addSpan">
+							NFT Details
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{nftImgURL}}" class="img-thumbnail" alt="NFT" style="width:100%;">
+            </div>
+            <div class="col-lg-8">
+                <h2 class="nft_name">{{nftAssetName}} - #{{nftAssetId}}</h2>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <h2 class="nft_tokenID">NFT Id - {{nftId}}</h2>
+                  </div>
+                  <div class="col-lg-4">
+                    <h2 class="nft_tokenID">Minted Quantity - {{nftMintedQuantity}}</h2>
+                  </div>
+                <!-- </div>
+                <div class="row">                   -->
+                  <div class="col-lg-4 text-right">
+                    <h2 class="nft_tokenID"><a href="{{nftViewURL}}" target="_blank">Product Details</a> </h2>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs viewnft_tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#tab_owners">Holders</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"  (click)="loadNFTHistory()" data-toggle="tab" href="#tab_history">History</a>
+                    </li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="viewNFTTabContent tab-content">
+                    <div class="tab-pane container active" id="tab_owners">
+                      <section class="nft_section">
+                        <!-- <div class="nft_section_title">
+                            NFT History
+                        </div> -->
+                        <div class="nft_section_body">
+                            <table class="table table-striped table-hover nft_history_tbl">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Owner Address</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">On Sale</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of holdersRecord">
+                                    <td>{{item.owner}}</td>
+                                    <td>{{item.ownedCopies}}</td>
+                                    <td>{{item.sale_copies}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </section>
+                    </div>
+                    <div class="tab-pane container fade" id="tab_history">
+                      <section class="nft_section">
+                        <!-- <div class="nft_section_title">
+                            NFT History
+                        </div> -->
+                        <div class="nft_section_body">
+                            <table class="table table-striped table-hover nft_history_tbl">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Txn Hash</th>
+                                    <th scope="col">From</th>
+                                    <th scope="col">To</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Date and Time</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of nft_grid_data">
+                                    <td><a href="https://mumbai.polygonscan.com/tx/{{item.transaction_hash}}" target="_blank">{{item.transaction_hash}}</a></td>
+                                    <td>{{item.from_address}}</td>
+                                    <td>{{item.to_address}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.block_timestamp}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </section>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                
+                
+            </div>
+        </div>
+
+		
+	</div>
+</div>
+

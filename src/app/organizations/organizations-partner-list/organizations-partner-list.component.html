@@ -1,0 +1,280 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+			</div>
+		</div>
+        <div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" 
+			class="mat-table-item mat-elevation-z8">
+
+            <ng-container matColumnDef="organizationId">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Organization ID </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.organizationCode" (input)="selectorgCode($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="mobile-label">Organization ID:</span>
+                    {{element.organization?.code || '-'}}  
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="organizationName">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Organization Name </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.organizationName" (input)="selectorgName($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                    <span class="mobile-label">Organization Name:</span>
+                    {{element.organization?.name  || '-'}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="partnerId">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Partner ID </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.companyCode" (input)="selectcompanyCode($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="mobile-label">Partner ID:</span>
+                    {{element.corporate?.code || '-'}}  
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="partnerName">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Partner Name </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.companyName" (input)="selectcompanyName($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                    <span class="mobile-label">Partner Name:</span>
+                    {{element.corporate?.companyName  || '-'}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="invitedEntityId">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Inviting Entity ID </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="mobile-label">Inviting Entity ID:</span>
+                    {{element.organizationsCreatedBy?.code || element.userCreatedBy.companyCode || '-'}}  
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="invitedEntityName">
+                <mat-header-cell *matHeaderCellDef>
+                    <div> Inviting Entity Name </div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.invitedEntityName" (input)="selectinvitedEntityName($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                    <span class="mobile-label">Inviting Entity Name:</span>
+                    {{element.invitedEntityName || '-'}}
+                </mat-cell>
+            </ng-container>
+
+                <ng-container matColumnDef="category">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Industry </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.category" (input)="selectcategory($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Industry:</span>
+                        {{element.category?.name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="subcategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Category </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.subcategory" (input)="selectsubcategory($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Category:</span>
+                        {{element.subcategory?.name || '-'}}
+                    </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="moduleId">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Module Id </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.moduleCode" (input)="selectmoduleCode($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Module Id:</span>
+                        {{element.module?.code || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="moduleName">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Module Name </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.moduleName" (input)="selectmoduleName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Module Name:</span>
+                        {{element.module?.name || '-'}}
+                    </mat-cell>
+				</ng-container>
+
+                 <ng-container matColumnDef="transactionTypeCode">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Transaction Type Id </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.transactionTypeCode" (input)="selecttransTypeCode($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Transaction Type Id:</span> 
+                        {{element.transactionTypeCode || '-'}}
+                    </mat-cell>
+                </ng-container>
+
+				<ng-container matColumnDef="transactionTypeName">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Transaction Type </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.transactionTypeName" (input)="selecttransTypeName($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                        <span class="mobile-label">Transaction Type:</span>
+                        {{element.transactionTypeName || '-'}}
+                    </mat-cell>
+                </ng-container>
+
+				<ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Description </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.additionalDescription" (input)="selectadditionalDescription($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                        <span class="mobile-label">Description:</span>
+                         {{element.additionalDescription || '-'}}
+                    </mat-cell>
+                </ng-container>
+
+				<ng-container matColumnDef="transaction">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Transaction </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.transaction" (input)="selecttransaction($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                        <span class="mobile-label">Transaction:</span>
+                        {{element.transaction || '-'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Status </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off" >
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}" *matCellDef="let element"> 
+                        <span class="mobile-label">Status:</span>
+                        {{element.status || '-'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions" sticky>
+                                <mat-header-cell *matHeaderCellDef> 
+                                    <div>Actions </div>
+                                </mat-header-cell>
+								<mat-cell *matCellDef="let row;index as i">
+                                    <span class="mobile-label">Actions:</span>
+                                   	<img class="sidebar-img" matTooltip="View" (click)="view(row)" src="../assets/icons/view (1).svg"/>
+								</mat-cell>
+                            </ng-container>
+                <ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+            <mat-paginator [length]="totalInst" [pageSize]="instPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="onChangedInst($event)">showFirstLastButtons</mat-paginator>		
+		</div>
+	</div>
+</div>

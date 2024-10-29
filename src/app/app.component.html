@@ -1,0 +1,7 @@
+<app-header *ngIf="isUserLogin"></app-header>
+
+<app-sidebar></app-sidebar>
+
+<div *ngIf="showSpinner" class="spinner-wrapper">
+    <mat-progress-spinner class="spinner-bar" mode="indeterminate"></mat-progress-spinner>
+</div>

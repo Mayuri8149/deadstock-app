@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="AssetCategoryForm" autocomplete="off" #assetCategoryForm="ngForm" (ngSubmit)="updateAssetCategory(assetCategoryForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Asset Category Details
+                        </span>
+                    </div>
+                    <div class="row" style="margin-top: 14px;">
+                        <div class="offset-lg-1 col-lg-5 col-md-6 col-sm-6">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput placeholder="Asset category" formControlName="assetCategory"
+                                    required>
+                                <mat-error *ngIf="hasError('assetCategory', 'required')">Asset category is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput placeholder="Asset category Description" formControlName="assetCategoryDescription"
+                                    required>
+                                <mat-error *ngIf="hasError('assetCategoryDescription', 'required')">Asset category description is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn" [disabled]="!assetCategoryForm.form.valid">Update</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

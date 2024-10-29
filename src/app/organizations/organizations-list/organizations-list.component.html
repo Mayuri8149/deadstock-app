@@ -1,0 +1,100 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+			</div>
+		</div>
+        <div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" 
+			class="mat-table-item mat-elevation-z8">
+                <ng-container matColumnDef="organizationId">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Organization ID </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.organizationId" (input)="selectorgId($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+						<span class="mobile-label">Organization ID:</span>		
+                        {{element.code}}  
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="organizationName">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Organization Name </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.organizationName" (input)="selectorgName($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+						<span class="mobile-label">Organization Name:</span>	
+                        {{element.name}}
+                    </mat-cell>
+                </ng-container>
+
+                 <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Status </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}" *matCellDef="let element">
+						<span class="mobile-label">Status:</span>	
+                        {{element.status}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions" sticky>
+                                <mat-header-cell *matHeaderCellDef> 
+                                    <div>Actions </div>
+                                </mat-header-cell>
+                               <mat-cell *matCellDef="let row;index as i">
+									<span class="mobile-label">Actions:</span>	
+							      <mat-slide-toggle class="toggle" 
+                                    [checked]="row.isActive==true" 
+                                    (click)="openConfirmDialog(row)"
+                                    ></mat-slide-toggle>
+									<img class="sidebar-img" *ngIf="row.isActive==true && row.isBlockchainService==true" matTooltip="Fabric SetUp" (click)="view(row)" src="../assets/icons/edit.svg"/>
+									<img class="sidebar-img" matTooltip="View" (click)="viewOrgDetails(row)" src="../assets/icons/view (1).svg"/>
+									<img class="sidebar-img iconstyle" matTooltip="Organization Network" (click)="goToViewNetwork(row)" src="../assets/icons/network.svg"/>
+								 </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="noData">
+                                <mat-footer-cell *matFooterCellDef>
+                                    No Records Found!
+                                </mat-footer-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hidetable':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+                        
+			</mat-table>
+		</div>
+		<div>
+            <mat-paginator [length]="totalInst" [pageSize]="instPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="onChangedInst($event)">showFirstLastButtons</mat-paginator>		
+		</div>
+	</div>
+</div>

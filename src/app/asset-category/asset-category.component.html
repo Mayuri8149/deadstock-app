@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">       
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="assetCategoryForm" autocomplete="off" #assetcatForm="ngForm" (ngSubmit)="addAssetCategory(assetcatForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Add Asset Category
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-lg-2 col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Asset Category" formControlName="assetCategory" required>
+                            <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Description" formControlName="assetCategoryDescription" required>
+                            <mat-error *ngIf="hasError('assetCategoryDescription', 'required')">Asset Category Description is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn">Add</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

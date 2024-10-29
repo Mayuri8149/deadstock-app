@@ -1,0 +1,68 @@
+<div #Id_container class="container">
+	<div class="panel panel-primary heading-wrapper">
+	</div>
+	<div class="addInst-wrapper">
+		<div class="example-container" linear>
+			<form [formGroup]="insDeptForm" autocomplete="off" #deptForm="ngForm" (ngSubmit)="addDept(deptForm)">
+				<div>
+					<div id="deptDiv">
+						<span id="deptSpan">
+							Branch
+						</span>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput 
+								placeholder="Branch ID" 
+								formControlName="code"
+								required (input)="getDepartmentByOrganization($event.target.value,'code')">
+								<mat-error *ngIf="hasError('code', 'required')">Branch ID is required!</mat-error>
+								<mat-error *ngIf="hasError('code', 'pattern')">Branch ID should be alphanumeric! & no blank spaces</mat-error>
+							</mat-form-field>
+							<div *ngIf="availableCode" style="color: red;">Code is already exist.</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput 
+								placeholder="Branch Name" 
+								formControlName="name"
+								required (input)="getDepartmentByOrganization($event.target.value,'name')">
+								<mat-error *ngIf="hasError('name', 'required')">Branch name is required!</mat-error>
+								<mat-error *ngIf="insDeptForm.controls['name'].hasError('pattern')">Branch name Accepts only alphanumeric & No blank spaces!</mat-error>
+							</mat-form-field>
+							<div *ngIf="availableName" style="color: red;">Name is already exist.</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">								
+							 <mat-label>Branch Location</mat-label>
+								<input matInput
+								aria-label="branchLocation"
+								formControlName="branch_location" required>							
+							<mat-error *ngIf="hasError('branch_location', 'required')">Branch location is required!</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput 
+								placeholder="Branch Address" 
+								[matAutocomplete]="autoAddress"
+								formControlName="branch_address" (input)="getCitySuggestion($event.target.value)" [(ngModel)]="branch" required>
+								<mat-autocomplete class="autoCompleteAddress" (opened)="opened_AutoComplete()" panelWidth="auto" #autoAddress="matAutocomplete" (optionSelected)="onSellocation($event.option.value)" >
+									<mat-option *ngFor="let city of locationlist |filter:branch" [value]="city.address.formattedAddress+'|'+city.address.addressLine+'|'+city.address.adminDistrict+'|'+city.address.countryRegion+'|'+city.address.locality+'|'+city.address.postalCode">
+										<span *ngIf="city.address.formattedAddress">{{city.address.formattedAddress}}</span>                          
+									</mat-option>
+								</mat-autocomplete>
+								<mat-error *ngIf="hasError('branch_address', 'required')">Branch address is required!</mat-error>
+							</mat-form-field>
+						</div>					
+					</div>
+				</div>
+				<div class="action-btns text-center">
+					<button mat-raised-button class="subBtn">Save</button>
+					<button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

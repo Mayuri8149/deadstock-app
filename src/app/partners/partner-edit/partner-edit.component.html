@@ -1,0 +1,31 @@
+
+<div class="container">
+	<div class="panel panel-primary heading-wrapper">
+		<div class="panel panel-heading">
+			<span class="panel-title" id="heading"> Partner New Email </span>
+		</div>
+	</div>
+	<div class="form-wrapper">
+		<div class="example-container" linear>
+			<form [formGroup]="editPartnerForm" autocomplete="off" #userForm="ngForm" (ngSubmit)="editPartner(userForm)">
+				<div>
+					<div id="userDiv">
+						<span id="userSpan">
+							Partner New Email
+						</span>
+					</div>
+				
+					<mat-form-field class="input-field">
+						<input matInput placeholder="New Email ID" formControlName="newEmail" [(ngModel)]="newEmails" required>
+						<mat-error *ngIf="hasError('newEmail', 'required')">Email ID is required!</mat-error>
+						<mat-error *ngIf="hasError('newEmail', 'email')">Please enter valid email ID!</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="action-btns text-center">
+					<button mat-raised-button class="action-btn">Update</button>
+					<button mat-raised-button type="button" class="action-btn" (click)="goBack()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

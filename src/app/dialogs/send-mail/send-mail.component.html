@@ -1,0 +1,24 @@
+<div mat-dialog-title class="heading">
+	<b> Email ID </b>
+</div>
+<mat-dialog-content class="content-wrapper" [formGroup]="sendMail" #mailForm="ngForm">
+	<div class="detail">
+		<div class="value">
+			<mat-form-field class="input-field">
+				<input matInput 
+				placeholder="Email ID"
+				formControlName="emailId"
+				required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">				
+				<mat-error *ngIf="hasError('emailId', 'required')">Email ID is required!</mat-error>
+				<mat-error *ngIf="hasError('emailId', 'pattern')">Please enter valid Email ID!</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="actions text-center">
+	<div class="action-btns  text-center">
+		<button mat-button class="action-btn" (click)="send(mailForm)">Send</button>
+		<button mat-button class="action-btn" (click)="close()">Close</button>
+	</div>
+</mat-dialog-actions>

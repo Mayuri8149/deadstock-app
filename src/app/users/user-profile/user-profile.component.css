@@ -1,0 +1,70 @@
+.container {
+    padding: 40px 26px;
+}
+.details {
+	padding: 15px 4px;
+}
+.inner-div {
+    display: flex;
+}
+.add-btn {
+    background-color: #e2be40;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    margin: 2px 4px;
+}
+.clr-blue {
+    color: #3666f5;
+}
+.header-btns {
+    padding: 9px 20px;
+}
+.mat-header-btns {
+    cursor: pointer;
+}
+.fa-icon {
+    margin-right: 8px;
+}
+.icon-back {
+    font-size: 25px;
+}
+.profile-img {
+	padding: 5px 7px;
+    text-align: center;
+}
+.profile-img img {
+	width: 50%;
+    border-radius: 95px;
+}
+.profile-head .nav-tabs .nav-link.active {
+	border: none;
+    border-bottom: 2px solid #0062cc;
+}
+.t1 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.t2 {
+    font-size: 15px;
+    margin-top: 10px;
+    color: blue;
+}
+.row {
+    margin-top: -3px;
+}
+.details-body {
+	margin-top: 20px;
+}
+.single-data {
+	padding: 4px 2px;
+}
+.label-text {
+	font-size: 14px;
+    font-weight: 600;
+}
+.hide {
+    display: none;
+  }
+.show {
+    display: block;
+  }

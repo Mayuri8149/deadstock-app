@@ -1,0 +1,544 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<a>
+						<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+						</fa-icon>
+					</a>
+					<a mat-button class="subBtn"
+						*ngIf="(!(role == 'Corporate Admin' && (entity == 'corporate' || entity == 'organization')) && !(role == 'Agency Admin' && (entity == 'agency' || entity == 'organization')))"
+						(click)="getOrganization(id)">Add Menu</a>
+					<a mat-button class="subBtn"
+						*ngIf="(role == 'Corporate Admin' && (entity == 'corporate' || entity == 'organization'))"
+						routerLink="/users/userList/addPartnerUser">Add User</a>
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" *ngIf="((role == 'sysadmin' || role == 'subadmin') && entity == 'system')">
+			<ng-container matColumnDef="select" sticky>
+				<mat-header-cell *matHeaderCellDef>
+						<mat-checkbox   (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected() == true"
+					[indeterminate]="selection.hasValue() && !isAllSelected()">
+						</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<mat-checkbox (click)="$event.stopPropagation()"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row) == true">
+						</mat-checkbox>
+					</mat-cell>
+			</ng-container>
+			<ng-container matColumnDef="userType">
+				<mat-header-cell *matHeaderCellDef> 
+					<div>Menu Name</div>
+					<div>
+						<mat-form-field class="search-input">
+							<input matInput class="form-field filters" [(ngModel)]="filter.userType" (input)="selectUserType($event)" autocomplete="off" >
+							<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+						</mat-form-field>
+					</div>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<span class="mobile-label">User Type:</span>
+					{{element.name | uppercase}}
+				</mat-cell>
+			</ng-container>
+				<!-- <ng-container matColumnDef="userType">
+					<mat-header-cell *matHeaderCellDef> 
+						<div>User Type</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userType" (input)="selectUserType($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Type:</span>
+						{{element.role | uppercase}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userRole">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Role</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userRole" (input)="selectUserRole($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Role:</span>
+						{{element.roleName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userentity">
+					<mat-header-cell *matHeaderCellDef> 
+						<div>User Entity</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userEntity" (input)="selectUserEntity($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Entity:</span>
+						{{element.entity | uppercase}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="organizationName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Entity Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.Entity_Name" (input)="selectEntity_Name($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Name:</span>
+						{{element.Entity_Name || '-'}}
+					</mat-cell>
+				</ng-container>
+                <ng-container matColumnDef="organizationId">
+                    <mat-header-cell *matHeaderCellDef>
+                        <div> Entity ID </div>
+                        <div>
+                            <mat-form-field class="search-input">
+                                <input matInput class="form-field filters" [(ngModel)]="filter.Entity_Id" (input)="selectEntity_Id($event)" autocomplete="off">
+                                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity ID:</span>						
+                        {{element.Entity_Id || '-'}}  
+                    </mat-cell>
+                </ng-container>
+				<ng-container matColumnDef="username">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.fullName" (input)="selectfullName($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Name:</span>
+						{{element.fullName}}
+					</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="emailId">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Email ID </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.email" (input)="selectemail($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Email ID:</span>
+						{{element.email || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="phone">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Phone No. </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.phoneNumber" (input)="selectphoneNumber($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Phone No.:</span>
+						{{element.phoneNumber || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Status </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}"  *matCellDef="let element">
+						<span class="mobile-label">Status:</span>
+						{{element.status}}
+					</mat-cell>
+				</ng-container> -->
+				<ng-container matColumnDef="id" sticky>
+					<mat-header-cell *matHeaderCellDef> 
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label">Actions:</span>						
+						<mat-slide-toggle class="toggle" 
+						[checked]="row.status=='Active'" 
+						(click)="openConfirmDialog(row)"></mat-slide-toggle>
+						<img class="sidebar-img" matTooltip="Edit User" (click)="editUser(row)" src="../assets/icons/edit.svg"/>
+							<img *ngIf="row.giveAcess ==  true" class="sidebar-img" matTooltip="Provide Acess" (click)="openAcces(row)" src="../assets/icons/access2.png"/>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" *ngIf="(role == 'admin' && entity == 'organization')">
+			<ng-container matColumnDef="select" sticky>
+				<mat-header-cell *matHeaderCellDef>
+						<mat-checkbox   (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected() == true"
+						[indeterminate]="selection.hasValue() && !isAllSelected()">
+						</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<mat-checkbox (click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row) == true">
+						</mat-checkbox>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userType">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Type</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userType" (input)="selectUserType($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Type:</span>
+						{{element.role | uppercase}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userRole">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Role</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userRole" (input)="selectUserRole($event)"  autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Role:</span>
+						{{element.roleName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="organizationName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Organization Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.Entity_Name" (input)="selectEntity_Name($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Organization Name:</span>
+						{{element.Entity_Name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="departmentName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters"  [(ngModel)]="filter.deptName" (input)="selectdeptName($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Name:</span>
+						{{element.departmentName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="username">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.fullName" (input)="selectfullName($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Name:</span>
+						{{element.fullName}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="emailId">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Email ID </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.email" (input)="selectemail($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Email ID:</span>
+						{{element.email || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="phone">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Phone No. </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.phoneNumber" (input)="selectphoneNumber($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Phone No.:</span>
+						{{element.phoneNumber || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Status </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters"  [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}"  *matCellDef="let element">
+						<span class="mobile-label">Status:</span>
+						{{element.status}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="id" sticky>
+					<mat-header-cell *matHeaderCellDef>
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label">Actions:</span>						
+						<mat-slide-toggle class="toggle" [checked]="row.user.isActive==true"
+							(click)="openConfirmDialog(row)"></mat-slide-toggle>
+						<img class="sidebar-img" matTooltip="Edit User" (click)="editUser(row)"
+							src="../assets/icons/edit.svg" />
+							<img *ngIf="row.giveAcess ==  true" class="sidebar-img" matTooltip="Provide Acess" (click)="openAcces(row)" src="../assets/icons/access2.png"/>
+						</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" *ngIf="(role == 'Corporate Admin' && entity == 'corporate')">
+				<ng-container matColumnDef="select" sticky>
+					<mat-header-cell *matHeaderCellDef>
+						<mat-checkbox (change)="$event ? masterToggle() : null"
+							[checked]="selection.hasValue() && isAllSelected() == true"
+							[indeterminate]="selection.hasValue() && !isAllSelected()">
+						</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">						
+						<mat-checkbox (click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row) == true">
+						</mat-checkbox>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userType">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Type</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userType" (input)="selectUserType($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Type:</span>
+						{{element.role | uppercase}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="userRole">
+					<mat-header-cell *matHeaderCellDef>
+						<div>User Role</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.userRole" (input)="selectUserRole($event)"  autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">User Role:</span>
+						{{element.roleName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="organizationName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Entity Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.Entity_Name" (input)="selectEntity_Name($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Name:</span>
+						{{element.Entity_Name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="firstName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>First Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.firstName" (input)="selectfirstName($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">First Name:</span>
+						{{element.firstName || '-'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="lastName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Last Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.lastName" (input)="selectlastName($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Last Name:</span>
+						{{element.lastName || '-'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="emailId">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Email ID </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.email" (input)="selectemail($event)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Email ID:</span>
+						{{element.email || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="phone">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Phone No. </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.phoneNumber" (input)="selectphoneNumber($event)" 
+								autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Phone No.:</span>
+						{{element.phoneNumber || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Status </div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}"  *matCellDef="let element">
+						<span class="mobile-label">Status:</span>
+						{{element.status}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="id" sticky>
+					<mat-header-cell *matHeaderCellDef>
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label">Actions:</span>						
+						<mat-slide-toggle class="toggle" [checked]="row.user.isActive==true"
+							(click)="openConfirmDialog(row)"></mat-slide-toggle>
+						<img class="sidebar-img" matTooltip="Edit User" (click)="editUser(row)"
+							src="../assets/icons/edit.svg" />
+							<img *ngIf="row.giveAcess ==  true" class="sidebar-img" matTooltip="Provide Acess" (click)="openAcces(row)" src="../assets/icons/access2.png"/>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="datacorporateColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: datacorporateColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalRecord" [pageSize]="recordPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+				(page)="onChangedPage($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

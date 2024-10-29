@@ -1,0 +1,230 @@
+
+@media (max-width: 576px) {
+    .multi-steps-wrap {
+      margin: 0;
+    }
+  }
+  .multi-steps-wrap .multi-steps {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 0px !important;
+  }
+  .multi-steps-wrap .multi-steps > li {
+    counter-increment: stepNum;
+    text-align: center;
+    display: table-cell;
+    position: relative;
+    color: #8ea09c;
+    font-size: 12px;
+    z-index: 1;
+  }
+  .negative {
+    border-color: red;
+  }
+  .multi-steps-wrap .multi-steps > li:before {
+    content: "✓";
+    display: block;
+    margin: 0 auto 0px;
+    background-color: #fff;
+    width: 35px;
+    height: 35px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 18px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #3cba9f;
+    border-radius: 50%;
+  }
+  .circle::before{
+    content: "✓";
+    display: block;
+    background-color: #fff;
+    width: 35px;
+    height: 35px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 18px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #3cba9f;
+    border-radius: 50%;
+    position: absolute;
+    left: 8px;
+  }
+  .multi-steps-wrap .multi-steps > li:after {
+    content: "";
+    height: 2px;
+    width: 100%;
+    background-color: #3cba9f;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    z-index: -1;
+  }
+  .multi-steps-wrap .multi-steps > li:last-child:after {
+    display: none;
+  }
+  .multi-steps-wrap .multi-steps > li:last-child.is-active:before {
+    content: "✓";
+  }
+  .multi-steps-wrap .multi-steps > li:first-child.is-active:before {
+    content: "✓";
+  }
+  .multi-steps-wrap .multi-steps > li.is-active:before {
+    background-color: #fff;
+    border-color: #3cba9f;
+  }
+  .multi-steps-wrap .multi-steps > li.negative:before {
+    background-color: red;
+    border-color: red;
+  
+    color: white;
+  }
+  .multi-steps-wrap .multi-steps > li.is-active ~ li {
+    color: #808080;
+  }
+  .multi-steps-wrap .multi-steps > li.is-active ~ li:before {
+    background-color: #eee;
+    border-color: #fff;
+  }
+
+.font-heading{
+  font-size: 14px;
+}
+
+.trace_mainhead{
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.trace_lblleft{
+  padding-right: 3px;
+}
+
+.trace_lblleft b{  
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.trace_value{
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;  
+  padding-left: 3px;
+  padding-top: 3px;
+  text-align: left;
+}
+
+.trace_wrapper{
+  padding: 0px;
+}
+
+#info {
+  /* padding: 20px 30px 20px 5px; */
+  display: flex;
+}
+
+.line {
+	background: #3cba9f 0% 0% no-repeat padding-box;
+	min-width: 2px;
+	margin-left: 10px;
+	position: relative;
+	top: 25px;
+}
+
+.box {
+	background: #FFF;
+	box-shadow: 0 0 4px 0 #ccc;
+	opacity: 1;
+	max-width: 100%;
+	height: fit-content;
+	position: relative;
+	margin-left: 30px;
+	bottom: 6px;
+	padding: 10px;
+	border-radius: 4px;
+  margin-top: 15px;
+}
+
+.box.arrow-left::before {
+	content: " ";
+	position: absolute;
+	left: -7px;
+	top: 15px;
+	height: 14px;
+	width: 14px;
+	background-color: white;
+	/* border: 1px solid #ccc; */
+	transform: rotate(45deg);
+	border-right: transparent;
+	border-top: transparent;
+	box-shadow: -1px 1px 1px -1px #333;
+}
+
+.head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 7px 0px;
+}
+
+.box-title {
+	text-align: left;
+	font: normal normal bold 8px/10px Montserrat;
+	text-transform: uppercase;
+	opacity: 1;
+	margin: 0;
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #A99D46;
+  line-height: 1.2;
+}
+
+
+.mat-option{
+  font-size: 14px !important;
+  height: 30px;
+  padding: 0 5px;
+}
+.mat-form-field-flex {
+  padding: 0px 0px 0px 0px !important;
+  background-color: transparent !important;
+}
+.clear_autocomplete{
+  width: auto !important;
+  height: auto !important;
+}
+.clear_autocomplete .mat-icon{
+  font-size: 16px !important;
+}
+.mat-autocomplete-panel {
+  min-width: max-content !important;
+}
+
+::ng-deep .tracebility_autocomplete .mat-form-field-infix{
+  padding: 10px !important;
+  border: unset !important;
+  padding-bottom: 6px !important;
+}
+
+::ng-deep .tracebility_autocomplete .mat-form-field-wrapper{
+  margin: 0px !important; 
+  padding: 0px !important;
+}
+
+::ng-deep .tracebility_autocomplete .mat-form-field-flex{
+  padding: 0 !important;
+  background-color: #fff !important;
+}
+
+
+@media screen and (max-width: 900px) {
+  .trace_value {
+    padding-left: 15px;
+    text-align: left;
+  }
+}

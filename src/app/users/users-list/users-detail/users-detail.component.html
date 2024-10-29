@@ -1,0 +1,87 @@
+<div class="container">
+	<div class="form-wrapper">
+		<div class="example-container" linear>
+			<form [formGroup]="editUserForm" autocomplete="off" #userForm="ngForm" (ngSubmit)="editUser(userForm)">
+				<div>
+					<div id="userDiv">
+						<span id="userSpan">
+							User Details
+						</span>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Name" formControlName="firstName" required>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Email ID" formControlName="email" required>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="ngxTelNo w100p">
+								<mat-label>Phone Number</mat-label>
+								<ngx-mat-intl-tel-input formControlName="phoneNumber" autocomplete="off" [cssClass]="'custom'" [preferredCountries]="['in','sg']" [enablePlaceholder]="true" [enableSearch]="true"
+								name="phoneNumber"  #phoneNumber required>
+							   </ngx-mat-intl-tel-input>
+							   <mat-hint>eg : {{phoneNumber.selectedCountry.placeHolder}}</mat-hint>
+							   <mat-error *ngIf="editUserForm.controls['phoneNumber'].hasError('required')">Phone Number is required!</mat-error>
+							   <mat-error *ngIf="editUserForm.controls['phoneNumber']?.errors?.validatePhoneNumber">Invalid Number</mat-error> 
+							</mat-form-field>
+						</div>
+					</div>				
+
+                    <div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6" *ngIf="(role == 'partner')">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Alternate Email ID" formControlName="newEmail">
+								<mat-error *ngIf="editUserForm.controls['newEmail'].hasError('required')">Email ID is required!</mat-error>
+								<mat-error *ngIf="editUserForm.controls['newEmail'].hasError('pattern')">Please enter valid email ID!</mat-error>
+						</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<label for="files" class="subBtn mat-focus-indicator mat-raised-button mat-button-base">Upload Photo</label>
+							<input id="files" class="file-upload" accept="image/png, image/jpeg,image/jpg" type="file" name="file" (change)="ChooseFile($event)" style="white-space: normal;display: none">		
+								 &nbsp;&nbsp;&nbsp;{{this.filename}}	
+								 <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)"></fa-icon>
+								<div class="errCls" >{{imageErrorStatic}}</div>
+								 <mat-form-field class="input-field" hidden>
+								 <input matInput  formControlName="profileImg">
+                            </mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<label class="mb-0">Please Select Time Zone</label> 
+								<select class="form-control" formControlName="timeZone">
+									<option value="undefined" hidden disabled>Please select time zone </option>
+									  <option *ngFor="let timeZone of timeZoneList" value="{{timeZone.value}}">{{timeZone.name}}</option>
+								  </select>
+						</div>
+					</div>
+				</div>
+				<div class="action-btns text-center">
+					<button mat-raised-button class="subBtn">Save</button>
+					<button mat-raised-button type="button" class="cancelBtn" (click)="goBack()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- POPUP FOR IMAGE PREVIEW --> 
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop:false}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 64px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span class="hide" (click)="hide()" style="padding: 0px 5px;">&times;</span> 
+        <div class="modal-body">   
+          <div class="text-center" *ngIf="urlSrcStatic">
+            <img [src]="urlSrcStatic" *ngIf="urlSrcStatic && isImageStatic" class="imgPlaceholder" height="200">
+            <pdf-viewer [src]="urlSrcStatic" *ngIf="urlSrcStatic && isPdfStatic" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+        </div>
+        </div>
+     </div>
+</div>
+<!-- POPUP FOR IMAGE PREVIEW -->

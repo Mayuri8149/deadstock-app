@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">       
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="assetCategoryForm" autocomplete="off" #assetcatForm="ngForm" (ngSubmit)="addAssetCategory(assetcatForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Add Asset
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100">
+                            <mat-select placeholder="Asset Category" formControlName="assetCategory" required  (ngModelChange)="btnTypes($event)">
+                            <mat-option style="color:#333!important" *ngFor="let assetCategory of assetCategoryDetails;"
+                                [value]='assetCategory'>{{assetCategory.assetCategory}}</mat-option>
+                            <ng-container *ngIf="assetCategoryDetails?.length == '0'">
+                            <mat-option disabled>No Records Found</mat-option>
+                                </ng-container>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Asset Name" formControlName="assetName" required>
+                            <mat-error *ngIf="hasError('assetName', 'required')">Asset Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Asset Name Description" formControlName="assetDescription" required>
+                            <mat-error *ngIf="hasError('assetDescription', 'required')">Asset Name Description is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn">Add</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

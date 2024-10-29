@@ -1,0 +1,492 @@
+<mat-sidenav-container class="sidebar-container">
+    <mat-sidenav-content class="sidenav">        
+        <div *ngIf="((role == 'sysadmin' && entity == 'system') || (role == 'subadmin' && entity == 'system'))">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/home"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Users" routerLink="/users/userList"
+                routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Menu
+                </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Organizations" routerLink="/organizations/OrganizationsList"
+                routerLinkActive="innerbar-content-active" (click)="select('Organizations')"
+                [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Corporate_details.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Organizations </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Users" routerLink="/users/userList"
+                routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Users
+                </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Partners" routerLink="/partner/partnersList"
+                routerLinkActive="innerbar-content-active" (click)="select('Corporates')"
+                [ngClass]="{active: isActive('Corporates')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partners
+                </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_DefineModules" routerLink="/categorylayout/categoryAdd"
+                routerLinkActive="innerbar-content-active" (click)="select('DefineCategories')"
+                [ngClass]="{active: isActive('DefineCategories')}">
+                <img class="sidebar-img" src="./assets/icons/Mico_Transaction Type.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md
+                    [ngClass]="{'link-btn-toggle': toggled === true }">Define Modules</span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_DefineTransactionType"
+                routerLink="/transactionTypes/listTransactionType" routerLinkActive="innerbar-content-active"
+                (click)="select('transactionType')" [ngClass]="{active: isActive('transactionType')}">
+                <img class="sidebar-img" src="./assets/icons/Transaction_Type.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Define Transaction Type </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Modules" routerLink="/searchCategories"
+                routerLinkActive="innerbar-content-active" (click)="select('SearchCategories')"
+                [ngClass]="{active: isActive('SearchCategories')}">
+                <img class="sidebar-img" src="./assets/icons/Define_Categories.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Modules </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_OrganizationAccess"
+                routerLink="/transactionTypes/linkTransactionType" routerLinkActive="innerbar-content-active"
+                (click)="select('TransactionType')" [ngClass]="{active: isActive('TransactionType')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Organization Access </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_OrganizationModuleList"
+                routerLink="/organizations/organizationModuleList" routerLinkActive="innerbar-content-active"
+                (click)="select('Organizations')" [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Corporate_details.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Organization Module List </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_PartnerModuleList" routerLink="/organizations/partnerList"
+                routerLinkActive="innerbar-content-active" (click)="select('Organizations')"
+                [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partner Module List </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_AssetTraceabilitySetup" routerLink="/assetTracebilitySetup"
+                routerLinkActive="innerbar-content-active" (click)="select('Organizations')"
+                [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Asset Traceability Setup </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_AssetProvenanceSetup" routerLink="/assetProvenanceSetup"
+                routerLinkActive="innerbar-content-active" (click)="select('Organizations')"
+                [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Asset Provenance Setup </span>
+            </div>
+
+            <div class="clearfix"></div>
+       </div>
+
+        <div *ngIf="(role == 'admin' && entity == 'organization')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/home"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Branches" [class.disabled-menu]="!isNotKYC"
+                routerLink="/branches/listofBranches" routerLinkActive="innerbar-content-active"
+                (click)="select('Departments')" [ngClass]="{active: isActive('Departments')}">
+                <img class="sidebar-img" src="./assets/icons/department_1.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Branches </span>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Users" [class.disabled-menu]="!isNotKYC"
+                routerLink="/users/userList" routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Users </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Partners" [class.disabled-menu]="!isNotKYC"
+                routerLink="/partners/partnerList" routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partners </span>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Modules" [class.disabled-menu]="!isNotKYC"
+                routerLink="/transactionTypes/linkTransactionType" routerLinkActive="innerbar-content-active"
+                (click)="select('transactionType')" [ngClass]="{active: isActive('transactionType')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Modules </span>
+            </div>
+
+            <mat-divider></mat-divider>
+            <nav id="sidebar" [class.disabled-menu]="!isNotKYC">
+                <ul id="myGroup" class="lisst-unstyled components">
+                    <li class="ng-star-inserted">
+                        <a aria-expanded="false" id="id_menu_Asset" class="dropdown-toggle innerbar-content collapsed"
+                            data-toggle="collapse" href="#module-asset">
+                            <img class="sidebar-img" src="./assets/icons/review_batch_data.svg">
+                            <span class="link-btn" > Asset </span>
+                        </a>
+                        <ul class="lisst-unstyled collapse" data-parent="#myGroup" id="module-asset">
+                            <ul class="lisst-unstyled components" id="myGroup2">
+                            <li class="sidebar_submenu ng-star-inserted">
+                                <a aria-expanded="false" id="id_menu_AssetCategory"
+                                    class="dropdown-toggle innerbar-content submenu_link collapsed"
+                                    data-toggle="collapse" href="#module-assetcat">
+                                    <span class="link-btn" > Asset Category </span>
+                                </a>
+                                <ul class="collapse lisst-unstyled" data-parent="#myGroup2" id="module-assetcat">
+                                    <li class="sidebar_subSubmenu ng-star-inserted">
+                                        <a id="id_menu_createAssetCategory" class="subSubmenu_link"
+                                            routerLink="/assetcategory/addAssetCategory">Create</a>
+                                    </li>
+                                    <li class="sidebar_subSubmenu">
+                                        <a id="id_menu_viewAssetCategory" class="subSubmenu_link"
+                                            routerLink="/assetcategory/viewAssetCategory">View</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sidebar_submenu ng-star-inserted">
+                                <a aria-expanded="false" id="id_menu_AssetName"
+                                    class="dropdown-toggle innerbar-content submenu_link collapsed"
+                                    data-toggle="collapse" href="#module-assetadd">
+                                    <span class="link-btn" > Asset Name </span>
+                                </a>
+                                <ul class="collapse lisst-unstyled" data-parent="#myGroup2" id="module-assetadd">
+                                    <li class="sidebar_subSubmenu ng-star-inserted">
+                                        <a id="id_menu_createAssetName" class="subSubmenu_link"
+                                            routerLink="/assetname/addAsset">Create</a>
+                                    </li>
+                                    <li class="sidebar_subSubmenu">
+                                        <a id="id_menu_viewAssetName" class="subSubmenu_link"
+                                            routerLink="/assetname/viewAsset">View</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#UOMSubmenu" id="id_menu_UOM" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle innerbar-content">
+                            <img class="sidebar-img" src="./assets/icons/review_batch_data.svg" />
+                            <span class="link-btn" fxShow="true" fxHide.lt-md
+                                [ngClass]="{'link-btn-toggle': toggled === true }">
+                                UOM </span>
+                        </a>
+                        <ul class="collapse lisst-unstyled" data-parent="#myGroup"  id="UOMSubmenu">
+                            <li class="sidebar_subSubmenu"><a id="id_menu_createUOM" class="subSubmenu_link"
+                                    routerLink="/assetuom/addAssetUOM">Create</a></li>
+                            <li class="sidebar_subSubmenu"><a id="id_menu_viewUOM" class="subSubmenu_link"
+                                    routerLink="/assetuom/viewAssetUOM">View</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="clearfix"></div>
+
+            <mat-divider></mat-divider>
+
+            <div class="innerbar-content" id="id_menu_PartnerModuleList" [class.disabled-menu]="!isNotKYC"
+                routerLink="/organizations/partnerList" routerLinkActive="innerbar-content-active"
+                (click)="select('Organizations')" [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partner Module List </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_PartnerOrders" [class.disabled-menu]="!isNotKYC"
+                routerLink="/transactions/partnersOrder" routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partner Orders </span>
+            </div>
+
+            <div class="clearfix"></div>
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="(role == 'admin' && entity == 'corporate')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/home"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Branches" routerLink="/branches/listofBranches"
+                routerLinkActive="innerbar-content-active" (click)="select('Departments')"
+                [ngClass]="{active: isActive('Departments')}">
+                <img class="sidebar-img" src="./assets/icons/department_1.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Branches </span>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Users" routerLink="/users/userList"
+                routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Users </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Partners" routerLink="/partners/partnerList"
+                routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partners </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Modules" routerLink="/transactionTypes/linkTransactionType"
+                routerLinkActive="innerbar-content-active" (click)="select('transactionType')"
+                [ngClass]="{active: isActive('transactionType')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Modules </span>
+                <mat-divider></mat-divider>
+                <div class="innerbar-content" id="id_menu_PartnerOrders" routerLink="/transactions/partnersOrder"
+                    routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                    [ngClass]="{active: isActive('iPartners')}">
+                    <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                    <span class="link-btn" fxShow="true" fxHide.lt-md
+                        [ngClass]="{'link-btn-toggle': toggled === true }">
+                        Partner Orders </span>
+                </div>
+
+                <div class="clearfix"></div>
+                <mat-divider></mat-divider>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+
+        <div *ngIf="(role == 'manager' && entity == 'organization')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/home"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+            <nav id="sidebar">
+                <ul id="myGroupTrans" class="lisst-unstyled components">
+                    <li *ngFor="let module of moduleList; let i = index">
+                        <a href="#module-{{i}}" id="id_{{module?.module?._id}}" data-toggle="collapse"
+                            aria-expanded="false" class="dropdown-toggle innerbar-content collapsed">
+                            <img class="sidebar-img" src="./assets/icons/review_batch_data.svg" />
+                            <span class="link-btn" fxShow="true" fxHide.lt-md
+                                [ngClass]="{'link-btn-toggle': toggled === true }">
+                                {{module?.module?.name}} </span>
+                        </a>
+                        <ul class="collapse lisst-unstyled" id="module-{{i}}" data-parent="#myGroupTrans">
+                            <ul class="lisst-unstyled components" id="myGroupInner">
+                                <li class="sidebar_submenu" *ngFor="let type of module.transcationType; let j = index">
+
+
+                                    <a href="#module-{{i}}{{j}}" id="id_{{type?.transcationTypeId}}" data-toggle="collapse"
+                                        aria-expanded="false"
+                                        class="dropdown-toggle innerbar-content submenu_link collapsed">
+                                        <span class="link-btn" fxShow="true" fxHide.lt-md
+                                            [ngClass]="{'link-btn-toggle': toggled === true }">
+                                            {{type?.transcationType?.transactionTypeName}} </span>
+                                    </a>
+                                    <ul class="collapse lisst-unstyled" data-parent="#myGroupInner" id="module-{{i}}{{j}}">
+                                        <li *ngIf="type?.isWrite == true" class="sidebar_subSubmenu">
+                                            <a class="subSubmenu_link"
+                                                id="id_create_{{type?.transcationTypeId}}"
+                                                (click)="openCreateTransaction(type)">Create</a>
+                                        </li>
+
+                                        <li class="sidebar_subSubmenu">
+                                            <a class="subSubmenu_link"
+                                                id="id_view_{{type?.transcationTypeId}}"
+                                                (click)="viewTransactionList(type)">View</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <mat-divider></mat-divider>
+            <div class="clearfix"></div>
+        </div>
+
+        <div *ngIf="(role == 'manager' && entity == 'corporate')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/home"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+            <nav id="sidebar">
+                <ul id="myGroupTrans3" class="lisst-unstyled components">
+                    <li *ngFor="let module of moduleList; let i = index">
+                        <a href="#module-{{i}}" id="id_{{module?.module?._id}}" data-toggle="collapse"
+                            aria-expanded="false" class="dropdown-toggle innerbar-content collapsed">
+                            <img class="sidebar-img" src="./assets/icons/review_batch_data.svg" />
+                            <span class="link-btn" fxShow="true" fxHide.lt-md
+                                [ngClass]="{'link-btn-toggle': toggled === true }">
+                                {{module?.module?.name}} </span>
+                        </a>
+                        <ul class="collapse lisst-unstyled" data-parent="#myGroupTrans3" id="module-{{i}}">
+                            <ul class="lisst-unstyled components" id="myGroupInner2">
+                                <li class="sidebar_submenu" *ngFor="let type of module.transcationType; let j = index">
+
+                                    <a href="#module-{{i}}{{j}}" id="id_{{type?.transcationTypeId}}" data-toggle="collapse"
+                                        aria-expanded="false"
+                                        class="dropdown-toggle innerbar-content submenu_link collapsed">
+                                        <span class="link-btn" fxShow="true" fxHide.lt-md
+                                            [ngClass]="{'link-btn-toggle': toggled === true }">
+                                            {{type?.transcationType?.transactionTypeName}} </span>
+                                    </a>
+                                    <ul class="collapse lisst-unstyled"  data-parent="#myGroupInner2" id="module-{{i}}{{j}}">
+                                        <li class="sidebar_subSubmenu" *ngIf="type?.isWrite == true">
+                                            <a class="subSubmenu_link" (click)="openCreateTransaction(type)"
+                                                id="id_create_{{type?.transcationTypeId}}">Create</a>
+                                        </li>
+
+                                        <li class="sidebar_subSubmenu">
+                                            <a class="subSubmenu_link" (click)="viewTransactionList(type)"
+                                                id="id_view_{{type?.transcationTypeId}}">View</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>    
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="clearfix"></div>
+        </div>
+                
+        <div *ngIf="(role == 'Corporate Admin' && entity == 'corporate')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/partner/partnerDashboard"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+
+            <div class="innerbar-content" id="id_menu_Users" routerLink="/users/userList"
+                routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Users </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Partners" routerLink="/partners/partnerList"
+                routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partners </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Modules" routerLink="/transactionTypes/linkTransactionType"
+                routerLinkActive="innerbar-content-active" (click)="select('TransactionType')"
+                [ngClass]="{active: isActive('TransactionType')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Modules </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_PartnerModuleList" routerLink="/organizations/partnerList"
+                routerLinkActive="innerbar-content-active" (click)="select('Organizations')"
+                [ngClass]="{active: isActive('Organizations')}">
+                <img class="sidebar-img" src="./assets/icons/organization_w.png" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partner Module List </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_PartnerOrders" routerLink="/transactions/partnersOrder"
+                routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partner Orders </span>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="(role == 'Corporate Admin' && entity == 'organization')">
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_home" routerLink="/partner/partnerDashboard"
+                routerLinkActive="innerbar-content-active" (click)="select('Dashboard')"
+                [ngClass]="{active: isActive('Dashboard')}">
+                <img class="sidebar-img" src="./assets/icons/home.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Home </span>
+            </div>
+            <mat-divider></mat-divider>
+
+            <div class="innerbar-content" id="id_menu_Users" routerLink="/users/userList"
+                routerLinkActive="innerbar-content-active" (click)="select('Users')"
+                [ngClass]="{active: isActive('Users')}">
+                <img class="sidebar-img" src="./assets/icons/users.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Users </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="innerbar-content" id="id_menu_Partners" routerLink="/partners/partnerList"
+                routerLinkActive="innerbar-content-active" (click)="select('iPartners')"
+                [ngClass]="{active: isActive('iPartners')}">
+                <img class="sidebar-img" src="./assets/icons/Cross_Reference.svg" />
+                <span class="link-btn" fxShow="true" fxHide.lt-md [ngClass]="{'link-btn-toggle': toggled === true }">
+                    Partners </span>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

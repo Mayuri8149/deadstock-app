@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="shortcut icon" href="./img/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:400,700,500|Avenir:900|Source+Sans Pro:400");
+      .anima-component-wrapper a,
+      .anima-screen a {
+        text-decoration: none;
+        display: contents;
+      }
+      .anima-full-width-a {
+        width: 100%;
+      }
+      .anima-full-height-a {
+        height: 100%;
+      }
+      .anima-screen textarea:focus,
+      .anima-screen input:focus {
+        outline: none;
+      }
+      .anima-screen *,
+      .anima-component-wrapper * {
+        box-sizing: border-box;
+      }
+      .anima-screen div {
+        -webkit-text-size-adjust: none;
+      }
+      .anima-container-center-vertical,
+      .anima-container-center-horizontal {
+        pointer-events: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+      }
+      .anima-container-center-vertical {
+        align-items: center;
+        height: 100%;
+      }
+      .anima-container-center-horizontal {
+        justify-content: center;
+        width: 100%;
+      }
+      .anima-container-center-vertical > *,
+      .anima-container-center-horizontal > * {
+        pointer-events: auto;
+        flex-shrink: 0;
+      }
+      .anima-component-wrapper,
+      .anima-screen {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+        word-break: break-word;
+      }
+      .anima-auto-animated div {
+        opacity: 0;
+        position: absolute;
+        --anima-z-index: -1;
+      }
+      .anima-auto-animated .anima-container-center-vertical,
+      .anima-auto-animated .anima-container-center-horizontal {
+        opacity: 1;
+      }
+      .anima-overlay {
+        position: absolute;
+        opacity: 0;
+        display: none;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+      .anima-animate-appear {
+        opacity: 0;
+        display: block;
+        animation: anima-reveal 0.3s ease-in-out 1 normal forwards;
+      }
+      .anima-animate-disappear {
+        opacity: 1;
+        display: block;
+        animation: anima-reveal 0.3s ease-in-out 1 reverse forwards;
+      }
+      .anima-animate-nodelay {
+        animation-delay: 0s;
+      }
+      @keyframes anima-reveal {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .align-self-flex-start {
+        align-self: flex-start;
+      }
+      .align-self-flex-end {
+        align-self: flex-end;
+      }
+      .align-self-flex-center {
+        align-self: center;
+      }
+      .anima-valign-text-middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .anima-valign-text-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .anima-component-wrapper,
+      .anima-component-wrapper * {
+        pointer-events: none;
+      }
+
+      .anima-component-wrapper a *,
+      .anima-component-wrapper a,
+      .anima-component-wrapper input,
+      .anima-component-wrapper video,
+      .anima-component-wrapper iframe,
+      .anima-listeners-active,
+      .anima-listeners-active * {
+        pointer-events: auto;
+      }
+
+      .anima-hidden,
+      .anima-hidden * {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .anima-smart-layers-pointers,
+      .anima-smart-layers-pointers * {
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .anima-component-wrapper.anima-not-ready,
+      .anima-component-wrapper.anima-not-ready * {
+        visibility: hidden !important;
+      }
+
+      .anima-listeners-active-click,
+      .anima-listeners-active-click * {
+        cursor: pointer;
+      }
+    </style>
+    <meta name="author" content="AnimaApp.com - Design to code, Automated." />
+  </head>
+  <body style="margin: 0; background: rgba(255, 255, 255, 1)">
+    <div class="anima-container-center-horizontal">
+      <form class="academic-organization-email-verification anima-screen" autocomplete="off" name="form2" action="form2" method="post">
+        <img class="office-wor-1490871920-C61RwL" src="https://snapcertimg.s3.ap-south-1.amazonaws.com/img/office-work-1149087-1920@1x.png" />
+        <div class="rectangle-35-C61RwL border-class-2"></div>
+        <div class="group-31-C61RwL">
+          <img class="rectangle-1-I5cRPp" src="../../assets/img/rectangle-1@1xa.png" />
+          <div class="mask-group-6-I5cRPp"><img class="x3132-xOcq2M" src="../../assets/img/3132@1x.png" /></div>
+          <div class="thank-you--il-shortly-I5cRPp font-class-4">Thank you for signing up. <br />You will receive an email shortly.
+          </div>
+          <div class="if-you-do--ail-client-I5cRPp font-class-1" >
+            If you do not receive your confirmation email, please check your spam or <br />junk mail box of your email
+            client.
+          </div>
+          <div class="resend-con-tion-email-I5cRPp font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+           <a><div class="rectangle-34-I5cRPp"></div></a>
+          <div class="login-I5cRPp font-class-2"  (click)="goBack()">LOGIN</div>
+        </div>
+      </form>
+    </div>
+    <div class="anima-container-center-horizontal">
+      <form class="academic-organization-email-verification-1280 anima-screen" autocomplete="off" name="form7" action="form7" method="post">
+        <img class="office-wor-1490871920-C61RwL" src="https://snapcertimg.s3.ap-south-1.amazonaws.com/img/office-work-1149087-1920@1x.png" />
+        <div class="rectangle-35-C61RwL border-class-2"></div>
+        <div class="group-31-C61RwL">
+          <img class="rectangle-1-I5cRPp" src="../../assets/img/rectangle-1-3@1xa.png" />
+          <div class="mask-group-6-I5cRPp"><img class="x3132-xOcq2M" src="../../assets/img/3132-1@1x.png" /></div>
+          <div class="thank-you--il-shortly-I5cRPp font-class-4">
+            Thank you for signing up. <br />You will receive an email shortly.
+          </div>
+          <div class="if-you-do--ail-client-I5cRPp font-class-1">
+            If you do not receive your confirmation email, please check your spam or <br />junk mail box of your email
+            client.
+          </div>
+          <div class="resend-con-tion-email-I5cRPp font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+          <a href="javascript:AnimaSubmitForm('form7')"> <div class="rectangle-34-I5cRPp"></div></a>
+          <a href="javascript:AnimaSubmitForm('form7')"> <div class="login-I5cRPp font-class-2" (click)="goBack()">LOGIN</div></a>
+        </div>
+      </form>
+    </div>
+    <div class="anima-container-center-horizontal">
+      <form class="academic-organization-email-verification-800 anima-screen" autocomplete="off" name="form9" action="form9" method="post">
+        <img class="office-wor-1490871920-C61RwL" src="https://snapcertimg.s3.ap-south-1.amazonaws.com/img/office-work-1149087-1920-4@1x.png" />
+        <div class="rectangle-1509-C61RwL border-class-2"></div>
+        <img class="rectangle-1-C61RwL" src="../../assets/img/rectangle-1-4@1xa.png" />
+        <div class="mask-group-6-C61RwL"><img class="x3132-GlB81R" src="../../assets/img/3132-2@1x.png" /></div>
+        <div class="group-143574-C61RwL">
+          <div class="thank-you--il-shortly-DQfo9w font-class-4">
+            Thank you for signing up. <br />You will receive an email shortly.
+          </div>
+          <div class="if-you-do--ail-client-DQfo9w font-class-1">
+            If you do not receive your confirmation email,<br />please check your spam or junk mail <br />box of your
+            email client.
+          </div>
+          <div class="resend-con-tion-email-DQfo9w font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+          <div class="rectangle-34-DQfo9w"></div>
+          <div class="login-DQfo9w font-class-2" (click)="goBack()">LOGIN</div>
+        </div>
+      </form>
+    </div>
+    <div class="anima-container-center-horizontal">
+      <form autocomplete="off"
+        class="academic-organization-email-verification-1-ipad-768-1 anima-screen"
+        name="form11"
+        action="form11"
+        method="post"
+      >
+        <img class="office-wor-1490871920-C61RwL" src="https://snapcertimg.s3.ap-south-1.amazonaws.com/img/office-work-1149087-1920-5@1x.png" />
+        <div class="rectangle-1509-C61RwL border-class-2"></div>
+        <img class="rectangle-1-C61RwL" src="../../assets/img/rectangle-1-5@1xa.png" />
+        <div class="mask-group-6-C61RwL"><img class="x3132-GlB81R" src="../../assets/img/3132-3@1x.png" /></div>
+        <div class="group-143574-C61RwL">
+          <div class="thank-you--il-shortly-DQfo9w font-class-4">
+            Thank you for signing up. <br />You will receive an email shortly.
+          </div>
+          <div class="if-you-do--ail-client-DQfo9w font-class-1">
+            If you do not receive your confirmation email,<br />please check your spam or junk mail <br />box of your
+            email client.
+          </div>
+          <div class="resend-con-tion-email-DQfo9w font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+          <div class="rectangle-34-DQfo9w"></div>
+          <div class="login-DQfo9w font-class-2"  (click)="goBack()">LOGIN</div>
+        </div>
+      </form>
+    </div>
+    <form class="academic-organization-email-verification-375 anima-screen" autocomplete="off" name="form13" action="form13" method="post">
+      <img class="office-wor-1490871920-C61RwL" src="https://snapcertimg.s3.ap-south-1.amazonaws.com/img/office-work-1149087-1920-6@1x.png" />
+      <div class="rectangle-1509-C61RwL border-class-2"></div>
+      <img class="rectangle-1-C61RwL" src="../../assets/img/rectangle-1-6@1xa.png" />
+      <div class="mask-group-6-C61RwL"><img class="x3132-GlB81R" src="../../assets/img/3132-4@1x.png" /></div>
+      
+      <div class="thank-you--il-shortly-C61RwL font-class-4">
+        Thank you for signing up. <br />You will receive an email shortly.
+      </div>
+      <div class="if-you-do--ail-client-C61RwL font-class-1">
+        If you do not receive your confirmation email,<br />please check your spam or junk mail <br />box of your email
+        client.
+      </div>
+      <div class="resend-con-tion-email-C61RwL font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+      <div class="rectangle-34-C61RwL"></div>
+      <div class="login-C61RwL font-class-2" (click)="goBack()">LOGIN</div>
+    </form>
+    <div class="anima-container-center-horizontal">
+      <form class="academic-organization-email-verification-360 anima-screen" autocomplete="off" name="form15" action="form15" method="post">
+        <img class="office-wor-1490871920-C61RwL" src="../../assets/img/office-work-1149087-1920-7@1x.png" />
+        <div class="rectangle-1509-C61RwL border-class-2"></div>
+        <img class="rectangle-1-C61RwL" src="../../assets/img/rectangle-1-7@1xa.png" />
+        <div class="mask-group-6-C61RwL"><img class="x3132-GlB81R" src="../../assets/img/3132-5@1x.png" /></div>
+        
+        <div class="thank-you--il-shortly-C61RwL font-class-4">
+          Thank you for signing up. <br />You will receive an email shortly.
+        </div>
+        <div class="if-you-do--ail-client-C61RwL font-class-1">
+          If you do not receive your confirmation email,<br />please check your spam or junk mail <br />box of your
+          email client.
+        </div>
+        <div class="resend-con-tion-email-C61RwL font-class-1" (click)="resendOtpSubmit()">Resend confirmation email</div>
+        <div class="rectangle-34-C61RwL"></div>
+        <div class="login-C61RwL font-class-2"  (click)="goBack()">LOGIN</div>
+      </form>
+    </div>   
+  </body>
+</html>

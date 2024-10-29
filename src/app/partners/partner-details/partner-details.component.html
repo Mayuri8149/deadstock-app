@@ -1,0 +1,80 @@
+<div class="container">
+	<div class="wrapper bg_white">
+    <div class="mat-header-btns">
+			<a> 	
+				<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon>
+			</a>
+			<a mat-button class="subBtn" *ngIf="!fromAdmin" routerLink="/partner/partnerDetails/partnerUpdate/{{corporateData._id}}">Update Entity Details</a>
+    </div>
+		<div class="details" style="padding: 0px;">
+			<div class="affDiv">
+				<span class="main-head addSpan">Entity Details</span>
+			</div>
+			<div class="details-body">
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity ID</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.code}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity Name</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.companyName}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity Type</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.entityType}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity EmailID</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.emailId}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity Phone Number</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.phoneNumber}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity Location</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.location}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<span class="label-text">Entity Address</span>
+					</div>
+					<div class="col-lg-9 col-md-8 col-sm-6">
+						<span>{{corporateData.address}}</span>
+					</div>
+				</div>
+				<div class="action-btns text-center">					
+					<button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

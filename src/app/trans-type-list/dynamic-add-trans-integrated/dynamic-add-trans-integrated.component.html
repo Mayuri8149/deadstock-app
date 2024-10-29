@@ -1,0 +1,549 @@
+<div #id_Container class="container">
+    <div class="wrapper">
+        <div class="outer-div">
+            <div class="inner-div header-btns">
+                <div class="mat-header-btns">
+                    <a>
+                        <fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon>
+                    </a>
+                    <div id="affDiv">
+                        <span id="addSpan">
+                            Transaction Details
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search" >
+            <form [formGroup]="searchTransactionForm" autocomplete="off" #searchForm="ngForm" (ngSubmit)="submitTransaction(searchForm, transactionidForm,pdfForm)">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Company Name" formControlName="organizationId" id="id_organizationId" readonly
+                                [value]='companyName'>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Branch/Location" formControlName="branch" id="id_branch" readonly
+                                [value]='branch'>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Module Name" formControlName="moduleId" id="id_moduleId" readonly
+                                [value]='transTypes.module.name'>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder="Transaction Type" formControlName="transactionTypeId" id="id_transactionTypeId" readonly
+                                [value]='transTypes.transactionTypeName'>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-6" *ngIf="isAsset || isOrder">
+                        <mat-form-field class="w100p">
+                            <input matInput placeholder={{transactionAutoNumberLabel}} formControlName="assetOrderId" id="id_assetOrderId" readonly
+                                [value]='transactionAutoNumber'>
+                        </mat-form-field>
+                    </div> -->
+                   <div class="col-lg-3 col-md-6" *ngIf="transactionflag == 'Order' && orderReference=='Partner' || transRoleFlag == 'Digital' && orderReference=='Partner'">
+                        <mat-form-field  class="w100p">
+                            <mat-select placeholder="Select {{datasTypeDrp}}" [(ngModel)]="selectedrefEntityType"
+                                formControlName="partners"  id="id_partners" (ngModelChange)="onSelPartnerID($event)" >  
+                                <mat-option *ngFor="let partner of partnerList;let i = index;" id="partners_option_{{i}}" [value]='partner.code'>{{partner.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('partners', 'required')">{{datasTypeDrp}} is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="isShowBrachDrp || orderReference=='Internal'">
+                        <mat-form-field  class="w100p">
+                            <mat-select placeholder="Select Branch" [(ngModel)]="selectedrefBranch"
+                                formControlName="refBranch" id="id_refBranch" (ngModelChange)="onSelRefBranch($event)">  
+                            <mat-option *ngFor="let branch of departmentsList;let i = index;" id="branch_option_{{i}}" [value]='branch.code'>{{branch.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('refBranch', 'required')">Branch Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <hr style="border-style: dashed;">
+                <div *ngIf="transactionflag=='Asset'">
+                <div class="row" [hidden]="isShownAddRecordAsset">  
+                    <button type="button" id="id_btn_addAsset" class="subBtn save-changes" (click)="openDialogAsset('Add',{})" style="margin: 0 0 15px 10px !important;">
+                        Add Asset
+                    </button>
+                    <div class="mat-error" style="font-size: 13px;margin-top: -15px;" *ngIf="chkAddAssetItems" > Please add at least one Asset First!</div>
+                </div>
+                <div class="row" [hidden]="isShownAddRecordWithTableAsset">
+                    <div class="col-lg-12">
+                     <div class="list-container addRecordGrid" style="display: grid !important;">
+                         <mat-table [dataSource]="dataSourceAsset"  #tableAsset class="mat-table-item mat-elevation-z8 gridWithoutSearch" style="display: table;width: 100%;" >
+                             <ng-container *ngFor="let prop1 of displayedColumnsAsset;let j = index;">
+                                 <ng-container matColumnDef="action" sticky *ngIf="prop1=='action'">
+                                     <mat-header-cell *matHeaderCellDef>Actions </mat-header-cell>
+                                     <mat-cell *matCellDef="let element">
+                                         <span class="mobile-label">Actions:</span>
+                                         <a (click)="openDialogAsset('Update',element)"><img class="sidebar-img" src="../../../assets/icons/edit.svg"></a>
+                                         <a (click)="openDialogAsset('Delete',element)"><img class="sidebar-img" src="../../../assets/icons/delete (1).svg"></a>
+                                     </mat-cell>
+                                 </ng-container>
+                                 
+                                 <ng-container [matColumnDef]="prop1" *ngIf="prop1!='action'">
+                                     <mat-header-cell *matHeaderCellDef> {{displayedColumnsAssetArr[prop1]}} </mat-header-cell>
+                                     <mat-cell *matCellDef="let element;let i = index;">
+                                         <span class="mobile-label">{{displayedColumnsAssetArr[prop1]}}:</span>
+                                         <span *ngIf="element[prop1]!='Delete'">
+                                             <!-- <span *ngIf="previewViewSrc.hasOwnProperty(i) && previewViewSrc[i].hasOwnProperty(prop1)"><fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="previewViewSrc[i][prop1]" matTooltip="View" (click)="previewFile(previewViewSrc[i][prop1],i,false)"></fa-icon></span>   -->
+                                             <!-- <span>{{element[prop]}}</span> -->
+                                             <span *ngIf="prop1=='effectiveDate' || prop1=='expiryDate'">{{datetimeConvertor.convertDateTimeZone(element[prop1],"date")}}</span>
+                                             <span *ngIf="prop1!='effectiveDate' && prop1!='expiryDate'">{{element[prop1]}}</span>
+                                         </span> 
+                                     </mat-cell>
+                                 </ng-container>
+                             </ng-container>
+                     
+                             <mat-header-row *matHeaderRowDef="displayedColumnsAsset"></mat-header-row>
+                             <mat-row *matRowDef="let row; columns: displayedColumnsAsset;"></mat-row>
+                          </mat-table>
+                         <div *ngIf="dataSourceAsset.length === 0" class="recordsNotAdded">Records not found, Please add record.</div>
+                     </div>
+                 </div>
+                </div>  
+                <hr style="border-style: dashed;">
+            </div>
+           
+                <!-- <div class="row" *ngIf="!inputAssetflag">      
+                    <div class="col-lg-3 col-md-6" *ngIf="expiry">
+                        <mat-form-field class="w100p">
+                            <input matInput type="text" (dateChange)="changeEffectiveDate($event.target.value);" [matDatepicker]="picker1" placeholder="Effective Date(DD/MM/YYYY)" formControlName="effectiveDate" id="id_effectiveDate"                      
+                            [(ngModel)]="planModel.start_time">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="hasError('effectiveDate', 'required')">Effective Date is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="expiry">
+                        <mat-form-field class="w100p">
+                            <input matInput type="number" (input)="getExpiryPeriod($event)" (keypress)="validateNo($event)" placeholder="Expiry Duration" formControlName="expiryPeriod" id="id_expiryPeriod">
+                            <mat-error *ngIf="hasError('expiryPeriod', 'required')">Expiry Duration is required!</mat-error>
+                            <mat-error *ngIf="hasError('expiryPeriod', 'min')">Expiry Duration can not be zero or negative!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="expiry">
+                        <mat-form-field class="w100p">
+                            <mat-select (ngModelChange)="getExpiryDate($event)" tabindex="5" placeholder="Duration Unit" formControlName="period" id="id_period">
+                                <mat-option value="days">Days</mat-option>
+                                <mat-option value="months">Months</mat-option>
+                                <mat-option value="years">Years</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('period', 'required')">Duration Unit is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="expiry">
+                        <mat-form-field class="w100p">
+                            <input matInput type="text" [matDatepicker]="picker2" placeholder="Expiry Date(DD/MM/YYYY)" formControlName="expiryDate" id="id_expiryDate"                      
+                            [(ngModel)]="expiryDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="hasError('expiryDate', 'required')">Expiry Date is required!</mat-error>
+                        </mat-form-field>                      
+                    </div>                   
+                </div>    -->
+
+                <div class="row" *ngIf="transRoleFlag == 'Digital' && transactionflag=='Asset'">
+                    <div class="col-lg-3 col-md-6" > 
+                    <mat-form-field [ngClass]="[enableOrderField ? 'disable-block' : '','mat-autocomplete-wrapper','w100p']">
+                            <mat-label>Target Order</mat-label>
+                            <input matInput
+                                aria-label="purchaseOrder"
+                                [matAutocomplete]="auto"
+                                formControlName="purchaseOrder" (input)="callOrderAPI(filter.searchorderID)" [(value)]="order_Id" id="id_purchaseOrder" [(ngModel)]="filter.searchorderID">
+                                <mat-autocomplete panelWidth="auto" #auto="matAutocomplete" (optionSelected)="onSelPurchaseOrder($event.option.value)" >
+                                    <mat-option [disabled]="asset.orderId=='No record found' ? true : false" *ngFor="let asset of ordersListLimited; let i = index;" id="to_option_{{i}}" [value]="asset.orderId+'|'+asset.transactionid+'|'+asset.trans_from_address" >
+                                    <span *ngIf="asset.orderId">{{asset.orderId}}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            <button class="clear_autocomplete" type="button" mat-button *ngIf="filter.searchorderID" matSuffix mat-icon-button aria-label="Clear" (click)="clearPurchaseOrderFields()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="hasError('purchaseOrder', 'required')"> <span *ngIf="isRefOrderLable != 'null'">{{isRefOrderLable}}</span><span *ngIf="isRefOrderLable == 'null'">Order Id</span> is required!</mat-error>
+                        </mat-form-field>
+                        <input readonly hidden placeholder="Purchase Transaction ID" formControlName="readonlyOrderId" [(ngModel)]="readonlyOrder" >	 					
+                    </div>                   
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Category" 
+                                formControlName="assetCategory" id="id_assetCategory" (ngModelChange)="onSelCategory($event)" [(ngModel)]="targetAssetCategory" readonly>
+                            <mat-option *ngFor="let assetCategory of assetCategoryList;" [value]='assetCategory'  id="category_option_{{i}}">{{assetCategory.assetCategory}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                     <div class="col-lg-3 col-md-6" >
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Name" 
+                                formControlName="assetName" id="id_assetName" [disabled]="enableAssetNameDrp">
+                                <mat-option *ngFor="let assetCatNameList of assetCatNameLists[selectCategoryID];" [value]='assetCatNameList.assetName'>{{assetCatNameList.assetName}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetName', 'required')">Asset Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>  
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <input matInput type="number" placeholder="Quantity" formControlName="enteredquantity" id="id_enteredquantity"  (keypress)="validateNo($event)" [(ngModel)]="targetQty" readonly> 
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select UOM" 
+                                formControlName="entereduom" id="id_entereduom1" [(ngModel)]="targetUom" readonly>
+                                <mat-option *ngFor="let uomList of uomLists;" [value]='uomList.uom'>{{uomList.uom}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('entereduom', 'required')">UOM is required!</mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-lg-3 col-md-6" >
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select State" formControlName="state" id="id_state" [(ngModel)]="targetState" (ngModelChange)="onSelState($event)">
+                                <mat-option *ngFor="let state of stateList;" [value]='state.stateCode'>{{state.stateName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-lg-3 col-md-6">
+                        <app-month-date-picker  (childMonth)="receivedMonth($event)"></app-month-date-picker>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <app-year-date-picker (childYear)="receivedYear($event)"></app-year-date-picker>
+                    </div> 
+                </div>
+                <!-- <div class="row" *ngIf="transRoleFlag != 'Digital' && !inputAssetflag" >
+                    <div class="col-lg-3 col-md-6" *ngIf="isAsset">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Category" 
+                                formControlName="assetCategory" id="id_assetCategory" (ngModelChange)="onSelCategory($event)">
+                            <mat-option *ngFor="let assetCategory of assetCategoryList;" [value]='assetCategory' >{{assetCategory.assetCategory}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="isAsset">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Name" 
+                                formControlName="assetName" id="id_assetName" [disabled]="enableAssetNameDrp">
+                            <mat-option *ngFor="let assetCatNameList of assetCatNameLists[selectCategoryID];let i = index;" id="assetname_option_{{i}}" [value]='assetCatNameList.assetName'>{{assetCatNameList.assetName}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetName', 'required')">Asset Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>  
+                    <div class="col-lg-3 col-md-6" *ngIf="isAsset">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select UOM" 
+                                formControlName="entereduom" id="id_entereduom" (ngModelChange)="onChangeUOM($event)">
+                            <mat-option *ngFor="let uomList of uomLists;let i = index;" id="uom_option_{{i}}" [value]='uomList'>{{uomList.uom}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('entereduom', 'required')">UOM is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="isAsset">
+                        <mat-form-field class="w100p">
+                            <input matInput type="number" placeholder="Quantity" [(ngModel)]="entereQuantity" (keyup)="getDecimal()" formControlName="enteredquantity" id="id_enteredquantity" [readonly]="isEnteredQuantity">
+                            <mat-error *ngIf="hasError('enteredquantity', 'required')">Quantity is required!</mat-error>
+                            <mat-error *ngIf="hasError('enteredquantity', 'pattern')">Quantity can not be zero or negative!</mat-error>
+                            <mat-error *ngIf="hasError('enteredquantity', 'max')">Entered quantity can not be more than available quantity!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6" *ngIf="isInputAsset || (orderWithoutReference && assetType == 'Consume Asset' && assetWithoutReference!=true)">
+                        <mat-form-field [ngClass]="[enableAssetID ? 'disable-block' : '','mat-autocomplete-wrapper','w100p']">
+                            <mat-label *ngIf="isInputAsset">Input Asset ID</mat-label>
+                            <mat-label *ngIf="!isInputAsset">Asset ID</mat-label>
+                            <input matInput
+                                   aria-label="refAsset"
+                                   [matAutocomplete]="autoInputAssetID"
+                                   formControlName="refAsset"(input)="callInputAssetAPI(filterInputAsset.term)" id="id_refAsset" [(ngModel)]="filterInputAsset.term" [readonly]= "isReadOnlyAssetIDMain">
+                            <mat-autocomplete (opened)="opened_AutoComplete('autoInputAssetID')" panelWidth="auto" #autoInputAssetID="matAutocomplete" (optionSelected)="onSelAssetID($event.option.value)">
+                                <mat-option [disabled]="asset.assetName=='No record found' ? true : false" *ngFor="let asset of assetsListLimited; let i = index;" id="assetid_option_{{i}}" [value]="asset.assetCategoryName+'|'+asset.assetId+'|'+asset.assetUom+'|'+asset.transactionid+'|'+asset.assetName+'|'+asset.assetQuantity+'|'+asset.transactionEntity+'|'+asset.entityAsset+'|'+asset.assetCategory+'|'+asset.nft_status"  [disabled]="disableOptionAssetName[asset.assetId]">
+                                  <span *ngIf="asset.assetCategoryName">{{asset.assetCategoryName}}</span>
+                                  <span *ngIf="asset.assetName">| {{asset.assetName}}</span>
+                                  <span *ngIf="asset.assetId"> | {{asset.assetId}}</span>
+                                  <span *ngIf="asset.assetQuantity"> | {{asset.assetQuantity}}</span>
+                                  <span *ngIf="asset.assetUom"> | {{asset.assetUom}}</span>
+                                </mat-option>
+                              </mat-autocomplete>
+                            <button class="clear_autocomplete" type="button" mat-button *ngIf="filterInputAsset.term" matSuffix mat-icon-button aria-label="Clear" (click)="clearAssetIdFields()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                          </mat-form-field>
+						  <input hidden readonly formControlName="readonlyAssetId" placeholder="Asset Transaction ID" [(ngModel)]="readonlyAsset" >	 					
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="transactionflag == 'Order' && !orderWithoutReference"> 
+                       <mat-form-field [ngClass]="[enableOrderField ? 'disable-block' : '','mat-autocomplete-wrapper','w100p']">
+                            <mat-label>{{orderTypeName}}</mat-label> 
+                            <input matInput
+                                aria-label="purchaseOrder"
+                                [matAutocomplete]="autoPurchaseOrder"
+                                formControlName="purchaseOrder" (input)="callOrderAPI(filter.searchorderID)" [(value)]="order_Id" id="id_purchaseOrder" [(ngModel)]="filter.searchorderID">
+                            <mat-autocomplete (opened)="opened_AutoComplete('autoPurchaseOrder')" panelWidth="auto" #autoPurchaseOrder="matAutocomplete" (optionSelected)="onSelPurchaseOrder($event.option.value)" >
+								<mat-option [disabled]="asset.orderId=='No record found' ? true : false" *ngFor="let asset of ordersListLimited; let i = index;" id="po_option_{{i}}" [value]="asset.orderId+'|'+asset.transactionid+'|'+asset.trans_from_address" >
+                                <span *ngIf="asset.orderId">{{asset.orderId}}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <button class="clear_autocomplete" type="button" mat-button *ngIf="filter.searchorderID" matSuffix mat-icon-button aria-label="Clear" (click)="clearPurchaseOrderFields()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="hasError('purchaseOrder', 'required')"> <span *ngIf="isRefOrderLable != 'null'">{{isRefOrderLable}}</span><span *ngIf="isRefOrderLable == 'null'">Order Id</span> is required!</mat-error>
+                        </mat-form-field>
+						<input readonly hidden placeholder="Purchase Transaction ID" formControlName="readonlyOrderId" [(ngModel)]="readonlyOrder" >	 					
+                    </div>
+                    <div class="col-lg-3 col-md-6" *ngIf="transactionflag == 'Order' && !orderWithoutReference">  
+                        <mat-form-field [ngClass]="[enableLineNo ? 'disable-block' : '','mat-autocomplete-wrapper','w100p']">
+                            <mat-label >Line No</mat-label>
+                            <input matInput
+                                aria-label="lineNo"
+                                [matAutocomplete]="autolineNo"
+                                formControlName="lineNo" id="id_lineNo"  [(ngModel)]="readonlyLine" [readonly]= "isReadOnlyLineNo">
+                             <mat-autocomplete (opened)="opened_AutoComplete('autolineNo')" panelWidth="auto" #autolineNo="matAutocomplete" (optionSelected)="onSelLine($event.option.value)">
+								<mat-option *ngFor="let line of lineListArr;let i = index;" id="line_option_{{i}}" [value]="line.line_number+'|'+line.assetCategoryName+'|'+line.order_item+'|'+line.order_quantity+'|'+line.order_uom+'|'+line.ordered_assetId+'|'+line.entity_asset+'|'+line._id+'|'+line.asset_category+'|'+line.state+'|'+line.nft_status" [disabled]="disableOptionLine[orderID+'_'+i]">
+                                <span *ngIf="line.line_number"> {{line.line_number}}</span>
+                                <span *ngIf="line.assetCategoryName"> . {{line.assetCategoryName}}</span>
+                                <span *ngIf="line.order_item"> | {{line.order_item}}</span>
+                                <span *ngIf="line.order_quantity"> | {{line.order_quantity}}</span>
+                                <span *ngIf="line.order_uom"> | {{line.order_uom}}</span>  
+                                </mat-option>
+                            </mat-autocomplete>
+                            <button class="clear_autocomplete" type="button" mat-button *ngIf="readonlyLine" matSuffix mat-icon-button aria-label="Clear" (click)="clearLineFields()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="hasError('lineNo', 'required')">
+                                <span *ngIf="isRefOrderLable != 'null'">{{isRefOrderLable}}</span>
+                                <span *ngIf="isRefOrderLable == 'null'">Order Id</span> is required!</mat-error>
+                        </mat-form-field>
+                        <input readonly hidden placeholder="Line No" formControlName="readonlyLine" [(ngModel)]="readonlyLine" >	 					
+                    </div>
+                  
+                    <div class="col-lg-3 col-md-6" [hidden]="isShownAddRecord">
+                        <!-- Button to Open the Modal -->
+                        <button type="button" id="id_btn_addRecord" [disabled]="enableAddMore" class="subBtn save-changes" (click)="openDialog('Add',addRowDataPass)" style="margin: 0 0 15px 0px !important;">
+                            Add Record
+                        </button>
+                        <div class="mat-error" style="font-size: 13px;margin-top: -15px;" *ngIf="chkAddRecordItems" > Please add at least one Record First!</div>
+                    </div>
+                </div>
+
+               <div class="row" [hidden]="isShownAddRecordWithTable">
+                   <div class="col-lg-12">
+                    <div class="list-container addRecordGrid" style="display: grid !important;">
+                        <mat-table [dataSource]="dataSource" #table class="mat-table-item mat-elevation-z8 gridWithoutSearch" style="display: table;width: 100%;">
+                            <ng-container *ngFor="let prop of displayedColumns;let j = index;">
+                                <ng-container matColumnDef="action" sticky *ngIf="prop=='action'">
+                                    <mat-header-cell *matHeaderCellDef>Actions </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <span class="mobile-label">Actions:</span>
+                                        <a (click)="openDialog('Update',element)"><img class="sidebar-img" src="../../../assets/icons/edit.svg"></a>
+                                        <a (click)="openDialog('Delete',element)"><img class="sidebar-img" src="../../../assets/icons/delete (1).svg"></a>
+                                    </mat-cell>
+                                </ng-container>
+                                
+                                <ng-container [matColumnDef]="prop" *ngIf="prop!='action'">
+                                    <mat-header-cell *matHeaderCellDef> {{displayedColumnsArr[prop]}} </mat-header-cell>
+                                    <mat-cell *matCellDef="let element;let i = index;">
+                                        <span class="mobile-label">{{displayedColumnsArr[prop]}}:</span>
+                                        <span *ngIf="element[prop]!='Delete'">
+                                            <span *ngIf="previewViewSrc.hasOwnProperty(i) && previewViewSrc[i].hasOwnProperty(prop)"><fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="previewViewSrc[i][prop]" matTooltip="View" (click)="previewFile(previewViewSrc[i][prop],i,false)"></fa-icon></span>  
+                                            <span>{{element[prop]}}</span>
+                                        </span> 
+                                    </mat-cell>
+                                </ng-container>
+                            </ng-container>
+                    
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                         </mat-table>
+                        <div *ngIf="dataSource.length === 0" class="recordsNotAdded">Records not found, Please add record.</div>
+                    </div>
+                </div>
+               </div>  
+
+                <hr style="border-style: dashed;">
+
+                <form [formGroup]="transactionidFieldForm" autocomplete="off" #transactionidForm="ngForm" (ngSubmit)="submitTransaction(searchForm, transactionidForm,pdfForm)">
+                    <div class="formfield" *ngIf="hideFeild == false">
+                        <div class="row" *ngIf="fields?.length">
+                            <div class="col-lg-3 col-md-6" *ngFor="let keys of object;let i = index" >
+                                        <div *ngIf='keys.value == "String" && (keys.key != "date" ||keys.key != "Date")'>
+                                            <mat-form-field  class="w100p">
+                                                <input  matInput
+                                                    placeholder="{{keys.key}}"
+                                                    formControlName="{{keys.key}}"
+                                                    id="id_{{keys.key}}"
+                                                >
+                                                <mat-error *ngIf="transactionidFieldForm.get(keys.key).invalid">
+                                                    <mat-error *ngIf="transactionidFieldForm.get(keys.key).errors.required">{{keys.key}} is required!!</mat-error>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div *ngIf='keys.value == "String" && (keys.key == "date" ||keys.key == "Date")'>
+                                            <mat-form-field  class="w100p">
+                                                <input matInput [matDatepicker]="picker1" [formControlName]="keys.key" id="keys.key">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker1
+                                                    startView="multi-year"
+                                                    (yearSelected)="chosenYearHandler($event, keys.key)"
+                                                    (monthSelected)="chosenMonthHandler($event, picker1, keys.key)"
+                                                    panelClass="example-month-picker"
+                                                    ></mat-datepicker>
+                                                </mat-form-field>
+                                        </div>
+                                        <div *ngIf='keys.value == "Number"'>
+                                            <mat-form-field  class="w100p">
+                                                <input  matInput type = "number"
+                                                    placeholder="{{keys.key}}"
+                                                    formControlName="{{keys.key}}" (keypress)="validateNo($event)" id="id_{{keys.key}}"
+                                                >
+                                                <mat-error *ngIf="transactionidFieldForm.get(keys.key).invalid">
+                                                    <mat-error *ngIf="transactionidFieldForm.get(keys.key).errors.required">
+                                                        {{keys.key}} should be Numeric!
+                                                    </mat-error>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        
+                                        <div *ngIf='keys.value == "Date"'>
+                                            <mat-form-field  class="w100p">
+                                                <mat-label>{{keys.key}}</mat-label>
+                                                <input matInput [matDatepicker]="picker1" [formControlName]="keys.key" id="keys.key">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1
+                                                startView="multi-year"
+                                                (yearSelected)="chosenYearHandler($event, keys.key)"
+                                                (monthSelected)="chosenMonthHandler($event, picker1, keys.key)"
+                                                panelClass="example-month-picker"
+                                                ></mat-datepicker>
+                                                <mat-error *ngIf="transactionidFieldForm.get(keys.key).invalid">
+                                                    <mat-error *ngIf="transactionidFieldForm.get(keys.key).errors.required">{{keys.key}} is required!!</mat-error>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div *ngIf='keys.value == "JSON"'>
+                                            <mat-form-field  class="w100p">
+                                                <input  matInput maxlength="256"
+                                                    placeholder="{{keys.key}}"
+                                                    formControlName="{{keys.key}}" id="id_{{keys.key}}"
+                                                >                               
+                                                <mat-error *ngIf="transactionidFieldForm.get(keys.key).invalid">
+                                                    <mat-error *ngIf="transactionidFieldForm.get(keys.key).errors.required">{{keys.key}} is required!!</mat-error>
+                                                </mat-error>
+                                                
+                                            </mat-form-field>
+                                        </div>                         
+                                        <div *ngIf='keys.value == "File"'>
+                                            <label *ngIf="!showImg[i]" for="files_{{keys.key}}" class="subBtn dynamicUploadFileBtn">Choose File</label>
+                                            <input id="files_{{keys.key}}" accept="image/png, image/jpeg,image/jpg,image/gif,application/pdf" type="file" name="keys.key" (change)="chooseFile($event, keys.key,i)" style="white-space: normal;display: none" required>
+                                                <mat-form-field class="w100p">
+                                                        <input matInput readonly
+                                                        placeholder="{{keys.key}}"
+                                                        value="{{this.imageArr['filename_'+keys.key] || 'No file Choosen'}}"
+                                                        formControlName="{{keys.key}}">
+                                                        <mat-error *ngIf="transactionidFieldForm.get(keys.key).invalid">
+                                                            <mat-error *ngIf="transactionidFieldForm.get(keys.key).errors.required">{{keys.key}} is required!!</mat-error>
+                                                        </mat-error>
+                                                </mat-form-field>
+                                                <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="showImg[i]" matTooltip="View" (click)="previewFile(fileUploaded[i],i,true)"></fa-icon>
+                                                <fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImg[i]" matTooltip="Delete" (click)="deletePreviewFile(keys.key,i,true)"></fa-icon>
+                                                <div class="errCls" >{{imageError[i]}}</div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form [formGroup]="pdfTransactionForm" #pdfForm="ngForm" autocomplete="off" (ngSubmit)="submitTransaction(searchForm, transactionidForm,pdfForm)">
+                    <div class="row">
+                         <div class="col-lg-3 col-md-6">
+                            <div class="formfield" *ngIf="PDFchecked == false">
+                                <div *ngIf="fields.length">
+                                    <label *ngIf="!showImgStatic" for="files" required class="subBtn dynamicUploadFileBtn" style="top: 10px;">Choose File</label>
+                                    <input id="files" accept="image/png, image/jpeg,image/jpg,image/gif,application/pdf"  type="file" name="file" (change)="chooseStaticUploadFile($event)" style="white-space: normal;display: none">
+                                    <mat-form-field class="w100p">
+                                        <input matInput readonly
+                                        placeholder="Upload File"
+                                        value="{{this.fileStaticName || 'No file Choosen'}}"
+                                        formControlName="uploadFile"> 
+                                    </mat-form-field>                               
+                                     <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)" style="top: 16px;"></fa-icon>
+                                     <fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImgStatic" matTooltip="Delete" (click)="deleteStaticFile()" style="top: 18px;"></fa-icon>
+                                     <div class="errCls" *ngIf="imageErrorStatic !=''">{{imageErrorStatic}}</div>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-3 col-md-6" style="padding-top: 20px;" *ngIf="transactionflag=='Asset' || (transactionflag=='Order' && (assetType=='Consume Asset' || assetType== 'Receive Asset' || eprConsumeFlag==true || eprReceiveFlag==true))">
+                            <mat-checkbox class="example-margin" [(ngModel)]="autoDetectLocation" id="id_autoDetectLocation" (change)="onChangeAutoDetectLocation($event)" formControlName="autoDetectLocation">Auto Detect Location</mat-checkbox>
+                         </div>
+                         <div class="col-lg-3 col-md-6 div_autoLocation" *ngIf="transactionflag=='Asset' || (transactionflag=='Order' && (assetType=='Consume Asset' || assetType== 'Receive Asset' || eprConsumeFlag==true || eprReceiveFlag==true))">
+                            <mat-form-field class="w100p">
+                                <input matInput placeholder="Location" formControlName="assetLocationAuto" 
+                                (input)="getCitySuggestion($event.target.value)"  
+                                id="id_assetLocationAuto" [readonly]="enableAutoAssetLocation" 
+                                [(ngModel)]="assetLocationAutoSuggest" [matAutocomplete]="autoLocation">						
+                                <mat-autocomplete class="autoCompleteAddress" (opened)="opened_AutoComplete('autoLocation')" panelWidth="auto" #autoLocation="matAutocomplete" (optionSelected)="onSellocation($event.option.value)" >
+                                    <mat-option *ngFor="let city of locationlist |filter:assetLocationAutoSuggest;let i = index;" id="location_option_{{i}}" [value]="city.address.formattedAddress+'|'+city.address.addressLine+'|'+city.address.adminDistrict+'|'+city.address.countryRegion+'|'+city.address.locality+'|'+city.address.postalCode">
+                                        <span *ngIf="city.address.formattedAddress">{{city.address.formattedAddress}}</span>                          
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="hasErrorPdf('assetLocationAuto', 'required')">Location is required!</mat-error>
+                            </mat-form-field>                            
+                            <div *ngIf="chkLocation_lbl == true && eprFlag == true"  class="mat-error" style="font-size: 11px;"> Please choose location from drop down or click on Auto Detect Location</div>
+                         </div>
+                     </div>
+                        <div class="row">
+                            <div class="formfield col-md-3" *ngIf="verifiable == true">
+                                    <label *ngIf="!showCert" for="filesCert" required class="subBtn dynamicUploadFileBtn" style="top: 10px;">Choose Certificate</label>
+                                    <input id="filesCert" accept="image/png, image/jpeg,image/jpg,image/gif,application/pdf"  type="file" name="certfile" (change)="ChooseCertificateFile($event)" style="white-space: normal;display: none">
+                                    <mat-form-field class="w100p">
+                                        <input matInput readonly
+                                        placeholder="Upload Certificate"
+                                        value="{{this.fileCertName || 'No file Choosen'}}"
+                                        formControlName="uploadedCertificate"> 
+                                    </mat-form-field>                               
+                                    <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="showCert" matTooltip="View" (click)="previewFileCert(fileUploadedCert)" style="top: 16px;"></fa-icon>
+                                    <fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showCert" matTooltip="Delete" (click)="deleteCertFile()" style="top: 18px;"></fa-icon>
+                                    <div class="errCls"  *ngIf="certError !=''">{{certError}}</div>
+                            </div>
+                            <div class="action-btns text-center col-lg-12">
+                                <button mat-raised-button class="subBtn" id="id_saveTransaction">Save</button>
+                                <button mat-raised-button class="cancelBtn" type = "button" (click)="goBack()"  id="id_cancelTransaction">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </form>             
+        </form>
+        </div>
+
+    </div>
+</div>
+<!-- POPUP FOR IMAGE PREVIEW --> 
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop:false}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 50px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span class="hide" (click)="hide()" style="padding: 0px 5px;">&times;</span> 
+        <div class="modal-body" style="max-height: 80vh;overflow: scroll;">   
+          <div class="text-center" *ngIf="urlSrc[indField] && modaleFlagDyn">
+            <img [src]="urlSrc[indField]" *ngIf="urlSrc[indField] && isImage" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="urlSrc[indField]" *ngIf="urlSrc[indField] && isPdf" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+          <div class="text-center" *ngIf="urlSrcStatic && modaleFlag">
+            <img [src]="urlSrcStatic" *ngIf="urlSrcStatic && isImageStatic" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="urlSrcStatic" *ngIf="urlSrcStatic && isPdfStatic" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+          <div class="text-center" *ngIf="urlSrcCert && modaleFlagCert">
+            <img [src]="urlSrcCert" *ngIf="urlSrcCert && isImageCert" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="urlSrcCert" *ngIf="urlSrcCert && isPdfCert" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+        </div>
+        </div>
+     </div>
+</div>
+<!-- POPUP FOR IMAGE PREVIEW -->

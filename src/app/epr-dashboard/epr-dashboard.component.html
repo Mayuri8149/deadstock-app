@@ -1,0 +1,424 @@
+<div class="container">
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <div id="userDiv">
+                <span id="userSpan">
+                    EPR Dashboard
+                </span>
+            </div>
+            <form [formGroup]="searchFrm" autocomplete="off" #searchForm="ngForm" >            
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Customer" formControlName="partners"  id="id_partnersList"  (ngModelChange)="onSelPartnerID($event)" >
+                                <mat-option *ngFor="let partner of partnerList;let i = index;" id="partners_option_{{i}}" [value]='partner.code'>{{partner.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <mat-form-field class="w100p">
+                            <mat-select  placeholder="Select State" formControlName="state" id="id_state" (ngModelChange)="onSelState($event)">
+                                <mat-option *ngFor="let state of stateList;" [value]='state.stateCode'>{{state.stateName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <app-year-date-picker (childYear)="receivedYear($event)"></app-year-date-picker>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <mat-form-field class="'mat-autocomplete-wrapper w100p" >
+                            <mat-label>Target Order</mat-label>
+                            <input matInput
+                                aria-label="purchaseOrder"
+                                [matAutocomplete]="auto"
+                                formControlName="purchaseOrder" id="id_purchaseOrder">
+                                <mat-autocomplete panelWidth="auto" #auto="matAutocomplete" (optionSelected)="onSelPurchaseOrder($event.option.value)" >
+                                    <mat-option *ngFor="let asset of ordersListLimited |filter:readonlyOrderId" [value]="asset.orderId" >
+                                    <span *ngIf="asset.orderId">{{asset.orderId}}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            <button class="clear_autocomplete" type="button" mat-button *ngIf="readonlyOrderId" matSuffix mat-icon-button aria-label="Clear" (click)="clearPurchaseOrderFields()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <input readonly hidden placeholder="Purchase Transaction ID" formControlName="readonlyOrderId" >	 					
+                    </div>
+                </div>
+            </form>
+            <hr style="border-style: dashed;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Target Order Details</legend>
+                        <div class="control-group"> 
+                            <div class="list-container">         
+                                <mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8 gridWithoutSearch"  matSort> 
+                                    <ng-container matColumnDef="customerName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Customer Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Customer Name:</span>
+                                            {{element?.companyName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="lineno">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Line No.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.line_number || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="assetCategory">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Category
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Asset Category:</span>
+                                            {{element?.assetCategoryName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="assetName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Name.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.order_item || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="targetQty">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Target Qty.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.order_quantity || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="achievedQty">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Achieved Qty.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.eprRefStepQuantity || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="balQty">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Balance Qty.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.eprRefRemainedQuantity || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="state">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            State
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">State:</span>
+                                            {{element?.state || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    
+                                    <ng-container matColumnDef="targetOrder">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Target Order
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Target Order:</span>
+                                            {{orderID || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="year">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Date
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Date:</span>
+                                            {{element?.targetDate | date:'dd/MM/yyyy hh:mm a' || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> 
+                                            <div>Actions </div>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element;index as i">
+                                            <span class="mobile-label">Actions:</span>						
+                                            <img class="sidebar-img" matTooltip="View Details" (click)="showTbl_targetDetails(element)" src="../assets/icons/view (1).svg"/>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayeColumnsTargetOrder"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayeColumnsTargetOrder;"></mat-row>
+                                </mat-table> 
+                                <div *ngIf="dataSource.length === 0" class="recordsNotAdded">Records not found.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset class="scheduler-border" *ngIf="showTargetOrder_Tbl">
+                        <legend class="scheduler-border">EPR Certificates</legend>
+                        <div class="control-group"> 
+                            <div class="list-container">                           
+                                <mat-table [dataSource]="assetsListLimited" class="mat-table-item mat-elevation-z8 gridWithoutSearch"  matSort (matSortChange)="sortData($event)">
+                                    
+                                    <ng-container matColumnDef="certNo">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Certificate
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span (click)="previewCertFile(element?.certNo)" class="cert-link"><span class="mobile-label">Certificate:</span>
+                                            {{element?.certNo || '-'}}</span>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="customerName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Customer Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Customer Name:</span>
+                                            {{componyNameDetails || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="state">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            State
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">State:</span>
+                                            {{stateDetails || '-'}}
+                                        </mat-cell>
+                                    </ng-container>                                    
+                                    <ng-container matColumnDef="targetOrder">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Target Order
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Target Order:</span>
+                                            {{orderID || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="assetCategory">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Category
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Asset Category:</span>
+                                            {{element?.assetCategoryName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="deliveryDt">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Delivery Date
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Delivery Date:</span>
+                                            {{element?.deliveryDate | date:'dd/MM/yyyy hh:mm a' || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="deliveryQty">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Delivered Qty.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Delivered Qty:</span>
+                                            {{element.deliveredQty || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> 
+                                            <div>Actions </div>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Actions:</span>						
+                                            <img class="sidebar-img" matTooltip="Input EPR Credits" (click)="showTbl_DeliveryOrder(element)" src="../assets/icons/view (1).svg"/>
+                                             <img class="sidebar-img"  *ngIf="element.outside_docs.length>0" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip=""
+                                            style="margin-left: 5px;" src="../assets/icons/ellipsis-v-solid.svg" />
+                                                          <mat-menu #menu="matMenu" class="matmenu_in_grid" backdropClass="matmenu_in_grid_overlay" [overlapTrigger]="false" >
+                                                          <span  *ngFor="let inputEle of element.outside_docs;index as i">
+                                                            <button mat-menu-item *ngIf="inputEle!=undefined">
+                                                              <span (click)="openPreview(element.allValues[inputEle])" *ngIf="element.linkArr[i]" class="cert-link">{{inputEle}}</span>
+                                                              <span *ngIf="!element.linkArr[i]">{{inputEle}}</span>
+                                                            </button>
+                                                          </span>
+                                                          </mat-menu> 
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayeColumnsTargetOrderDetails"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayeColumnsTargetOrderDetails;"></mat-row>
+                                </mat-table>
+                                <div *ngIf="assetsListLimited.length === 0" class="recordsNotAdded">Records not found.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="scheduler-border" *ngIf="showDeliveryOrder_Tbl">
+                        <legend class="scheduler-border">Input EPR Credits</legend>
+                        <div class="control-group"> 
+                            <div class="list-container">                           
+                                <mat-table [dataSource]="inputAssetDetails" class="mat-table-item mat-elevation-z8 gridWithoutSearch"  matSort (matSortChange)="sortData($event)">
+                                   <ng-container matColumnDef="customerName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Aggregattor
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Customer Name:</span>
+                                            {{element?.partnerName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="state">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            State
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">State:</span>
+                                            {{element?.state || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="month">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Date
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Date:</span>
+                                            {{element?.deliveryDate | date:'dd/MM/yyyy hh:mm a' || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="targetOrder">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Order
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Order:</span>
+                                            {{element?.eprOrderId || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="plasticCategory">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Category
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Asset Category:</span>
+                                            {{element?.assetCategoryName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                   
+                                    <ng-container matColumnDef="deliveryDate">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Received Qty
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Received Qty:</span>
+                                            {{element?.deliveredQty || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="action">
+                                        <mat-header-cell *matHeaderCellDef> 
+                                            <div>Actions </div>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Actions:</span>						
+                                            <img class="sidebar-img" matTooltip="View" (click)="viewTransaction(element)" src="../assets/icons/view (1).svg"/>
+                                            <img class="sidebar-img" matTooltip="View Details" (click)="viewTransactionDetails(element)" src="../assets/icons/view (1).svg"/>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayeColumnsDeliveryOrder"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayeColumnsDeliveryOrder;"></mat-row>
+                                </mat-table>
+                                <div *ngIf="inputAssetDetails.length === 0" class="recordsNotAdded">Records not found.</div>
+                            </div>
+                        </div>
+                    </fieldset>                    
+
+                    <fieldset class="scheduler-border" *ngIf="showShipOrder_Tbl">
+                        <legend class="scheduler-border">Dispatch Details</legend>
+                        <div class="control-group"> 
+                            <div class="list-container">                           
+                                <mat-table [dataSource]="shipDetails" class="mat-table-item mat-elevation-z8 gridWithoutSearch"  matSort (matSortChange)="sortData($event)">
+                                    <ng-container matColumnDef="customerName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Supplier
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Customer Name:</span>
+                                            {{element?.companyName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="dateShip">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Date
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Date:</span>
+                                            {{element?.targetDate | date:'dd/MM/yyyy hh:mm a' || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="shipOrder">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Order
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Order:</span>
+                                            {{element?.orderId || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="lineno">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Line No.
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">line No.:</span>
+                                            {{element?.line_number || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="assetCategory">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Category
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Asset Category:</span>
+                                            {{element?.assetCategoryName || '-'}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="assetName">
+                                        <mat-header-cell *matHeaderCellDef>
+                                            Asset Name
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Asset Name:</span>
+                                            {{element?.order_item || '-'}}
+                                        </mat-cell>
+                                    </ng-container>                                    
+                                    <ng-container matColumnDef="qty">
+                                        <mat-header-cell *matHeaderCellDef>
+                                             Qty
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Received Qty:</span>
+                                            {{element?.order_quantity || '-'}}
+                                        </mat-cell>
+                                    </ng-container>                                    
+                                    <mat-header-row *matHeaderRowDef="displayeColumnsShipOrder"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayeColumnsShipOrder;"></mat-row>
+                                </mat-table>
+                                <div *ngIf="shipDetails.length === 0" class="recordsNotAdded">Records not found.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

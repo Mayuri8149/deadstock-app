@@ -1,0 +1,249 @@
+.container {
+    padding: 40px 26px;
+}
+
+.outer-div {
+    display: flex;
+    flex-direction: row;
+} 
+.hide { display: none; }
+
+.inner-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-btns {
+    padding: 9px 2px;
+}
+
+.add-btn {
+    background-color: #e2be40;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    margin: 2px 4px;
+}
+
+.list-container {
+    height: inherit;
+    overflow-y: scroll;
+}
+
+.list-container::-webkit-scrollbar {
+    height: 9px;
+} 
+ 
+.list-container::-webkit-scrollbar-track::horizontal {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.list-container::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+.mat-table {
+    width: 100%;
+    min-width: 3430px;
+}
+
+.mat-table .mat-table-item .inputAssetTable{
+    width: 100%;
+    min-width: 456px;
+}
+
+.mat-table .inputAssetTable .mat-header-row {
+min-height: 0px;    
+}
+.mat-header-cell {
+    display: block;
+    padding: 1px 10px;
+    color: #060303!important;
+}
+
+mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+}
+
+mat-table-sticky:first-child{
+    border-right: 1px solid #e0e0e0;
+    padding: none;
+    min-height: 50px;
+}
+
+mat-table-sticky:last-child{
+    border-right: 1px solid #e0e0e0;
+    padding: none;
+    min-height: 50px;
+}
+
+mat-column-position, mat-column-position {
+    padding-left: 8px;
+}
+
+.mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+    border-right: 1px solid #e0e0e0;
+}
+
+.mat-header-row {
+    min-height: 70px;
+}
+
+.mat-row {
+    min-height: 20px !important;
+}
+
+.mat-header-cell {
+    border-right: 1px solid #e0e0e0;  
+}
+
+.search {
+    color: #787b80;
+    font-size: 14px !important;
+    min-height: 12px !important;
+}
+
+.search-input {
+    display: inline;
+}
+
+.matInput {
+    margin-left: 20px;
+}
+
+.fa-icon {
+    margin-right: 8px;
+}
+
+.icon-back {
+    font-size: 25px;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #dcdcdc;
+}
+
+.mat-header-row, .mat-row, .mat-footer-row {
+    border-bottom-width: 0; 
+}
+
+.mat-paginator {
+    font-size: 11px;
+}
+
+.mat-paginator-container {
+    min-height: 48px;
+    display: flex;
+}
+
+.approve {
+    color: green;
+}
+
+.reject {
+    color: red;
+}
+
+.hold {
+    color: #ffca00;
+}
+
+.update {
+    color: #1073f3;
+}
+
+.search {
+    color: #787b80;
+    font-size: 14px !important;
+    height: 12px !important;
+}
+
+.icons {
+    cursor: pointer;
+    font-size: 24px;
+    height: 23px;
+    width: 26px;
+    line-height: 23px;
+}
+.mat-column-actions {
+    flex: 0 0 3% !important;
+    min-width: 80px !important;
+}
+.mat-column-assetQuantity {
+    flex: 0 0 3% !important;
+    min-width: 80px !important;
+}
+.mat-column-assetUom {
+    flex: 0 0 3% !important;
+    min-width: 60px !important;
+}
+.mat-column-moduleId {
+    flex: 0 0 3% !important;
+    min-width: 90px !important;
+}
+.mat-column-transcationTypeId {
+    flex: 0 0 3% !important;
+    min-width: 135px !important;
+}
+.mat-column-transcationEntity {
+    flex: 0 0 3% !important;
+    min-width: 120px !important;
+}
+.mat-column-branch {
+    flex: 0 0 3% !important;
+}
+
+.matTooltip {
+    font-size: 1px;
+}
+.mat-column-view {
+    flex: 0 0 6% !important;
+    min-width: 110px !important;
+}
+.Approved{
+     text-align: center;
+     color: #5c9cee;
+     font-weight: bolder;
+ }
+ 
+ .Invited{     
+     text-align: center;
+     color: #5b64c8;
+     font-weight: bolder;
+ }
+ .Signed-Up{
+     text-align: center;
+     color: rgb(241, 167, 70);
+     font-weight: bolder;
+     
+ }
+ .Active{
+     text-align: center;
+     color: rgb(23, 173, 23);
+     font-weight: bolder;
+ }
+ 
+ .Inactive{     
+     text-align: center;
+     color: rgb(185, 8, 8);
+     font-weight: bolder;
+ }
+.mat-column-expiryDate{
+    max-width: 100px;
+}
+.mat-column-effectiveDate{
+    max-width: 136px;
+}
+ .mat-column-created_on{
+     min-width: 185px;
+ }
+ @media(max-width: 600px) {
+    .mobile-label {
+      width: 130px;
+    }
+}

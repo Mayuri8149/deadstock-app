@@ -1,0 +1,247 @@
+.container {
+  padding: 25px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper{
+  padding: 15px 30px;
+  box-shadow: 5px 5px 15px 6px #bfb9b9;
+  border-radius: 10px;
+  background-color: white !important;
+}
+.head-div {
+  padding: 35px 235px;
+}
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.inputs {
+  width: 68%;
+}
+.input-field {
+  width: 98%;
+}
+.btn-wrapper {
+  padding: 13px 1px;
+}
+.mid-text {
+  padding: 9px 5px;
+}
+.or-text {
+  font-size: 20px;
+}
+.tp-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+.tp-radio-button {
+  margin: 5px;
+}
+.tp-selected-value {
+  margin: 15px 0;
+}
+.addInst-wrapper {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #BFBFBF;
+  border-radius: 12px;
+  box-shadow: 5px 5px 15px 6px #bfb9b9;
+}
+.heading-wrapper {
+  width: 100%;
+  margin: 5px 0;
+}
+.panel-primary>.panel-heading {
+  color: #696969;
+}
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 32px;
+  font-weight: 600;
+  color: inherit;
+}
+.headeing {
+  margin-bottom: 2%;
+  margin-left: -71%;
+  margin-top: 2%;
+}
+.example-container {
+  padding: 10px 20px;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.input-field {
+  width: 31%;
+  margin: 1%;
+}
+.mar-top {
+  margin-top: 21px;
+}
+.fa-icon {
+  margin-right: 8px;
+  color: #0a0a0a;
+}
+.action-btns {
+  padding: 18px 1px;
+}
+#affDiv {
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid #6c757d;
+  text-align: center;
+  margin: 0px 0px 35px 0px;
+}
+.mat-header-cell {
+  border-right: 1px solid #e0e0e0;
+  display: block;
+  padding: 1px 10px;
+  color: #060303!important;
+}
+.mat-row:nth-child(even) {
+  background-color: #dcdcdc;
+}
+.mat-header-row, .mat-row, .mat-footer-row {
+  border-bottom-width: 0;
+}
+.mat-row {
+  min-height: 20px !important;
+}
+.mat-cell {
+  color: rgba(0,0,0,.87);
+}
+.mat-option{
+  font-size: 14px !important;
+  height: 30px;
+  padding: 0 5px;
+}
+.mat-form-field-flex {
+  padding: 0px 0px 0px 0px !important;
+  background-color: transparent !important;
+}
+.clear_autocomplete{
+  width: auto !important;
+  height: auto !important;
+}
+.clear_autocomplete .mat-icon{
+  font-size: 16px !important;
+}
+.mat-autocomplete-panel {
+  min-width: max-content !important;
+}
+.addRecordGrid .mat-header-cell,
+.addRecordGrid .mat-cell{
+  min-width: 120px;
+}
+.addRecordGrid .cdk-column-action{
+  min-width: 80px !important;
+  width: 80px !important;
+}
+.addRecordGrid .mat-header-cell.mat-column-id,
+.addRecordGrid .mat-cell.mat-column-id,
+.addRecordGrid .mat-header-cell.mat-column-lineNo,
+.addRecordGrid .mat-cell.mat-column-lineNo{
+  min-width: 70px !important;
+  width: 70px !important;
+}
+#addSpan {
+  font-size: 21px;
+  background-color: #F3F5F6;
+  color: #001f60;
+  font-weight: 500;
+  padding: 0 19px;
+}
+.fields {
+  width: 500px;
+  height: 160px;
+}
+button.action-btn.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled {
+  background-color: #ddd!important;
+}
+.input-row{
+  margin-top: 15px!important;
+}
+.formfield{
+  margin-top: 2.5%;
+}
+.pdf {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+  height: 180px; 
+  width: auto; 
+  margin-top: 15px; 
+  filter: blur(5px);
+}
+.mat-autocomplete-wrapper{
+  padding: 0px 0px 0px 0px;
+  background-color: transparent !important;
+}
+.errCls{
+  color: red !important;
+}
+.hide{
+  text-align: right !important;
+  padding: 10px;
+  margin: 0px;
+  font-size: 25px;
+  cursor: pointer;
+}
+.modal-backdrop.show {
+  opacity: 0 !important;
+}
+.disable-block {
+  pointer-events: none;
+  opacity: .7;
+}
+.save-changes[disabled] {
+  background-color: #ddd !important;
+}
+@media(max-width: 600px) {
+  .mobile-label {
+    width: 100px;
+    display: inline-block;
+        font-weight: bold;
+  }
+  .mat-header-row {
+    display: none;
+  }
+  .mat-row { 
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+  .mat-cell,
+  .addRecordGrid .cdk-column-action,
+  .addRecordGrid .mat-header-cell.mat-column-id,
+  .addRecordGrid .mat-cell.mat-column-id,
+  .addRecordGrid .mat-header-cell.mat-column-lineNo,
+  .addRecordGrid .mat-cell.mat-column-lineNo{
+      width: 100% !important;
+  }
+}
+.div_autoLocation ::ng-deep .mat-form-field-subscript-wrapper,
+.div_autoLocation ::ng-deep .mat-form-field-infix,
+.div_autoLocation ::ng-deep .mat-form-field-underline,
+.div_autoLocation ::ng-deep .mat-form-field-label-wrapper{
+    position: static !important;
+}
+.div_autoLocation ::ng-deep .mat-form-field{
+    height: auto !important;
+}
+.div_autoLocation ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding-bottom: 0px !important;
+}

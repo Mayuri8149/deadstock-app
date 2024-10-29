@@ -1,0 +1,280 @@
+<div id="affDiv" style="margin: 0px 0px 25px 0px;">
+	<span id="addSpan">
+		{{action}} Record
+	</span>
+</div>
+
+<form [formGroup]="frmPurchaseOrder" #purchaseOrderForm="ngForm" autocomplete="off">
+<div #matDialogContainer mat-dialog-content>
+	<div class="search" *ngIf="action != 'Delete'; else elseTemplate">
+		
+			<mat-dialog-content >		
+				<div class="row">
+						<div class="col-lg-4  col-md-6" *ngIf="purchaseSaleOrderFlag==true || withoutRefship==true">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Sr No" formControlName="srno" id="id_popup_srno" readonly
+									[value]='local_data.id' [(ngModel)]="local_data.id" >
+							</mat-form-field>
+						</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.lineNo!=undefined">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Line No" formControlName="lineNo" id="id_popup_lineNo" readonly
+								[value]='local_data.lineNo' [(ngModel)]="local_data.lineNo">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeOrd=='Material Receipt' && (local_data.typeOrd=='Ship Order' && withoutRefship==false) || (transRoleFlag=='Digital' && local_data.typeOrd=='Ship Order' && eprFlag && eprConsumeFlag)">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="{{beforeTitle}}" formControlName="orderId" id="id_popup_orderId" readonly
+								[value]='local_data.orderId' [(ngModel)]="local_data.orderId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4" *ngIf="local_data.typeOrd=='Ship Order' && withoutRefship==false && action=='Add' && local_data.assetWithoutReference!=true"> 
+						<mat-form-field class="mat-autocomplete-wrapper w100p" >
+							<mat-label>Asset ID</mat-label>
+							<input matInput
+								aria-label="refAsset"
+								[matAutocomplete]="autoAssetIdPopup"
+								formControlName="readonlyAssetId" (input)="callInputAssetAPI(filterInputAsset.searchInputAssetID)" id="id_popup_readonlyAssetId" [readonly]= "isReadOnlyAssetID" [(ngModel)]="filterInputAsset.searchInputAssetID" autocomplete="off">
+							<mat-autocomplete (opened)="opened_AutoComplete()" panelWidth="auto" #autoAssetIdPopup="matAutocomplete" (optionSelected)="onSelAssetID($event.option.value)" autocomplete="off">
+								<mat-option *ngFor="let asset of assetsListLimited; let i = index;" id="popup_assetid_popup_option_{{i}}" [value]="asset.assetCategoryName+'|'+asset.assetId+'|'+asset.assetName+'|'+asset.assetUom+'|'+asset.assetQuantity+'|'+asset.entityAsset+'|'+asset.assetCategory+'|'+asset.certificateNumber+'|'+asset.nft_status">
+									<span *ngIf="asset.assetCategoryName">{{asset.assetCategoryName}}</span>
+									<span *ngIf="asset.assetName"><span *ngIf="asset.assetCategoryName">|</span> {{asset.assetName}}</span>
+									<span *ngIf="asset.assetId"> | {{asset.assetId}}</span>
+									<span *ngIf="asset.assetQuantity"> | {{asset.assetQuantity}}</span>
+									<span *ngIf="asset.assetUom"> | {{asset.assetUom}}</span>
+								</mat-option>
+							</mat-autocomplete>
+							<button class="clear_autocomplete" type="button" mat-button *ngIf="filterInputAsset.searchInputAssetID" matSuffix mat-icon-button aria-label="Clear" (click)="clearAssetIdFields()">
+								<mat-icon>close</mat-icon>
+							</button>
+							<mat-error *ngIf="hasError('readonlyAssetId', 'required')">Asset ID is required!</mat-error>
+						</mat-form-field>
+					</div>					
+					<div class="col-lg-4 col-md-6" *ngIf="((local_data.typeOrd=='Material Receipt' && assetWithoutRefship==true) || local_data.typeOrd=='Process Food' || withoutRefship==true || local_data.typeOrd=='Sales') && local_data.assetWithoutReference!=true || (local_data.assetId!=undefined && local_data.assetId!='' && action=='Update')"> 
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Asset ID" formControlName="assetId" id="id_popup_assetId" readonly
+								[value]='local_data.assetId' [(ngModel)]="local_data.assetId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeisExpiry==true">
+						<mat-form-field class="w100p">
+                            <input matInput type="text" (dateChange)="changeEffectiveDate($event.target.value);" [matDatepicker]="picker1" placeholder="Effective Date(DD/MM/YYYY)" formControlName="effectiveDate" id="id_effectiveDate"                      
+                            [(ngModel)]="planModel.start_time">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="hasError('effectiveDate', 'required')">Effective Date is required!</mat-error>
+                        </mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeisExpiry==true">
+						<mat-form-field class="w100p">
+                            <input matInput type="number" (input)="getExpiryPeriod($event)" (keypress)="validateNo($event)" placeholder="Expiry Duration" formControlName="expiryPeriod" id="id_expiryPeriod" [(ngModel)]="local_data.expiryPeriod">
+                            <mat-error *ngIf="hasError('expiryPeriod', 'required')">Expiry Duration is required!</mat-error>
+                            <mat-error *ngIf="hasError('expiryPeriod', 'min')">Expiry Duration can not be zero or negative!</mat-error>
+                        </mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeisExpiry==true">
+						<mat-form-field class="w100p">
+                            <mat-select (ngModelChange)="getExpiryDate($event)" tabindex="5" placeholder="Duration Unit" formControlName="period" id="id_period" [(ngModel)]="local_data.period">
+                                <mat-option value="days">Days</mat-option>
+                                <mat-option value="months">Months</mat-option>
+                                <mat-option value="years">Years</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('period', 'required')">Duration Unit is required!</mat-error>
+                        </mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeisExpiry==true">
+						<mat-form-field class="w100p">
+                            <input matInput type="text" [matDatepicker]="picker2" placeholder="Expiry Date(DD/MM/YYYY)" formControlName="expiryDate" id="id_expiryDate"                      
+                            [(ngModel)]="expiryDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="hasError('expiryDate', 'required')">Expiry Date is required!</mat-error>
+                        </mat-form-field>                      
+					</div>
+					<div class="col-lg-4 col-md-6">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Category" 
+                                formControlName="assetCategory" id="id_popup_assetCategory" (ngModelChange)="onSelCategory($event)" [(ngModel)]="local_data.assetCategory" [disabled]="isReadonly">
+                            <mat-option *ngFor="let assetCategory of assetCategoryList;let i = index;" id="popup_category_option_{{i}}" [value]='assetCategory._id' >{{assetCategory.assetCategory}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                        </mat-form-field>
+                    </div>                    
+                    <div class="col-lg-4 col-md-6">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select Asset Name" 
+                                formControlName="assetName" id="id_popup_assetName" [(ngModel)]="local_data.assetName" [disabled]="isReadonly">
+                            <mat-option *ngFor="let assetCatNameList of assetCatNameLists[local_data.assetCategory];let i = index;" id="popup_assetname_option_{{i}}" [value]='assetCatNameList.assetName'>{{assetCatNameList.assetName}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('assetName', 'required')">Asset Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+					<div class="col-lg-4 col-md-6">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select UOM" 
+                                formControlName="entereduom" id="id_popup_entereduom" [(ngModel)]="local_data.entereduom" (ngModelChange)="onChangeUOM($event)" [disabled]="isReadonlyUom">
+                            	<mat-option *ngFor="let uomList of uomLists;let i = index;" id="popup_uom_option_{{i}}" [value]='uomList.uom'>{{uomList.uom}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('entereduom', 'required')">UOM is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+					<div class="col-lg-4 col-md-6">
+						<mat-form-field class="w100p">
+							<input matInput type="number" placeholder="Quantity" [(ngModel)]="entereQuantity" (keyup)="getDecimal()" (keypress)="validateNo($event)" (input)="availQtyValidation($event)" formControlName="enteredquantity" id="id_popup_enteredquantity" [(ngModel)]="local_data.enteredquantity" [readonly]="isAssetWithoutRefReadonly">
+							<mat-error *ngIf="hasError('enteredquantity', 'required')">Quantity is required!</mat-error>
+							<mat-error *ngIf="hasError('enteredquantity', 'pattern')">Quantity can not be zero or negative!</mat-error>
+                            <mat-error *ngIf="hasError('enteredquantity', 'max')">Quantity can not be more than available quantity!</mat-error>
+						</mat-form-field>
+					</div>
+					
+					<div class="col-lg-4 col-md-6" *ngIf="eprFlag && transRoleFlag=='Digital' && !inputAssetFlag">
+                        <mat-form-field class="w100p">
+                            <mat-select placeholder="Select State" 
+                                formControlName="state" id="id_state" [(ngModel)]="local_data.state" [readonly]="isReadonly">
+                            	<mat-option *ngFor="let state of stateList;" [value]='state.stateCode'>{{state.stateName}}</mat-option>
+                            </mat-select>
+                         </mat-form-field>
+                    </div>  
+					        
+					<div class="col-lg-4 col-md-6" *ngIf="eprFlag && transRoleFlag=='Digital' && !inputAssetFlag && pdfUrl!=''">
+						<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" matTooltip="View" (click)="previewCertFile()"></fa-icon>
+					</div>
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeOrd=='Material Receipt'">
+						<mat-form-field class="w100p">
+							<input matInput type="number" placeholder="Accepted Quantity" (input)="quantityValidation()" (keypress)="getDecimal($event)" formControlName="acceptedQuantity" id="id_popup_acceptedQuantity" [(ngModel)]="local_data.acceptedQuantity" autocomplete="off">
+							<mat-error *ngIf="hasError('acceptedQuantity', 'required')">Accepted Quantity is required!</mat-error>
+							<mat-error *ngIf="hasError('acceptedQuantity', 'min')  && maxValFlag">Accepted Quantity can not be negative!</mat-error>
+							<mat-error *ngIf="hasError('acceptedQuantity', 'min')  && minMaxFlag">Accepted Quantity should be difference beetween available quantity and rejected quantity!</mat-error>
+                            <mat-error *ngIf="hasError('acceptedQuantity', 'max')">Accepted quantity can not be more than available quantity!</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeOrd=='Material Receipt'">
+						<mat-form-field class="w100p">
+							<input matInput type="number" placeholder="Rejected Quantity" formControlName="rejectedQuantity" (keypress)="getDecimal($event);validateNo($event)" id="id_popup_rejectedQuantity" (input)="rejQuantityValidation()" [(ngModel)]="local_data.rejectedQuantity" autocomplete="off">
+							<mat-error *ngIf="hasError('rejectedQuantity', 'required')">Rejected Quantity is required!</mat-error>
+							<mat-error *ngIf="hasError('rejectedQuantity', 'min')  && maxValFlag">Rejected Quantity can not be negative!</mat-error>
+							<mat-error *ngIf="hasError('rejectedQuantity', 'min') && minMaxFlag">Rejected Quantity should be difference beetween available quantity and accepted quantity!</mat-error>
+                            <mat-error *ngIf="hasError('rejectedQuantity', 'max')">Rejected Quantity can not be more than available quantity!</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 col-md-6" *ngIf="local_data.typeOrd=='Material Receipt'">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Rejected Notes" formControlName="comment" id="id_popup_comment" [(ngModel)]="local_data.comment" autocomplete="off">
+						</mat-form-field>
+					</div>
+				</div>
+				<hr style="border-style: dashed;">
+				
+					<form [formGroup]="transactionidFieldForm" autocomplete="off" #transactionidForm="ngForm" *ngIf="fields?.length">
+						<div class="row" >
+							<div class="col-lg-4 col-md-6" *ngFor="let keys of fields;let i = index" >
+										<div *ngIf='keys.value == "String" && (keys.key != "date" ||keys.key != "Date")'>
+											<mat-form-field  class="w100p">
+												<input  matInput
+													placeholder="{{keys.key}}"
+													formControlName="{{keys.key}}" id="id_popup_{{keys.key}}"
+													[(ngModel)]="local_data[keys.key]"
+												>
+											</mat-form-field>
+										</div>
+										<div *ngIf='keys.value == "String" && (keys.key == "date" ||keys.key == "Date")'>
+											<mat-form-field  class="w100p">
+												<input matInput [matDatepicker]="picker1" [formControlName]="keys.key" id="id_popup_keys.key">
+													<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+													<mat-datepicker #picker1
+													startView="multi-year"
+													(yearSelected)="chosenYearHandler($event, keys.key)"
+													(monthSelected)="chosenMonthHandler($event, picker1, keys.key)"
+													panelClass="example-month-picker"
+													[(ngModel)]="local_data[keys.key]"
+													></mat-datepicker>
+												</mat-form-field>
+										</div>
+										<div *ngIf='keys.value == "Number"'>
+											<mat-form-field  class="w100p">
+												<input  matInput type = "number"
+													placeholder="{{keys.key}}"
+													formControlName="{{keys.key}}" (keypress)="validateNo($event)" id="id_popup_{{keys.key}}"
+													[(ngModel)]="local_data[keys.key]"
+												>
+											</mat-form-field>
+										</div>
+										
+										<div *ngIf='keys.value == "Date"'>
+											<mat-form-field  class="w100p">
+												<mat-label>{{keys.key}}</mat-label>
+												<input matInput [matDatepicker]="picker1" [formControlName]="keys.key" id="keys.key">
+												<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+												<mat-datepicker #picker1
+												startView="multi-year"
+												(yearSelected)="chosenYearHandler($event, keys.key)"
+												(monthSelected)="chosenMonthHandler($event, picker1, keys.key)"
+												panelClass="example-month-picker"
+												[(ngModel)]="local_data[keys.key]"
+												></mat-datepicker>
+											</mat-form-field>
+										</div>
+										<div *ngIf='keys.value == "JSON"'>
+											<mat-form-field  class="w100p">
+												<input  matInput maxlength="256"
+													placeholder="{{keys.key}}"
+													formControlName="{{keys.key}}" id="id_popup_{{keys.key}}"
+													[(ngModel)]="local_data[keys.key]"
+												>
+											</mat-form-field>
+										</div>									
+										<div *ngIf='keys.value == "File"'> 
+											<label  for="files_{{keys.key}}" *ngIf="!showImg[i]"class="subBtn dynamicUploadFileBtn" style="background: #ffffff;padding: 5px;border: 1px solid #000000;">Choose File</label>
+											<input id="files_{{keys.key}}" accept="image/png,image/jpeg,image/jpg,application/pdf" type="file" name="keys.key" (change)="chooseFile($event, keys.key,i)" style="white-space: normal;display: none" required>
+												<mat-form-field class="w100p">
+														<input matInput readonly
+														placeholder="{{keys.key}}"
+														value="{{local_data[keys.key] || 'No file Choosen'}}"
+														formControlName="{{keys.key}}" id="id_popup_{{keys.key}}" [(ngModel)]="local_data[keys.key]">
+												</mat-form-field>
+												<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="showImg[i]" matTooltip="View" (click)="previewFile(fileUploaded[i],i,keys.key)"></fa-icon>
+												<fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImg[i]" matTooltip="Delete" (click)="deletePreviewFile(keys.key,i)"></fa-icon>
+												<div class="errCls" >{{imageError[i]}}</div>
+										</div>
+							</div>
+						</div>
+					</form>
+			</mat-dialog-content>		
+	</div>
+		
+  <ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.name}}</b>?
+  </ng-template>
+</div>
+<div class="action-btns text-center">
+  <button id="id_popup_success" class="subBtn" mat-button (click)="doAction()">{{action}}</button>
+  <button id="id_popup_cancel" mat-button (click)="closeDialog()" mat-flat-button class="cancelBtn">Cancel</button>
+</div>
+</form>
+
+<!-- POPUP FOR IMAGE PREVIEW --> 
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop:false}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true"  style="top: 50px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span class="hide" (click)="hide()"  style="padding: 0px 5px;">&times;</span> 
+        <div class="modal-body" style="max-height: 80vh;overflow: scroll;">
+			<div class="text-center" *ngIf="showFromDb[updateIndexField]!=undefined">
+				<img [src]="traceChainUrl + '/' + urlSrc[updateIndexField]" *ngIf="urlSrc[updateIndexField] && isImage" class="imgPlaceholder" style="width: 100%;">
+            	<pdf-viewer [src]="traceChainUrl + '/' + urlSrc[updateIndexField]" *ngIf="urlSrc[updateIndexField] && isPdf " [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+			</div>
+          <div class="text-center" *ngIf="!certFlag && showFromDb[updateIndexField]==undefined">
+           <img [src]="urlSrc[updateIndexField]" *ngIf="urlSrc[updateIndexField] && isImage" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="urlSrc[updateIndexField]" *ngIf="urlSrc[updateIndexField] && isPdf" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+		  <div class="text-center" *ngIf="certFlag && showFromDb[updateIndexField]==undefined">
+			 <pdf-viewer [src]="pdfUrl" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+		   </div>
+        </div>
+        </div>
+     </div>
+</div>
+<!-- POPUP FOR IMAGE PREVIEW -->

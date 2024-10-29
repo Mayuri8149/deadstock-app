@@ -1,0 +1,54 @@
+.nft_name{
+    font-size: 21px;
+    color: #001f60;
+    font-weight: 500;
+}
+
+.nft_section{
+    border-radius: 10px;
+    border: 1px solid rgb(229, 232, 235);
+    overflow: hidden;
+}
+
+.nft_section_title{
+    border-top-right-radius: 10px;
+    color: rgb(112, 122, 131);
+    font-weight: initial;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-bottom: 1px solid rgb(229, 232, 235);
+    font-size: 15px;
+}
+
+.nft_history_tbl{
+    font-size: 14px;
+}
+
+.nft_history_tbl td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100px;
+}
+
+.nft_tokenID {
+    font-size: 16px;
+    color: slategray;
+}
+
+.viewnft_tabs,
+.viewNFTTabContent.tab-content{
+    width: 100%;
+}
+
+.viewnft_tabs .nav-item{
+    width: 50%;
+    text-align: center;
+}
+
+.viewNFTTabContent .tab-pane{
+    border: 1px solid #dee2e6;
+    margin: 0px;
+    border-top: unset;
+}

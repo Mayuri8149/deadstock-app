@@ -1,0 +1,29 @@
+<div class="dashboard-container">
+	<div class="panel panel-primary headeing" hidden>
+	</div>
+	<div >
+			<div class="docs-component-category-list">
+				<div class="col-lg-3 col-md-4 col-sm-6">
+					<mat-card class="docs-component-category-list-card mat-card"
+					routerLink="/partner/partnerDetails" [queryParams]="{ dashboard: '1' }">
+						<img mat-card-image src="../../assets/icons/Corporate_details.svg" alt="department">
+						<mat-card-title class="mat-card-title">Entity Details</mat-card-title>
+					</mat-card>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6">
+					<mat-card class="docs-component-category-list-card mat-card"
+						routerLink="/assetsummary/assetSummaryDetail">
+						<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+						<mat-card-title class="mat-card-title">Asset Summary</mat-card-title>
+					</mat-card>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6">
+					<mat-card class="docs-component-category-list-card mat-card"
+						routerLink="/assetsummary/eprAssetSummaryDetail" [queryParams]="{ eprAssetSummary: '1' }">
+						<img mat-card-image src="/assets/icons/Organization_Details.svg" alt="assetSummary">
+						<mat-card-title class="mat-card-title">EPR Asset Summary</mat-card-title>
+					</mat-card>
+				</div>
+            </div>
+	</div>
+</div>

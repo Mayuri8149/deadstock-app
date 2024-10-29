@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="wrapper" style="margin-left: auto;margin-right: auto;">
+        <div class="section top-section" fxLayout-lt.md="column" fxLayout-gt.md="row">
+            <div *ngIf="!(role == 'partner' && entity == 'affiliate')" class="heading">
+                <span class="head-span" style="color: green;">
+                    Transaction Verified
+                </span>
+            </div>
+            <div *ngIf="(role == 'partner' && entity == 'affiliate')" class="heading">
+                <span class="head-span" style="color: green;">
+                    Transaction Certified
+                </span>
+            </div>
+            <div class="heading">
+
+                <div class="cert-status">
+                    <span><b>{{status | uppercase}}</b></span>
+                </div>
+            </div>
+
+            <div class="id-body">
+                <div class="sub-detail cert-id" fxFlex.xs="100">
+                    <div class="id-heading"><span>Transaction ID</span></div>
+                    <div class="sub-value">
+                        <br /><span>{{transactionid}} </span>
+                    </div>
+                </div>
+                <div class="dividing-line"></div>
+                <div class="sub-detail status" fxFlex.xs="100">
+                    <div class="id-heading"><span>DID</span></div>
+                    <div class="sub-value">
+                        <br /><span>{{did}} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" style="overflow-x: hidden;margin-left: auto;margin-right: auto;">
+        <div class="section top-section">
+            <div class="sec-body col-md-7">
+                <div class="row">
+                    <div class="two col-md-4 col-sm-6 col-xs-6">                        
+                        <div class="sec-sub-heading"><span>Organization Name</span></div>
+                        <div *ngIf="instname" class="sub-value-two">
+                            <span> {{instname}}  </span>
+                            </div> 
+                        <div *ngIf="!instname" class="sub-value-two">
+                            <span> - </span>
+                        </div>
+                        
+                    </div>
+                    <div class="two col-md-4 col-sm-6 col-xs-6">
+                        <div class="sec-sub-heading"><span>Organization Location</span></div>
+                        <div *ngIf="instLocation" class="sub-value-two">
+                            <span>{{instLocation}}</span>
+                        </div>
+                        <div *ngIf="!instLocation" class="sub-value-two">
+                            <span> - </span>
+                        </div>                        
+                    </div>
+                    <div class="two col-md-4 col-sm-6 col-xs-6">
+                        <div class="sec-sub-heading"><span>Programme Name</span></div>                        
+                        <div *ngIf="modulename" class="sub-value-two">
+                            <span> {{modulename}}  </span>
+                        </div>
+                        <div *ngIf="!modulename" class="sub-value-two">
+                            <span> - </span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-6 col-xs-6">
+                        <div class="sec-sub-heading"><span>Transaction Type</span></div>                        
+                            <div *ngIf="transactionType" class="sub-value-two">
+                        <span> {{transactionType}} </span>
+                        </div>
+                        <div *ngIf="!transactionType" class="sub-value-two">
+                            <span> - </span>
+                        </div>                        
+                    </div>
+                    <div class=" col-md-4 col-sm-6 col-xs-6">
+                        <div class="sec-sub-heading"><span>Batch ID</span></div>
+                        <div *ngIf="batchId" class="sub-value-two">
+                            <span> {{batchId}} </span>
+                        </div>
+                        <div  *ngIf="!batchId" class="sub-value-two">
+                            <span> - </span>
+                        </div>                        
+                    </div> 
+                    <div class=" col-md-4 col-sm-6 col-xs-6">
+                        <div class="sec-sub-heading"><span>Partner Name</span></div>                        
+                        <div *ngIf="partnerName" class="sub-value-two">
+                            <span> {{partnerName}} </span>
+                        </div>
+                        <div *ngIf="!partnerName" class="sub-value-two">
+                            <span> - </span>
+                        </div>                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" *ngFor="let item of fieldObject | keyvalue; let indexOfElem=index; let isEven=even;">
+                        <div class="sec-sub-heading" ><span>{{item.key}}</span></div>
+                        <div class="sub-value-two">
+                            <span> {{item.value}} </span>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div *ngIf="IsFileHash">
+                    <div class="eye-circle">
+                        <img class="eye-icon" (click)="showDiv.pdf = !showDiv.pdf"
+                            src="../../assets/icons/path-361@1x.png " />
+                    </div>
+                    <div class="pdf">
+                        <pdf-viewer appNoRightClick [src]="neBlob" [original-size]="false" (error)="onError($event)">
+                        </pdf-viewer>
+                    </div>
+                </div>
+                <div class="btn-wrapper" *ngIf="IsFileHash">
+                    <a *ngIf="isShowPdf" mat-raised-button class="add-btn" (click)="showDiv.pdf = !showDiv.pdf">VIEW
+                        CERTIFICATE</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showDiv.pdf">
+            <pdf-viewer appNoRightClick style="display: block;" [src]="neBlob" [original-size]="false"
+                (error)="onError($event)"></pdf-viewer>
+        </div>
+    </div>
+</div>

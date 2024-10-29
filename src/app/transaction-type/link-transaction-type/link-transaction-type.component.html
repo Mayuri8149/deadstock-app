@@ -1,0 +1,180 @@
+<div #Id_Container class="container">
+	<div class="wrapper">
+		<div class="credible-categoty-list credibleme-wrapper search-category">
+			<div class="card bg-white">
+					<div class="card-header card-sub-header search-category-header pt-0 mb-3 border-0" style="padding-top: 10px !important;">
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6 pl-0" style="left: 15px;">
+								<div class="d-flex position-relative">
+									<a>
+										<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+										</fa-icon>
+									</a>
+								</div> 
+							</div>
+					<div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="pull-right" style="width: 260px">
+					<form [formGroup]="finalTransactionForm" autocomplete="off" #searchForm="ngForm" *ngIf="role == 'sysadmin' || role == 'subadmin'">
+						<input matInput class="form-control" style="height: 35px;font-size: small;"
+							aria-label="purchaseOrder"
+							[matAutocomplete]="autoPurchaseOrder"
+							formControlName="buttonList" [(ngModel)]="filter.organizationNameCode" placeholder='Select organization' (input)="searchNameCode(filter.organizationNameCode)">
+							<button mat-button *ngIf="filter.organizationNameCode" matSuffix mat-icon-button aria-label="Clear" (click)="clearDropdown($event,filter.organizationNameCode='')" style="top: -38px;float: right;position: relative;">
+								<mat-icon style="font-size: 15px;">close</mat-icon>
+							</button>
+						<mat-autocomplete (opened)="opened_AutoComplete()" panelWidth="auto" #autoPurchaseOrder="matAutocomplete">
+							<ng-container>
+							<mat-option style="color:#333!important;width: 260px;height: 35px;font-size: small;" *ngFor="let organizations of organization" (click)="buttonTypes(organizations._id,finalTransactionForm)">{{organizations.name}} {{'-'}} {{organizations.code}}</mat-option>
+
+							</ng-container>
+							<ng-container *ngIf="organization?.length == 0 && selection.selected?.length > 0">
+								<mat-option disabled style="width: 260px;height: 35px;font-size: small;">No Records Found</mat-option>
+							</ng-container>
+							<ng-container *ngIf="selection.selected?.length == 0">
+								<mat-option disabled style="width: 260px;height: 35px;font-size: small;">Select any one Transaction Type</mat-option>
+							</ng-container>
+						</mat-autocomplete>
+					</form>
+					<form [formGroup]="finalCertForm" autocomplete="off" #searchForm="ngForm" *ngIf="role == 'admin' || role == 'Corporate Admin'">
+						<input matInput class="form-control" style="height: 35px;font-size: small;"
+						aria-label="purchaseOrder"
+						[matAutocomplete]="autoPurchaseOrders"
+						formControlName="btnList" [(ngModel)]="filter.corporateNameCode" placeholder='Select Partner' (input)="searchNameCode(filter.corporateNameCode)">
+						<button mat-button *ngIf="filter.corporateNameCode" matSuffix mat-icon-button aria-label="Clear" (click)="clearDropdown($event,filter.corporateNameCode='')" style="top: -38px;float: right;position: relative;">
+							<mat-icon style="font-size: 15px;">close</mat-icon>
+						</button>
+					<mat-autocomplete (opened)="opened_AutoComplete()" panelWidth="auto" #autoPurchaseOrders="matAutocomplete">
+						<ng-container>
+						<mat-option style="color:#333!important;width: 260px;height: 35px;font-size: small;" *ngFor="let partner of partners" (click)="btnTypes(partner.corporate._id,finalCertForm)">{{partner.corporate.companyName}} {{'-'}} {{partner.corporate.code}}</mat-option>
+
+						</ng-container>
+						<ng-container *ngIf="partners?.length == 0 && selection.selected?.length > 0">
+							<mat-option disabled style="width: 260px;height: 35px;font-size: small;">No Records Found</mat-option>
+						</ng-container>
+						<ng-container *ngIf="selection.selected?.length == 0">
+							<mat-option disabled style="width: 260px;height: 35px;font-size: small;">Select any one Module</mat-option>
+						</ng-container>
+					</mat-autocomplete>
+					</form>
+				</div>
+			</div>
+				</div>
+			</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container" style="margin-top: -10px;">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8">
+				<ng-container matColumnDef="select" sticky>
+					<mat-header-cell *matHeaderCellDef>
+					</mat-header-cell>
+					<!-- Start - Priyanka Patil (SNA-17) 20-05-2021 -->
+					<mat-cell class="radioChecked" *matCellDef="let row;index as i">
+						<span class="mobile-label"></span>
+						<input type="radio" name="transTypeName" value="{{row._id}}" (click)="$event.stopPropagation();uncheck($event)" (change)="$event ? selectRow($event.target.value,row): null"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row) == true"> 
+						<img class="sidebar-img" matTooltip="View" (click)="view(i)" src="../assets/icons/view (1).svg" style="margin-left: 5px!important;"/>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="moduleId">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Module Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.moduleName" (input)="selectmoduleName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module Name:</span>												
+						{{element.module.name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="module">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Module ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.moduleCode" (input)="selectmoduleCode($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module ID:</span>												
+						{{element.module.code || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="transactionTypeName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Type</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.transactionTypeName" (input)="selecttransTypeName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type:</span>												
+						{{element.transactionTypeName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="transactionTypeCode">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Type Id</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.transactionTypeCode" (input)="selecttransTypeCode($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type Id:</span>												
+						{{element.transactionTypeCode || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="transactionTypeDes">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Description</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.additionalDescription" (input)="selectadditionalDescription($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Description:</span>												
+						{{element.additionalDescription || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalRecord" [pageSize]="recordPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+				(page)="onChangedPage($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<mat-toolbar class="header-bar logo-background">
+	<mat-toolbar-row>
+		<div class="header" fxHide="true" fxShow.gt-md fxShow.md>
+			<div class="heading-wrapper">
+			</div>
+		</div>
+		<div class="header" fxHide="true" fxShow.lt-md>
+			<fa name="bars" class="fa-icon" (click)="openSidebar()"></fa>
+		</div>
+    <div class="header-main"> 
+			<div class="navbar-header">
+			<a class="navbar-brand" href="#"><img class="company-logo" src="../../assets/img/WhiteFont_Logo.png"></a>
+		</div>
+	</div>
+		<img class="logo-cls" *ngIf="!logoPreviews && imgUrl" alt="imgUrl" [src]="sanitizer.bypassSecurityTrustUrl(imgUrl)" >
+		<img *ngIf="logoPreviews" [src]="sanitizer.bypassSecurityTrustUrl(logoPreviews)" alt="imgUrl" class="logo-cls">
+		<img class="logo-cls" *ngIf="!corpLogoPreviews && imgCorpUrl" alt="imgCorpUrl" [src]="sanitizer.bypassSecurityTrustUrl(imgCorpUrl)" >
+		<img *ngIf="corpLogoPreviews" [src]="sanitizer.bypassSecurityTrustUrl(corpLogoPreviews)" alt="imgCorpUrl" class="logo-cls">
+		<img class="logo-cls" *ngIf="!agencypLogoPreviews && imgAgencyUrl" alt="imgAgencyUrl" [src]="sanitizer.bypassSecurityTrustUrl(imgAgencyUrl)" >
+		<img *ngIf="agencypLogoPreviews" [src]="sanitizer.bypassSecurityTrustUrl(agencypLogoPreviews)" alt="imgAgencyUrl" class="logo-cls">
+		<div class="spacer"></div>
+		
+		<div class="header" fxShow="true">
+			<div class="dropdown" style="padding-right: 20px;">
+				<button class="dropbtn">
+					<span class="normal-subheading">{{role}}<img class="img" src="/assets/icons/down-arrow.png" />
+					</span> 
+				</button>
+				<div class="dropdown-content" style="right: 0px;">
+					<a mat-button [routerLink]="['/users/myProfile']" *ngIf="isUserLogin">My Profile</a>
+					<a mat-button [routerLink]="['/login']" *ngIf="!isUserLogin">Login</a>
+					<a mat-button (click)="logout()" *ngIf="isUserLogin">Logout</a>
+					<a mat-button [routerLink]="['/changePass']" *ngIf="isUserLogin">Change Password</a>
+				</div>
+				<img class="image" *ngIf="!imagePreview && imgProfileUrl" alt="imgProfileUrl" [src]="sanitizer.bypassSecurityTrustUrl(imgProfileUrl)" >
+				<img *ngIf="imagePreview" [src]="sanitizer.bypassSecurityTrustUrl(imagePreview)" alt="imagePreview" class="image"> 
+			</div>
+		</div>		
+	</mat-toolbar-row>
+</mat-toolbar>

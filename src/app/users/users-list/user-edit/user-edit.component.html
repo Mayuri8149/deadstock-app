@@ -1,0 +1,42 @@
+<div class="container">
+	<div class="form-wrapper">
+		<div class="example-container" linear>
+			<form [formGroup]="editUserForm" autocomplete="off" #userForm="ngForm" (ngSubmit)="editUser(userForm)">
+				<div>
+					<div id="userDiv">
+						<span id="userSpan">
+							User Details
+						</span>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">							
+							<mat-form-field class="input-field w100p">
+								<input matInput placeholder="Name" formControlName="firstName" required>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="input-field w100p">
+								<input matInput placeholder="Email ID" formControlName="email" required>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="ngxTelNo input-field w100p">
+								<mat-label>Phone Number</mat-label>
+								<ngx-mat-intl-tel-input formControlName="phoneNumber" autocomplete="off" [cssClass]="'custom'" [preferredCountries]="['in','sg']" [enablePlaceholder]="true" [enableSearch]="true"
+									name="phoneNumber" #phoneNumber required>
+								</ngx-mat-intl-tel-input>
+								<mat-hint>eg : {{phoneNumber.selectedCountry.placeHolder}}</mat-hint>
+								<mat-error *ngIf="editUserForm.controls['phoneNumber'].hasError('required')">Phone Number is required!</mat-error>
+								<mat-error *ngIf="editUserForm.controls['phoneNumber']?.errors?.validatePhoneNumber">Invalid Number</mat-error>
+							</mat-form-field>
+						</div>
+					</div>					
+				</div>
+				<div class="action-btns text-center">
+					<button mat-raised-button class="subBtn">Save</button>
+					<button mat-raised-button type="button" class="cancelBtn" (click)="goBack()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

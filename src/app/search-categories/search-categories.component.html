@@ -1,0 +1,162 @@
+<div #Id_Container class="container">
+<div class="wrapper">
+<div class="credible-categoty-list credibleme-wrapper search-category">
+    <div class="card bg-white">
+            <div class="card-header card-sub-header search-category-header pt-0 mb-3 border-0" style="padding-top: 10px !important;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 pl-0" style="left: 15px;">
+                        <div class="d-flex position-relative">
+                            <input type="text" class="form-control" [(ngModel)]="filter.search" (ngModelChange)="onSearch($event)" placeholder='Search Category'>
+                            <i class="fa fa-search" style="color: black;"></i>
+                        </div> 
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="pull-right" style="width: 260px">
+                            <form [formGroup]="finalTransactionForm" autocomplete="off" #searchForm="ngForm">
+                                    <input matInput class="form-control" style="height: 35px;font-size: small;"
+                                        aria-label="purchaseOrder"
+                                        [matAutocomplete]="autoPurchaseOrder"
+                                        formControlName="buttonList" [(ngModel)]="filter.additionalDescription" [disabled]="disabledTransType" placeholder='Select Transaction Type' (input)="selectadditionalDescription(filter.additionalDescription)">
+                                        <button mat-button *ngIf="filter.additionalDescription" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.additionalDescription='')" style="top: -38px;float: right;position: relative;">
+                                            <mat-icon style="font-size: 15px;">close</mat-icon>
+                                        </button>
+                                    <mat-autocomplete (opened)="opened_AutoComplete()" panelWidth="auto" #autoPurchaseOrder="matAutocomplete">
+                                      <ng-container>
+                                        <mat-option style="color:#333!important;width: 260px;height: 35px;font-size: small;" *ngFor="let transtype of transtypeData" (click)="saveTransactionType(transtype._id,finalTransactionForm)">{{transtype.additionalDescription}} {{'-'}} {{transtype.transactionTypeCode}}</mat-option>
+
+                                      </ng-container>
+                                      <ng-container *ngIf="transtypeData?.length == 0 && selection.selected?.length > 0">
+                                            <mat-option disabled style="width: 260px;height: 35px;font-size: small;">No Records Found</mat-option>
+                                        </ng-container>
+                                        <ng-container *ngIf="selection.selected?.length == 0">
+                                            <mat-option disabled style="width: 260px;height: 35px;font-size: small;">Select any one Module</mat-option>
+                                        </ng-container>
+                                        </mat-autocomplete>
+                            </form>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+            <div class="list-container">                
+                <mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100 search-categoty-table">
+                    <ng-container matColumnDef="select" sticky>
+                        <mat-header-cell *matHeaderCellDef>
+                        </mat-header-cell>
+                            <mat-cell class="radioChecked" *matCellDef="let element">
+                                <span class="mobile-label"></span>  
+                                <input type="radio" name="transTypeName" value="{{element._id}}" (click)="$event.stopPropagation();uncheck($event)" (change)="$event ? selectRow($event.target.value,element): null"
+                                (change)="$event ? selection.toggle(element) : null"
+                                [checked]="selection.isSelected(element) == true">                          
+                            </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="category">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Industry</div>
+                            <div id="select-boxs">
+                                <mat-form-field appearance="outline">
+                                <mat-select  [(ngModel)]="filter.category" (ngModelChange)="selectSubCategory($event)">
+                                    <mat-option *ngFor="let category of categoryList" value="{{category._id}}">{{category.name}}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Industry:</span>
+                            {{element.category.name || '-'}}
+                        </mat-cell>
+                    </ng-container>
+                  
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="subcategory">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Category</div>
+                            <div id="select-boxs">
+                                <mat-form-field appearance="outline">
+                                    <mat-select [(ngModel)]="filter.sub_category" (ngModelChange)="selectSubSubCategory($event)">
+                                        <mat-option *ngFor="let subCat of subCategoryList" value="{{subCat._id}}">{{subCat.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Category:</span>
+                            {{element.sub_category.name || '-'}}
+                        </mat-cell>
+                    </ng-container>
+                   
+                    <ng-container matColumnDef="subsubcategory">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Module Name</div>
+                            <div id="select-boxs">
+                                <mat-form-field appearance="outline">
+                                    <mat-select [(ngModel)]="filter.sub_sub_category" (ngModelChange)="onSelectSubSubCategory()">
+                                        <mat-option *ngFor="let subSubCat of subSubCategoryList" value="{{subSubCat._id}}">{{subSubCat.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Module Name:</span>
+                            {{element.sub_sub_category.name || '-'}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="moduleID">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Module ID</div>
+                            <div id="select-boxs">
+                                <mat-form-field appearance="outline">
+                                    <mat-select [(ngModel)]="filter.code" (ngModelChange)="onSelectSubSubCategory()">
+                                        <mat-option *ngFor="let subSubCat of subSubCategoryList" value="{{subSubCat._id}}">{{subSubCat.code}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Module ID:</span>
+                            {{element.sub_sub_category.code || '-'}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="transactiontype">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Transaction Type</div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <span class="mobile-label">Transaction Type:</span>
+                            {{element.credentical_type.name || '-'}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions2">
+                        <mat-header-cell *matHeaderCellDef>
+                            <div>Actions</div>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row;index as i">
+                            <span class="mobile-label">Actions:</span>
+                            <img class="sidebar-img" [matTooltip]="row.iconName" (click)="openConfirmDialog(row)" [src]="row.icon"/>
+                        </mat-cell>
+                    </ng-container>
+                  
+                        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+                  </mat-table>
+                  
+                <div class="text-right align-right">
+                    <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"></mat-paginator>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- confirmation modal -->
+<ng-template #template >
+      <div class="modal-body">Are you sure want to delete?</div>
+      <div class="mat-dialog-actions">
+        <button mat-button type="button" autofocus (click)="confirm()">Yes</button>
+        <button mat-button style="margin-left: 8px;" (click)="decline()" >No</button>
+      </div>
+</ng-template>

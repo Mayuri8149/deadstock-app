@@ -1,0 +1,114 @@
+<div #id_Container class="container">
+	<div class="form-wrapper">
+		<div class="example-container" linear>
+			<form [formGroup]="organizationDetailForm" autocomplete="off" #intDetails="ngForm" (ngSubmit)="updateOrganization(intDetails)">
+				<div class="mainDiv">
+					<div class="moduleDiv">
+						<span class="moduleSpan">
+							Update Organization
+						</span>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input readonly matInput placeholder="Organization ID" formControlName="code" required>
+							</mat-form-field>	
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Organization Name" formControlName="name" required>
+								<mat-error *ngIf="hasError('name', 'required')">Organization Name is required!</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput readonly placeholder="Email Id" formControlName="email" required>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="ngxTelNo w100p">
+								<mat-label>Phone Number</mat-label>
+								<ngx-mat-intl-tel-input formControlName="phoneNumber" autocomplete="off" [cssClass]="'custom'" [preferredCountries]="['in','sg']" [enablePlaceholder]="true" [enableSearch]="true"
+								name="phoneNumber" #phoneNumber required>
+							   </ngx-mat-intl-tel-input>
+							   <mat-hint>eg : {{phoneNumber.selectedCountry.placeHolder}}</mat-hint>
+							   <mat-error *ngIf="hasError('phoneNumber', 'required')">Phone number is required!</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Address" formControlName="address" (input)="getCitySuggestion($event.target.value)"  [(ngModel)]="branch" [matAutocomplete]="autoAddress" required>						
+								<mat-autocomplete class="autoCompleteAddress" (opened)="opened_AutoComplete()" panelWidth="auto" #autoAddress="matAutocomplete" (optionSelected)="onSellocation($event.option.value)" >
+									<mat-option *ngFor="let city of locationlist |filter:branch" [value]="city.address.formattedAddress+'|'+city.address.addressLine+'|'+city.address.adminDistrict+'|'+city.address.countryRegion+'|'+city.address.locality+'|'+city.address.postalCode">
+										<span *ngIf="city.address.formattedAddress">{{city.address.formattedAddress}}</span>                          
+									</mat-option>
+								</mat-autocomplete>
+								<mat-error *ngIf="hasError('address', 'required')">Address is required!</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Location" formControlName="location" required>
+								<mat-error *ngIf="hasError('location', 'required')">Location is required!</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Website" formControlName="website" required>
+								<mat-error *ngIf="hasError('website', 'required')">Website is required!</mat-error>
+								<mat-error *ngIf="organizationDetailForm.controls['website'].hasError('pattern')">Please enter valid url!</mat-error>
+							</mat-form-field> 
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="Entity Type" formControlName="entityType" required>
+								<mat-error *ngIf="hasError('entityType', 'required')">Entity Type is required!</mat-error>
+							</mat-form-field>
+						</div>
+					</div>							
+				</div>
+				 
+				<div class="mainDiv">
+					<div class="moduleDiv">
+						<span class="moduleSpan">
+							Upload Logo
+						</span>
+					</div>
+					<div class="row">						
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<input class="file-upload" accept="image/png, image/jpeg,image/jpg" type="file" name="file" (change)="ChooseFile($event)">		
+							&nbsp;&nbsp;&nbsp;{{this.filename}}
+							<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)"></fa-icon>
+							<div class="errCls" >{{imageErrorStatic}}</div>		
+							<mat-form-field class="w100p" hidden>
+							<input matInput  formControlName="logo">
+							</mat-form-field>
+						</div>
+					</div>											
+				</div>
+				<div class="action-btns text-center">
+					<button mat-raised-button class="subBtn">Update</button> 
+					<button type="button" mat-raised-button class="cancelBtn"  (click)="goBack()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- POPUP FOR IMAGE PREVIEW --> 
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop:false}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 64px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span class="hide" (click)="hide()" style="padding: 0px 5px;">&times;</span> 
+        <div class="modal-body">   
+          <div class="text-center" *ngIf="urlSrcStatic">
+            <img [src]="urlSrcStatic" *ngIf="urlSrcStatic && isImageStatic" class="imgPlaceholder" height="200">
+            <pdf-viewer [src]="urlSrcStatic" *ngIf="urlSrcStatic && isPdfStatic" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+        </div>
+        </div>
+     </div>
+</div>
+<!-- POPUP FOR IMAGE PREVIEW -->

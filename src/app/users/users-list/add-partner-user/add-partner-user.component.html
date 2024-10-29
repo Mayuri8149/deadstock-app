@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="authUserForm" autocomplete="off" #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Menu Details
+                        </span>
+                    </div>
+                    <div fxLayout="row wrap" 
+                        fxLayoutGap="23px" 
+                        fxLayout.lt-md="column" 
+                        fxFlexAlign="center">
+                        <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%" >
+                            <input matInput 
+                            placeholder="Menu Name" 
+                            formControlName="name"
+                            required>
+                            <mat-error *ngIf="hasError('name', 'required')">Name is required!</mat-error>
+                            <mat-error *ngIf="authUserForm.controls['firstName'].hasError('pattern')">Name should accept only characters!</mat-error>
+                        </mat-form-field>
+
+                        <!-- <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%" >
+                            <input matInput 
+                            placeholder="First Name" 
+                            formControlName="firstName"
+                            required>
+                            <mat-error *ngIf="hasError('firstName', 'required')">FirstName is required!</mat-error>
+                            <mat-error *ngIf="authUserForm.controls['firstName'].hasError('pattern')">FirstName should accept only characters!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%" >
+                        <input matInput 
+                          placeholder="Last Name" 
+                          formControlName="lastName"
+                          required>
+                          <mat-error *ngIf="hasError('lastName', 'required')">LastName is required!</mat-error>
+                          <mat-error *ngIf="authUserForm.controls['lastName'].hasError('pattern')">LastName should accept only characters!</mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+                            <input matInput 
+                            placeholder="Email ID" 
+                            formControlName="email"
+                            required>
+                            <mat-error *ngIf="hasError('email', 'required')">Email ID is required!</mat-error>
+                            <mat-error *ngIf="hasError('email', 'pattern')">Please enter valid email ID!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="ngxTelNo input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+               			<mat-label>Phone Number</mat-label>
+							<ngx-mat-intl-tel-input formControlName="phoneNumber" autocomplete="off" [cssClass]="'custom'" [preferredCountries]="['in','sg']" [enablePlaceholder]="true" [enableSearch]="true"
+							name="phoneNumber" #phoneNumber required>
+						   </ngx-mat-intl-tel-input>
+						   <mat-hint>eg : {{phoneNumber.selectedCountry.placeHolder}}</mat-hint>
+						   <mat-error *ngIf="authUserForm.controls['phoneNumber'].hasError('required')">Phone Number is required!</mat-error>
+						   <mat-error *ngIf="authUserForm.controls['phoneNumber']?.errors?.validatePhoneNumber">Invalid Number</mat-error> 
+					    </mat-form-field>
+                        <mat-form-field class="input-field" #id fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+                            <mat-select #type formControlName="role" 
+                            placeholder="User Type"                             
+                            required>
+                                <mat-option 
+                                    value="Corporate Admin"
+                                    *ngIf="role == 'Corporate Admin'">
+                                     Admin
+                                  </mat-option>
+                                  <mat-option 
+                                  value="manager"
+                                  *ngIf="role == 'Corporate Admin'">
+                                   User
+                              </mat-option>
+                            </mat-select>                            
+                            <mat-error *ngIf="hasError('role', 'required')">User Type is required!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+                            <input matInput placeholder="User Role" formControlName="roleName">
+                        </mat-form-field> -->
+                       </div>
+                    </div>
+                
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn">Add</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>

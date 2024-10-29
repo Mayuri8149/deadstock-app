@@ -1,0 +1,113 @@
+<div class="container">
+	<div class="wrapper" style="margin-top: 8px;">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<a>
+						<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+						</fa-icon>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>	
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" 
+			class="mat-table-item mat-elevation-z8">
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> 
+                    <div>Email</div>
+                    <div>
+                        <mat-form-field class="search-input">
+                            <input matInput class="form-field filters" [(ngModel)]="filter.email" (input)="selectemail($event)" autocomplete="off">
+                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+					<span class="mobile-label">Email:</span>						
+					{{element.user.email}}
+				</mat-cell>
+            </ng-container>
+				<ng-container matColumnDef="entityId">
+					<mat-header-cell *matHeaderCellDef> 
+						<div>Partner Entity Id</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.companyCode" (input)="selectcompanyCode($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Partner Entity Id:</span>						
+						{{element.corporate.code}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="entityName">
+					<mat-header-cell *matHeaderCellDef> 
+						<div>Partner Entity Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.companyName" (input)="selectcompanyName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Partner Entity Name:</span>						
+						{{element.corporate.companyName}}
+					</mat-cell>
+				</ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef> 
+                        <div>Name</div>
+                        <div>
+                            <mat-form-field class="search-input">
+                            	<input matInput class="form-field filters" [(ngModel)]="filter.userName" (input)="selectuserName($event)" autocomplete="off">
+							    <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+						<span class="mobile-label">Name:</span>						
+						{{element.userName}}
+					</mat-cell>
+                </ng-container>
+				<ng-container matColumnDef="phoneNo">
+                    <mat-header-cell *matHeaderCellDef> 
+                        <div>Phone No</div>
+                        <div>
+                            <mat-form-field class="search-input">
+							    <input matInput class="form-field filters" [(ngModel)]="filter.phoneNumber" (input)="selectphoneNumber($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                            </mat-form-field>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+						<span class="mobile-label">Phone No:</span>						
+						{{element.user.phoneNumber}}
+					</mat-cell>
+                </ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+			</mat-table>
+		</div>		
+		<div>
+			<mat-paginator [length]="totalRecord" [pageSize]="recordPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+				(page)="onChangedPage($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

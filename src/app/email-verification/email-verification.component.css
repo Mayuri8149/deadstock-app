@@ -1,0 +1,2171 @@
+@media screen and (max-width: 374px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 768px) and (max-width: 799px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 800px) and (max-width: 1279px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 1280px) and (max-width: 1365px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 1366px) {
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+
+.academic-organization-email-verification {
+  background-color:var(--white);
+  height:661.38px;
+  overflow:hidden;
+  position:relative;
+  width:1366px;
+}
+.academic-organization-email-verification .group-31-C61RwL {
+  background-color:transparent;
+  height:612px;
+  left:139px;
+  position:absolute;
+  top:25px;
+  width:1088px;
+}
+.academic-organization-email-verification .if-you-do--ail-client-I5cRPp {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:17.0px;
+  height:42px;
+  line-height:17.0px;
+  position:absolute;
+  right:calc(49.80% - 274px);
+  text-align:center;
+  top:calc(49.50% - 21px);
+  white-space:nowrap;
+  width:550px;
+}
+.academic-organization-email-verification .login-I5cRPp {
+  background-color:transparent;
+  bottom:calc(33.85% - 7px);
+ /* color:var(--white);*/
+ color:#001f60 !important;
+  font-size:17.0px;
+  height:22px;
+  line-height:17.0px;
+  position:absolute;
+  right:calc(49.85% - 25px);
+  text-align:left;
+  white-space:nowrap;
+  width:51px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .mask-group-6-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:2px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:calc(100.00% - 2px);
+}
+.academic-organization-email-verification .mask-group-7-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:1px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:calc(100.00% - 1px);
+}
+.academic-organization-email-verification .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:911px;
+  left:0px;
+  position:absolute;
+  top:-2px;
+  width:1366px;
+}
+.academic-organization-email-verification .rectangle-1-I5cRPp {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 238px);
+}
+.academic-organization-email-verification .rectangle-34-I5cRPp {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(33.43% - 16px);
+  height:48px;
+  left:calc(49.98% - 119px);
+  position:absolute;
+  width:238px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .rectangle-35-C61RwL {
+  background-color:var(--white);
+  height:769px;
+  left:0px;
+  opacity:0.96;
+  position:absolute;
+  top:-1px;
+  width:1366px;
+}
+.academic-organization-email-verification .resend-con-tion-email-I5cRPp {
+  background-color:transparent;
+  bottom:calc(21.99% - 4px);
+  color:var(--blue-ribbon);
+  font-size:14.0px;
+  height:19px;
+  line-height:14.0px;
+  position:absolute;
+  right:calc(49.88% - 84px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:168px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .thank-you--il-shortly-I5cRPp {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:34.0px;
+  height:88px;
+  line-height:45.0px;
+  position:absolute;
+  right:calc(49.82% - 251px);
+  text-align:center;
+  top:calc(29.43% - 26px);
+  white-space:nowrap;
+  width:504px;
+}
+.academic-organization-email-verification .x3132-xOcq2M {
+  background-color:transparent;
+  height:calc(100.00% + 415px);
+  left:-2px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 59px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+
+.academic-organization-email-verification-1-ipad-768-1 {
+  background-color:var(--white);
+  height:1021px;
+  overflow:hidden;
+  position:relative;
+  width:768px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .group-143574-C61RwL {
+  background-color:transparent;
+  height:366px;
+  left:127px;
+  position:absolute;
+  top:324px;
+  width:518px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .if-you-do--ail-client-DQfo9w {
+  background-color:transparent;
+  bottom:calc(46.25% - 40px);
+  color:var(--dove-gray-2);
+  font-size:23.0px;
+  height:86px;
+  left:29px;
+  line-height:23.0px;
+  position:absolute;
+  text-align:center;
+  white-space:nowrap;
+  width:calc(100.00% - 58px);
+}
+.academic-organization-email-verification-1-ipad-768-1 .login-DQfo9w {
+  background-color:transparent;
+  bottom:calc(16.91% - 3px);
+  color:var(--white);
+  font-size:15.0px;
+  height:20px;
+  left:calc(49.89% - 22px);
+  line-height:15.0px;
+  position:absolute;
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:972px;
+  left:32px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:21px;
+  width:704px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:972px;
+  left:31px;
+  overflow:hidden;
+  position:absolute;
+  top:21px;
+  width:704px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:1021px;
+  left:-382px;
+  position:absolute;
+  top:0px;
+  width:1532px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:1212px;
+  left:-87px;
+  position:absolute;
+  top:-96px;
+  width:944px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:1020px;
+  left:-149px;
+  opacity:0.96;
+  position:absolute;
+  top:1px;
+  width:1066px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-34-DQfo9w {
+  background-color:var(--selective-yellow);
+  border-radius:5px;
+  bottom:54px;
+  height:34px;
+  left:calc(49.55% - 85px);
+  position:absolute;
+  width:171px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .resend-con-tion-email-DQfo9w {
+  background-color:transparent;
+  bottom:-3px;
+  color:var(--blue-ribbon);
+  font-size:13.0px;
+  height:17px;
+  left:calc(49.86% - 78px);
+  line-height:13.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:157px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .thank-you--il-shortly-DQfo9w {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:35.0px;
+  height:94px;
+  left:0px;
+  line-height:50.0px;
+  position:absolute;
+  text-align:center;
+  top:-4px;
+  white-space:nowrap;
+  width:calc(100.00% + 2px);
+}
+.academic-organization-email-verification-1-ipad-768-1 .x3132-GlB81R {
+  background-color:transparent;
+  height:648px;
+  left:-1px;
+  position:absolute;
+  top:-6px;
+  width:calc(100.00% - 56px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+/* screen - academic-organization-email-verification-1280 */
+
+.academic-organization-email-verification-1280 {
+  background-color:var(--white);
+  height:619.74px;
+  overflow:hidden;
+  position:relative;
+  width:1280px;
+}
+.academic-organization-email-verification-1280 .group-31-C61RwL {
+  background-color:transparent;
+  height:565px;
+  left:139px;
+  position:absolute;
+  top:25px;
+  width:1003px;
+}
+.academic-organization-email-verification-1280 .if-you-do--ail-client-I5cRPp {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:15.0px;
+  height:38px;
+  left:calc(48.15% - 234px);
+  line-height:15.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(49.48% - 19px);
+  white-space:nowrap;
+  width:486px;
+}
+.academic-organization-email-verification-1280 .login-I5cRPp {
+  background-color:transparent;
+  bottom:calc(33.80% - 7px);
+/*=========================Start- Nikita Gugale=====================*/
+ /* color:var(--white);*/
+ color:#001f60 !important;
+/*=========================End- Nikita Gugale=====================*/
+  font-size:15.0px;
+  height:20px;
+  line-height:15.0px;
+  position:absolute;
+  right:calc(50.00% - 22px);
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  /* Start Rohini kamble (SCI-I877) 22/04/2021 --> */
+  cursor: pointer;
+  /* End Rohini kamble (SCI-I877) 22/04/2021 --> */
+}
+.academic-organization-email-verification-1280 .mask-group-6-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:2px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:calc(100.00% - 2px);
+}
+.academic-organization-email-verification-1280 .mask-group-7-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:0px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:calc(100.00% - 1px);
+}
+.academic-organization-email-verification-1280 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:911px;
+  left:0px;
+  position:absolute;
+  top:-2px;
+  width:1366px;
+}
+.academic-organization-email-verification-1280 .rectangle-1-I5cRPp {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 238px);
+}
+.academic-organization-email-verification-1280 .rectangle-34-I5cRPp {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(33.43% - 15px);
+  height:44px;
+  left:calc(49.98% - 109px);
+  position:absolute;
+  width:219px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1280 .rectangle-35-C61RwL {
+  background-color:var(--white);
+  height:769px;
+  left:0px;
+  opacity:0.96;
+  position:absolute;
+  top:-1px;
+  width:1366px;
+}
+.academic-organization-email-verification-1280 .resend-con-tion-email-I5cRPp {
+  background-color:transparent;
+  bottom:calc(22.28% - 4px);
+  color:var(--blue-ribbon);
+  font-size:12.0px;
+  height:16px;
+  left:calc(49.54% - 72px);
+  line-height:12.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:145px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1280 .thank-you--il-shortly-I5cRPp {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:31.0px;
+  height:80px;
+  left:calc(49.75% - 229px);
+  line-height:41.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(29.33% - 23px);
+  white-space:nowrap;
+  width:460px;
+}
+.academic-organization-email-verification-1280 .x3132-xOcq2M {
+  background-color:transparent;
+  height:calc(100.00% + 383px);
+  left:-2px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 54px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+
+.academic-organization-email-verification-360 {
+  background-color:var(--white);
+  height:575.79px;
+  overflow:hidden;
+  position:relative;
+  width:360px;
+}
+.academic-organization-email-verification-360 .if-you-do--ail-client-C61RwL {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:9.0px;
+  height:auto;
+  left:91px;
+  line-height:9.0px;
+  position:absolute;
+  text-align:center;
+  top:227px;
+  white-space:nowrap;
+  width:auto;
+}
+.academic-organization-email-verification-360 .login-C61RwL {
+  background-color:transparent;
+  color:var(--white);
+  font-size:14.0px;
+  height:auto;
+  left:161px;
+  line-height:14.0px;
+  position:absolute;
+  text-align:left;
+  top:283px;
+  white-space:nowrap;
+  width:auto;
+  cursor: pointer;
+}
+.academic-organization-email-verification-360 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:576px;
+  left:0px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:-0px;
+  width:362px;
+}
+.academic-organization-email-verification-360 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:500px;
+  left:-1px;
+  overflow:hidden;
+  position:absolute;
+  top:-1px;
+  width:362px;
+}
+.academic-organization-email-verification-360 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:639px;
+  left:-300px;
+  position:absolute;
+  top:-11px;
+  width:960px;
+}
+.academic-organization-email-verification-360 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:816px;
+  left:-120px;
+  position:absolute;
+  top:-118px;
+  width:602px;
+}
+.academic-organization-email-verification-360 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:640px;
+  left:-22px;
+  opacity:0.96;
+  position:absolute;
+  top:-11px;
+  width:401px;
+}
+.academic-organization-email-verification-360 .rectangle-34-C61RwL {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+/*=========================End- Nikita Gugale=====================*/
+  border-radius:5px;
+  height:30px;
+  left:109px;
+  position:absolute;
+  top:275px;
+  width:144px;
+}
+.academic-organization-email-verification-360 .resend-con-tion-email-C61RwL {
+  background-color:transparent;
+  color:var(--blue-ribbon);
+  font-size:9.0px;
+  height:auto;
+  left:127px;
+  line-height:9.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  top:328px;
+  white-space:nowrap;
+  width:auto;
+  cursor: pointer;
+}
+.academic-organization-email-verification-360 .thank-you--il-shortly-C61RwL {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:18.0px;
+  height:auto;
+  left:48px;
+  line-height:26.0px;
+  position:absolute;
+  text-align:center;
+  top:159px;
+  white-space:nowrap;
+  width:auto;
+}
+.academic-organization-email-verification-360 .x3132-GlB81R {
+  background-color:transparent;
+  height:333px;
+  left:-1px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 29px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+
+.academic-organization-email-verification-375 {
+  background-color:var(--white);
+  height:100vh;
+  margin:0px;
+  min-height:599.79px;
+  min-width:375px;
+  overflow:hidden;
+  position:relative;
+  width:100%;
+}
+.academic-organization-email-verification-375 .if-you-do--ail-client-C61RwL {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:9.0px;
+  height:35px;
+  line-height:9.0px;
+  position:absolute;
+  right:calc(48.92% - 89px);
+  text-align:center;
+  top:calc(41.90% - 15px);
+  white-space:nowrap;
+  width:182px;
+}
+.academic-organization-email-verification-375 .login-C61RwL {
+  background-color:transparent;
+  bottom:calc(49.13% - 9px);
+  color:var(--white);
+  font-size:14.0px;
+  height:19px;
+  line-height:14.0px;
+  position:absolute;
+  right:calc(49.39% - 21px);
+  text-align:left;
+  white-space:nowrap;
+  width:42px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-375 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:100%;
+  left:1px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:100%;
+}
+.academic-organization-email-verification-375 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% - 76px);
+  left:1px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:100%;
+}
+.academic-organization-email-verification-375 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% + 42px);
+  left:-300px;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% + 589px);
+}
+.academic-organization-email-verification-375 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 240px);
+}
+.academic-organization-email-verification-375 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:calc(100.00% + 43px);
+  left:-15px;
+  opacity:0.96;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% + 28px);
+}
+.academic-organization-email-verification-375 .rectangle-34-C61RwL {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(49.75% - 15px);
+  height:30px;
+  position:absolute;
+  right:calc(49.58% - 71px);
+  width:144px;
+}
+.academic-organization-email-verification-375 .resend-con-tion-email-C61RwL {
+  background-color:transparent;
+  bottom:calc(41.77% - 5px);
+  color:var(--blue-ribbon);
+  font-size:9.0px;
+  height:13px;
+  line-height:9.0px;
+  position:absolute;
+  right:calc(49.42% - 54px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:109px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-375 .thank-you--il-shortly-C61RwL {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:18.0px;
+  height:50px;
+  left:48px;
+  line-height:26.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(30.25% - 15px);
+  white-space:nowrap;
+  width:268px;
+}
+.academic-organization-email-verification-375 .x3132-GlB81R {
+  background-color:transparent;
+  height:345px;
+  left:-1px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 30px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+.academic-organization-email-verification-800 {
+  background-color:var(--white);
+  height:1279.54px;
+  overflow:hidden;
+  position:relative;
+  width:800px;
+}
+.academic-organization-email-verification-800 .group-143574-C61RwL {
+  background-color:transparent;
+  height:376px;
+  left:141px;
+  position:absolute;
+  top:333px;
+  width:518px;
+}
+.academic-organization-email-verification-800 .if-you-do--ail-client-DQfo9w {
+  background-color:transparent;
+  bottom:calc(46.66% - 40px);
+  color:var(--dove-gray-2);
+  font-size:23.0px;
+  height:86px;
+  left:30px;
+  line-height:23.0px;
+  position:absolute;
+  text-align:center;
+  white-space:nowrap;
+  width:calc(100.00% - 58px);
+}
+.academic-organization-email-verification-800 .login-DQfo9w {
+  background-color:transparent;
+  bottom:calc(16.95% - 3px);
+  color:var(--white);
+  font-size:15.0px;
+  height:20px;
+  line-height:15.0px;
+  position:absolute;
+  right:calc(48.58% - 22px);
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:1000px;
+  left:44px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:22px;
+  width:724px;
+}
+.academic-organization-email-verification-800 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:1000px;
+  left:43px;
+  overflow:hidden;
+  position:absolute;
+  top:22px;
+  width:724px;
+}
+.academic-organization-email-verification-800 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:1280px;
+  left:-554px;
+  position:absolute;
+  top:0px;
+  width:1919px;
+}
+.academic-organization-email-verification-800 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:1240px;
+  left:-75px;
+  position:absolute;
+  top:-95px;
+  width:964px;
+}
+.academic-organization-email-verification-800 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:1280px;
+  left:2px;
+  opacity:0.96;
+  position:absolute;
+  top:1px;
+  width:800px;
+}
+.academic-organization-email-verification-800 .rectangle-34-DQfo9w {
+  background-color:var(--selective-yellow);
+  border-radius:5px;
+  bottom:55px;
+  height:35px;
+  position:absolute;
+  right:calc(48.18% - 85px);
+  width:176px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .resend-con-tion-email-DQfo9w {
+  background-color:transparent;
+  bottom:-3px;
+  color:var(--blue-ribbon);
+  font-size:13.0px;
+  height:17px;
+  line-height:13.0px;
+  position:absolute;
+  right:calc(48.58% - 76px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:157px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .thank-you--il-shortly-DQfo9w {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:35.0px;
+  height:94px;
+  left:0px;
+  line-height:50.0px;
+  position:absolute;
+  text-align:center;
+  top:-4px;
+  white-space:nowrap;
+  width:calc(100.00% + 2px);
+}
+.academic-organization-email-verification-800 .x3132-GlB81R {
+  background-color:transparent;
+  height:666px;
+  left:-1px;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% - 58px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+
+@media screen and (max-width: 374px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 768px) and (max-width: 799px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 800px) and (max-width: 1279px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 1280px) and (max-width: 1365px) {
+  .academic-organization-email-verification { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+@media screen and (min-width: 1366px) {
+  .academic-organization-email-verification-1280 { 
+    display: none;
+   }
+  .academic-organization-email-verification-800 { 
+    display: none;
+   }
+  .academic-organization-email-verification-1-ipad-768-1 { 
+    display: none;
+   }
+  .academic-organization-email-verification-375 { 
+    display: none;
+   }
+  .academic-organization-email-verification-360 { 
+    display: none;
+   }
+}
+
+.academic-organization-email-verification {
+  background-color:var(--white);
+  height:661.38px;
+  overflow:hidden;
+  position:relative;
+  width:1366px;
+}
+.academic-organization-email-verification .group-31-C61RwL {
+  background-color:transparent;
+  height:612px;
+  left:139px;
+  position:absolute;
+  top:25px;
+  width:1088px;
+}
+.academic-organization-email-verification .if-you-do--ail-client-I5cRPp {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:17.0px;
+  height:42px;
+  line-height:17.0px;
+  position:absolute;
+  right:calc(49.80% - 274px);
+  text-align:center;
+  top:calc(49.50% - 21px);
+  white-space:nowrap;
+  width:550px;
+}
+.academic-organization-email-verification .login-I5cRPp {
+  background-color:transparent;
+  bottom:calc(33.85% - 7px);
+ color:#001f60 !important;
+  font-size:17.0px;
+  height:22px;
+  line-height:17.0px;
+  position:absolute;
+  right:calc(49.85% - 25px);
+  text-align:left;
+  white-space:nowrap;
+  width:51px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .mask-group-6-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:2px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:calc(100.00% - 2px);
+}
+.academic-organization-email-verification .mask-group-7-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:1px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:calc(100.00% - 1px);
+}
+.academic-organization-email-verification .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:911px;
+  left:0px;
+  position:absolute;
+  top:-2px;
+  width:1366px;
+}
+.academic-organization-email-verification .rectangle-1-I5cRPp {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 238px);
+}
+.academic-organization-email-verification .rectangle-34-I5cRPp {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(33.43% - 16px);
+  height:48px;
+  left:calc(49.98% - 119px);
+  position:absolute;
+  width:238px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .rectangle-35-C61RwL {
+  background-color:var(--white);
+  height:769px;
+  left:0px;
+  opacity:0.96;
+  position:absolute;
+  top:-1px;
+  width:1366px;
+}
+.academic-organization-email-verification .resend-con-tion-email-I5cRPp {
+  background-color:transparent;
+  bottom:calc(21.99% - 4px);
+  color:var(--blue-ribbon);
+  font-size:14.0px;
+  height:19px;
+  line-height:14.0px;
+  position:absolute;
+  right:calc(49.88% - 84px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:168px;
+  cursor: pointer;
+}
+.academic-organization-email-verification .thank-you--il-shortly-I5cRPp {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:34.0px;
+  height:88px;
+  line-height:45.0px;
+  position:absolute;
+  right:calc(49.82% - 251px);
+  text-align:center;
+  top:calc(29.43% - 26px);
+  white-space:nowrap;
+  width:504px;
+}
+.academic-organization-email-verification .x3132-xOcq2M {
+  background-color:transparent;
+  height:calc(100.00% + 415px);
+  left:-2px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 59px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+
+.academic-organization-email-verification-1-ipad-768-1 {
+  background-color:var(--white);
+  height:1021px;
+  overflow:hidden;
+  position:relative;
+  width:768px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .group-143574-C61RwL {
+  background-color:transparent;
+  height:366px;
+  left:127px;
+  position:absolute;
+  top:324px;
+  width:518px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .if-you-do--ail-client-DQfo9w {
+  background-color:transparent;
+  bottom:calc(46.25% - 40px);
+  color:var(--dove-gray-2);
+  font-size:23.0px;
+  height:86px;
+  left:29px;
+  line-height:23.0px;
+  position:absolute;
+  text-align:center;
+  white-space:nowrap;
+  width:calc(100.00% - 58px);
+}
+.academic-organization-email-verification-1-ipad-768-1 .login-DQfo9w {
+  background-color:transparent;
+  bottom:calc(16.91% - 3px);
+  color:var(--white);
+  font-size:15.0px;
+  height:20px;
+  left:calc(49.89% - 22px);
+  line-height:15.0px;
+  position:absolute;
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:972px;
+  left:32px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:21px;
+  width:704px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:972px;
+  left:31px;
+  overflow:hidden;
+  position:absolute;
+  top:21px;
+  width:704px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:1021px;
+  left:-382px;
+  position:absolute;
+  top:0px;
+  width:1532px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:1212px;
+  left:-87px;
+  position:absolute;
+  top:-96px;
+  width:944px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:1020px;
+  left:-149px;
+  opacity:0.96;
+  position:absolute;
+  top:1px;
+  width:1066px;
+}
+.academic-organization-email-verification-1-ipad-768-1 .rectangle-34-DQfo9w {
+  background-color:var(--selective-yellow);
+  border-radius:5px;
+  bottom:54px;
+  height:34px;
+  left:calc(49.55% - 85px);
+  position:absolute;
+  width:171px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .resend-con-tion-email-DQfo9w {
+  background-color:transparent;
+  bottom:-3px;
+  color:var(--blue-ribbon);
+  font-size:13.0px;
+  height:17px;
+  left:calc(49.86% - 78px);
+  line-height:13.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:157px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1-ipad-768-1 .thank-you--il-shortly-DQfo9w {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:35.0px;
+  height:94px;
+  left:0px;
+  line-height:50.0px;
+  position:absolute;
+  text-align:center;
+  top:-4px;
+  white-space:nowrap;
+  width:calc(100.00% + 2px);
+}
+.academic-organization-email-verification-1-ipad-768-1 .x3132-GlB81R {
+  background-color:transparent;
+  height:648px;
+  left:-1px;
+  position:absolute;
+  top:-6px;
+  width:calc(100.00% - 56px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+
+.academic-organization-email-verification-1280 {
+  background-color:var(--white);
+  height:619.74px;
+  overflow:hidden;
+  position:relative;
+  width:1280px;
+}
+.academic-organization-email-verification-1280 .group-31-C61RwL {
+  background-color:transparent;
+  height:565px;
+  left:139px;
+  position:absolute;
+  top:25px;
+  width:1003px;
+}
+.academic-organization-email-verification-1280 .if-you-do--ail-client-I5cRPp {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:15.0px;
+  height:38px;
+  left:calc(48.15% - 234px);
+  line-height:15.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(49.48% - 19px);
+  white-space:nowrap;
+  width:486px;
+}
+.academic-organization-email-verification-1280 .login-I5cRPp {
+  background-color:transparent;
+  bottom:calc(33.80% - 7px);
+ /* color:var(--white);*/
+ color:#001f60 !important;
+  font-size:15.0px;
+  height:20px;
+  line-height:15.0px;
+  position:absolute;
+  right:calc(50.00% - 22px);
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1280 .mask-group-6-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:2px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:calc(100.00% - 2px);
+}
+.academic-organization-email-verification-1280 .mask-group-7-I5cRPp {
+  background-color:transparent;
+  height:100%;
+  left:0px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:calc(100.00% - 1px);
+}
+.academic-organization-email-verification-1280 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:911px;
+  left:0px;
+  position:absolute;
+  top:-2px;
+  width:1366px;
+}
+.academic-organization-email-verification-1280 .rectangle-1-I5cRPp {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 238px);
+}
+.academic-organization-email-verification-1280 .rectangle-34-I5cRPp {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(33.43% - 15px);
+  height:44px;
+  left:calc(49.98% - 109px);
+  position:absolute;
+  width:219px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1280 .rectangle-35-C61RwL {
+  background-color:var(--white);
+  height:769px;
+  left:0px;
+  opacity:0.96;
+  position:absolute;
+  top:-1px;
+  width:1366px;
+}
+.academic-organization-email-verification-1280 .resend-con-tion-email-I5cRPp {
+  background-color:transparent;
+  bottom:calc(22.28% - 4px);
+  color:var(--blue-ribbon);
+  font-size:12.0px;
+  height:16px;
+  left:calc(49.54% - 72px);
+  line-height:12.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:145px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-1280 .thank-you--il-shortly-I5cRPp {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:31.0px;
+  height:80px;
+  left:calc(49.75% - 229px);
+  line-height:41.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(29.33% - 23px);
+  white-space:nowrap;
+  width:460px;
+}
+.academic-organization-email-verification-1280 .x3132-xOcq2M {
+  background-color:transparent;
+  height:calc(100.00% + 383px);
+  left:-2px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 54px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+
+.academic-organization-email-verification-360 {
+  background-color:var(--white);
+  height:575.79px;
+  overflow:hidden;
+  position:relative;
+  width:360px;
+}
+.academic-organization-email-verification-360 .if-you-do--ail-client-C61RwL {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:9.0px;
+  height:auto;
+  left:91px;
+  line-height:9.0px;
+  position:absolute;
+  text-align:center;
+  top:227px;
+  white-space:nowrap;
+  width:auto;
+}
+.academic-organization-email-verification-360 .login-C61RwL {
+  background-color:transparent;
+  color:var(--white);
+  font-size:14.0px;
+  height:auto;
+  left:161px;
+  line-height:14.0px;
+  position:absolute;
+  text-align:left;
+  top:283px;
+  white-space:nowrap;
+  width:auto;
+  cursor: pointer;
+}
+.academic-organization-email-verification-360 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:576px;
+  left:0px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:-0px;
+  width:362px;
+}
+.academic-organization-email-verification-360 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:500px;
+  left:-1px;
+  overflow:hidden;
+  position:absolute;
+  top:-1px;
+  width:362px;
+}
+.academic-organization-email-verification-360 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:639px;
+  left:-300px;
+  position:absolute;
+  top:-11px;
+  width:960px;
+}
+.academic-organization-email-verification-360 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:816px;
+  left:-120px;
+  position:absolute;
+  top:-118px;
+  width:602px;
+}
+.academic-organization-email-verification-360 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:640px;
+  left:-22px;
+  opacity:0.96;
+  position:absolute;
+  top:-11px;
+  width:401px;
+}
+.academic-organization-email-verification-360 .rectangle-34-C61RwL {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  height:30px;
+  left:109px;
+  position:absolute;
+  top:275px;
+  width:144px;
+}
+.academic-organization-email-verification-360 .resend-con-tion-email-C61RwL {
+  background-color:transparent;
+  color:var(--blue-ribbon);
+  font-size:9.0px;
+  height:auto;
+  left:127px;
+  line-height:9.0px;
+  position:absolute;
+  text-align:left;
+  text-decoration:underline;
+  top:328px;
+  white-space:nowrap;
+  width:auto;
+  cursor: pointer;
+}
+.academic-organization-email-verification-360 .thank-you--il-shortly-C61RwL {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:18.0px;
+  height:auto;
+  left:48px;
+  line-height:26.0px;
+  position:absolute;
+  text-align:center;
+  top:159px;
+  white-space:nowrap;
+  width:auto;
+}
+.academic-organization-email-verification-360 .x3132-GlB81R {
+  background-color:transparent;
+  height:333px;
+  left:-1px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 29px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+:root {
+  --blue-ribbon:rgba(0,60,255,1.0);
+  --dove-gray:rgba(112,112,112,1.0);
+  --dove-gray-2:rgba(112,110,110,1.0);
+  --limed-spruce:rgba(56,70,79,1.0);
+  --mine-shaft:rgba(50,49,49,1.0);
+  --nobel:rgba(180,180,180,1.0);
+  --pink-swan:rgba(188,184,184,1.0);
+  --selective-yellow:rgba(255,183,0,1.0);
+  --sonic-silver:rgba(118,118,118,1.0);
+  --white:rgba(255,255,255,1.0);
+}
+/* screen - academic-organization-email-verification-375 */
+
+.academic-organization-email-verification-375 {
+  background-color:var(--white);
+  height:100vh;
+  margin:0px;
+  min-height:599.79px;
+  min-width:375px;
+  overflow:hidden;
+  position:relative;
+  width:100%;
+}
+.academic-organization-email-verification-375 .if-you-do--ail-client-C61RwL {
+  background-color:transparent;
+  color:var(--dove-gray-2);
+  font-size:9.0px;
+  height:35px;
+  line-height:9.0px;
+  position:absolute;
+  right:calc(48.92% - 89px);
+  text-align:center;
+  top:calc(41.90% - 15px);
+  white-space:nowrap;
+  width:182px;
+}
+.academic-organization-email-verification-375 .login-C61RwL {
+  background-color:transparent;
+  bottom:calc(49.13% - 9px);
+  color:var(--white);
+  font-size:14.0px;
+  height:19px;
+  line-height:14.0px;
+  position:absolute;
+  right:calc(49.39% - 21px);
+  text-align:left;
+  white-space:nowrap;
+  width:42px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-375 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:100%;
+  left:1px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:1px;
+  width:100%;
+}
+.academic-organization-email-verification-375 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% - 76px);
+  left:1px;
+  overflow:hidden;
+  position:absolute;
+  top:0px;
+  width:100%;
+}
+.academic-organization-email-verification-375 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% + 42px);
+  left:-300px;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% + 589px);
+}
+.academic-organization-email-verification-375 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:calc(100.00% + 240px);
+  left:-120px;
+  position:absolute;
+  top:-117px;
+  width:calc(100.00% + 240px);
+}
+.academic-organization-email-verification-375 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:calc(100.00% + 43px);
+  left:-15px;
+  opacity:0.96;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% + 28px);
+}
+.academic-organization-email-verification-375 .rectangle-34-C61RwL {
+ background-color: #6a6a6a  !important;
+ color:#001f60 !important;
+  border-radius:5px;
+  bottom:calc(49.75% - 15px);
+  height:30px;
+  position:absolute;
+  right:calc(49.58% - 71px);
+  width:144px;
+}
+.academic-organization-email-verification-375 .resend-con-tion-email-C61RwL {
+  background-color:transparent;
+  bottom:calc(41.77% - 5px);
+  color:var(--blue-ribbon);
+  font-size:9.0px;
+  height:13px;
+  line-height:9.0px;
+  position:absolute;
+  right:calc(49.42% - 54px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:109px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-375 .thank-you--il-shortly-C61RwL {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:18.0px;
+  height:50px;
+  left:48px;
+  line-height:26.0px;
+  position:absolute;
+  text-align:center;
+  top:calc(30.25% - 15px);
+  white-space:nowrap;
+  width:268px;
+}
+.academic-organization-email-verification-375 .x3132-GlB81R {
+  background-color:transparent;
+  height:345px;
+  left:-1px;
+  position:absolute;
+  top:-4px;
+  width:calc(100.00% - 30px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}
+.academic-organization-email-verification-800 {
+  background-color:var(--white);
+  height:1279.54px;
+  overflow:hidden;
+  position:relative;
+  width:800px;
+}
+.academic-organization-email-verification-800 .group-143574-C61RwL {
+  background-color:transparent;
+  height:376px;
+  left:141px;
+  position:absolute;
+  top:333px;
+  width:518px;
+}
+.academic-organization-email-verification-800 .if-you-do--ail-client-DQfo9w {
+  background-color:transparent;
+  bottom:calc(46.66% - 40px);
+  color:var(--dove-gray-2);
+  font-size:23.0px;
+  height:86px;
+  left:30px;
+  line-height:23.0px;
+  position:absolute;
+  text-align:center;
+  white-space:nowrap;
+  width:calc(100.00% - 58px);
+}
+.academic-organization-email-verification-800 .login-DQfo9w {
+  background-color:transparent;
+  bottom:calc(16.95% - 3px);
+  color:var(--white);
+  font-size:15.0px;
+  height:20px;
+  line-height:15.0px;
+  position:absolute;
+  right:calc(48.58% - 22px);
+  text-align:left;
+  white-space:nowrap;
+  width:45px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .mask-group-6-C61RwL {
+  background-color:transparent;
+  height:1000px;
+  left:44px;
+  opacity:0.56;
+  overflow:hidden;
+  position:absolute;
+  top:22px;
+  width:724px;
+}
+.academic-organization-email-verification-800 .mask-group-7-C61RwL {
+  background-color:transparent;
+  height:1000px;
+  left:43px;
+  overflow:hidden;
+  position:absolute;
+  top:22px;
+  width:724px;
+}
+.academic-organization-email-verification-800 .office-wor-1490871920-C61RwL {
+  background-color:transparent;
+  height:1280px;
+  left:-554px;
+  position:absolute;
+  top:0px;
+  width:1919px;
+}
+.academic-organization-email-verification-800 .rectangle-1-C61RwL {
+  background-color:transparent;
+  height:1240px;
+  left:-75px;
+  position:absolute;
+  top:-95px;
+  width:964px;
+}
+.academic-organization-email-verification-800 .rectangle-1509-C61RwL {
+  background-color:var(--white);
+  height:1280px;
+  left:2px;
+  opacity:0.96;
+  position:absolute;
+  top:1px;
+  width:800px;
+}
+.academic-organization-email-verification-800 .rectangle-34-DQfo9w {
+  background-color:var(--selective-yellow);
+  border-radius:5px;
+  bottom:55px;
+  height:35px;
+  position:absolute;
+  right:calc(48.18% - 85px);
+  width:176px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .resend-con-tion-email-DQfo9w {
+  background-color:transparent;
+  bottom:-3px;
+  color:var(--blue-ribbon);
+  font-size:13.0px;
+  height:17px;
+  line-height:13.0px;
+  position:absolute;
+  right:calc(48.58% - 76px);
+  text-align:left;
+  text-decoration:underline;
+  white-space:nowrap;
+  width:157px;
+  cursor: pointer;
+}
+.academic-organization-email-verification-800 .thank-you--il-shortly-DQfo9w {
+  background-color:transparent;
+  color:var(--mine-shaft);
+  font-size:35.0px;
+  height:94px;
+  left:0px;
+  line-height:50.0px;
+  position:absolute;
+  text-align:center;
+  top:-4px;
+  white-space:nowrap;
+  width:calc(100.00% + 2px);
+}
+.academic-organization-email-verification-800 .x3132-GlB81R {
+  background-color:transparent;
+  height:666px;
+  left:-1px;
+  position:absolute;
+  top:-7px;
+  width:calc(100.00% - 58px);
+}
+.border-class-1 {
+  border:1px solid var(--pink-swan);
+}
+.border-class-2 {
+  border:1px solid var(--dove-gray);
+}
+.font-class-1 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-2 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:700;
+}
+.font-class-3 {
+  font-family:'Source Sans Pro', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:400;
+}
+.font-class-4 {
+  font-family:'Roboto', Helvetica, Arial, serif;
+  font-style:normal;
+  font-weight:500;
+}

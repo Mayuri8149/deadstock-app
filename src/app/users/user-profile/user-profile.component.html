@@ -1,0 +1,81 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="inner-div header-btns">
+			<div class="mat-header-btns">
+				<a>
+					<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon>
+				</a>
+			</div>
+		</div>
+		<div class="details">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="profile-img" *ngIf="imgUrl">
+						<img mat-card-image [src]="imgUrl"> 
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="profile-head">
+                        <div class="t1">{{userData.firstName}} {{userData.lastName}}</div>
+						<div class="t2" >{{role | uppercase}}</div>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active">Details </a>
+							</li>
+								<div class="mat-header-btns">
+										<a class="nav-link active"
+										(click)="editUsers()">Update </a>	
+								</div>		
+						</ul>
+                    </div>
+				</div>
+			</div>
+			<div class="row details-body">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-8">
+					<div class="row single-data">
+						<div class="col-md-6 key">
+							<span class="label-text">Email ID</span>
+						</div>
+						<div class=" col-md-6 value">
+							<span>{{userData.email}}</span>
+						</div>
+					</div>
+					<div class="row single-data">
+						<div class="col-md-6 key">
+							<span class="label-text">Phone Number</span>
+						</div>
+						<div class=" col-md-6 value">
+							<span>{{userData.phoneNumber}}</span>
+						</div>
+					</div>
+					<div class="row single-data">
+						<div class="col-md-6 key">
+							<span class="label-text">Created Date</span>
+						</div>
+						<div class=" col-md-6 value">
+							<span>{{DateTime | date:'medium'}}</span>
+						</div>
+					</div>
+					<div class="row single-data">
+						<div class="col-md-6 key">
+							<span class="label-text">Time zone</span>
+						</div>
+						<div class=" col-md-6 value">
+							<span>{{timeZone}}</span>
+						</div>
+					</div>
+					<div *ngIf="(role == 'partner')" class="row single-data">
+						<div class="col-md-6 key">
+								<span class="label-text">Alternate EmailID</span>
+						</div>
+						<div class=" col-md-6 value">
+							 <span>{{userData.newEmail}}</span>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

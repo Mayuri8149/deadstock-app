@@ -1,0 +1,307 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="row outer-div" style="margin: 0px;">
+			<div class="col-lg-6 col-md-6 col-sm-6 inner-div header-btns">
+				<div class="mat-header-btns">
+					<span style="font-size: larger;font-weight: 700;color: #001f60;">Asset Provenance Setup</span>
+				</div>
+			</div>
+			<span class="spacer"></span>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 inner-div header-btns">
+				<div class="mat-header-btns">
+					<form [formGroup]="finaltransactionForm" #searchForm="ngForm">
+						<mat-form-field id="select-box" appearance="outline" class="subBtn dd_btn">
+							<mat-select placeholder="Select Organization" formControlName="buttonList"
+								(ngModelChange)="buttonTypes($event)">
+								<mat-option style="color:#333!important" *ngFor="let organizations of organization;"
+									[value]='organizations._id'>{{organizations.name}}</mat-option>
+								<ng-container *ngIf="organization?.length == '0'">
+								<mat-option disabled>No Records Found</mat-option>
+									</ng-container>
+								</mat-select>
+						</mat-form-field>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>	
+		<form [formGroup]="assetprovenanceDetailForm" #assetprovenanceDetails="ngForm" (ngSubmit)="assetprovenance(assetprovenanceDetails)">
+			
+		<div class="list-container">
+            	<div class="mat-elevation-z8">
+				<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8 assetTracebilitySetup_tbl"  cdkDropList
+				[cdkDropListData]="dataSource"
+				(cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="dragableRow">
+				<ng-container matColumnDef="select" sticky>
+					<mat-header-cell *matHeaderCellDef>Action
+					</mat-header-cell>
+						<mat-cell *matCellDef="let row;;let i = index">
+							<span class="mobile-label">Action:</span>	
+							<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectRow($event,row,i): null"
+								(change)="$event ? selection.toggle(row) : null"
+								[checked]="selection.isSelected(row) == true" class="checkboxbackcolor cancelcheckbox">
+							</mat-checkbox>
+						</mat-cell>
+					</ng-container>
+				<ng-container matColumnDef="organization">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Organization Name</div>
+						<div>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Organization Name:</span>							
+						 {{element.organization?.name || element.organizationName}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="courseId">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Module Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput autocomplete="off" class="form-field filters" [formControl]="courseIdFilter">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module Name:</span>							
+						{{element.module?.name || element.moduleName}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="moduleId">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Module ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput autocomplete="off" class="form-field filters" [formControl]="moduleIdFilter">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module ID:</span>							
+						 {{element.module?.code || element.moduleCode}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="TansactionCode">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Type ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput autocomplete="off" class="form-field filters" [formControl]="codeFilter">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type ID:</span>							
+						 {{element.transactionTypeCode}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="certificateName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Type Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput autocomplete="off" class="form-field filters" [formControl]="nameFilter">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type Name:</span>							
+						 {{element.transactionTypeName}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="label">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Label</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Label:</span>
+						<mat-form-field class="input-field assetTraceLbl" fxFlex.gt-md="100%" fxFlex.lt-md="100%" fxFlex.md="40%">
+						<input matInput value="label"  [(ngModel)]="element.label"  [ngModelOptions]="{standalone: true}">
+						</mat-form-field>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="transactionType">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Transaction Type</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type:</span>	
+						<mat-checkbox class="example-margin" value="isTransactionType" [(ngModel)]="element.isTransactionType" [ngModelOptions]="{standalone: true}"						(change) = "changeRadioButton(element,$event)"></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Asset Name</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						<mat-checkbox class="example-margin" value="isAssetName" [(ngModel)]="element.isAssetName" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Asset Category</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>	
+						<mat-checkbox class="example-margin" value="isAssetCategory" [(ngModel)]="element.isAssetCategory" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="inputAsset">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Input Asset</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset:</span>
+						<mat-checkbox class="example-margin" value="isInputAsset" [(ngModel)]="element.isInputAsset" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="branch">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Entity or Branch</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity or Branch:</span>
+						<mat-checkbox class="example-margin" value="isBranch" [(ngModel)]="element.isBranch" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					 </mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="location">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Location</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Location:</span>		
+						<mat-checkbox class="example-margin" value="isAssetLocation" [(ngModel)]="element.isAssetLocation" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+
+				<ng-container matColumnDef="quantity">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Quantity</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity:</span>	
+						<mat-checkbox class="example-margin" value="isQuantity" [(ngModel)]="element.isQuantity" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="uom">
+					<mat-header-cell *matHeaderCellDef>
+						<div>UOM</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">UOM:</span>		
+						<mat-checkbox class="example-margin" value="isUom" [(ngModel)]="element.isUom" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="effectiveDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Effective Date</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Effective Date:</span>
+						<mat-checkbox class="example-margin" value="isEffectiveDate" [(ngModel)]="element.isEffectiveDate" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="expiryDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Expiry Date</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Expiry Date:</span>	
+						<mat-checkbox class="example-margin" value="isExpiryDate" [(ngModel)]="element.isExpiryDate" (change) = "changeRadioButton(element,$event)" [ngModelOptions]="{standalone: true}"
+						></mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="variableField">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Variable Fields</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Variable Fields:</span>	
+						<img class="sidebar-img" matTooltip="View"  value="isVariableField" (click)="openConfirm($event,element)" src="../assets/icons/view (1).svg" (change) = "changeRadioButton(element,$event)"/>
+						 <ng-template #template>
+								<div class="modal-body text-center">
+									<div class="outer-div">
+										<div class="list-containers">
+											<div class="col-lg-12 text-left" *ngFor="let field of transactioField;let i=index;">
+													<mat-checkbox class="example-margin" value="{{field[0].key}}" [(ngModel)]="field.checked" (change) = "changeRadioButtons($event,field[0],i)"  [ngModelOptions]="{standalone: true}">
+														{{field[0].key}}
+													</mat-checkbox>													
+											</div>
+										</div> 
+									</div>
+									<p class="mb-0"></p>
+									<a mat-button class="subBtn" (click)="getDynamicValue(selectedTranstypeId)"> OK</a>
+									<a mat-button class="cancelBtn" style="padding: 0;" data-dismiss="modal" (click)="closedModal()">Cancel</a>
+								</div>
+						</ng-template><br>
+						<span class="mobile-label">Drag row</span>
+						<i class="displayDragIcon fa fa-bars" aria-hidden="true" (mousedown)="dragableRowfalse()" style="font-size: 21px;"></i>
+					</mat-cell>
+				</ng-container>				
+
+				<ng-container matColumnDef="Action">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Action</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Action:</span>
+						<a  mattooltip="Clear" (click)="ClearRecord(element)">
+							<img class="sidebar-img" matTooltip="Clear" style="height: 21px; margin-left: 5px;" src="../assets/icons/crossmark.png"/>
+						</a>
+					</mat-cell>				
+				</ng-container>
+
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]=row ></mat-row>
+			</mat-table>
+		</div>
+		</div>
+		
+		<div class="clearfix"></div>
+			<div class="action-btns text-center">
+				<button mat-raised-button class="subBtn">Save</button>
+				<button mat-raised-button class="cancelBtn" type = "button" (click)="goBack()">Cancel</button>
+			</div>
+			</form>
+		<div>
+		</div>
+	</div>
+</div>

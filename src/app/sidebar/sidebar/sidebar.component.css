@@ -1,0 +1,86 @@
+.sidebar-container {
+	height: 100%;
+	position: relative;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    width: 100% !important; 
+    position: relative !important;
+}
+.sidenav{
+    width: 220px;
+}
+.mat-sidenav {
+	width: 220px;
+	z-index: 999;
+	padding-top: 64px;
+	position: fixed;
+}
+.main-body {
+	display: flex;
+	height: 100%;
+}
+.page-sidebar {
+    height: 100%;
+}
+.page-content {
+    flex: 1;
+    height: 100%;
+}
+.sidenav-head {
+	height: 50px;
+    padding: 6px 3px;
+}
+.sidenav-head-text {
+	font-size: 23px;
+    font-weight: 700;
+    color: #d08600 !important;
+}
+.sidenav-subhead {
+	height: 30px;
+    padding: 3px 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.img {
+	margin-left: 27px;
+}
+.sidebar-innerhead {
+	height: 27px;
+	font-size: 13px;
+	padding-left: 12px;
+	padding-top: 3px;
+	background-color: #e4e0e0;
+}
+.footer {
+    background-color: transparent;
+    color: black;
+    font-family: 'Segoe UI', Helvetica, Arial, serif;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 6vw;
+    bottom: 5px;
+    text-align: left;
+    z-index: 7;
+}
+.mat-drawer-container {
+    width: 100%;
+}
+@media screen and (max-width: 900px) {
+    .mat-sidenav {
+        padding-top: 64px;
+    }
+}
+@media (max-width: 599px)
+{
+    .mat-sidenav {
+        padding-top: 45px;
+    }
+}
+@media only screen and (min-width: 600px) and (max-width: 640px)
+{
+    .mat-sidenav {
+        padding-top: 51px;
+    }
+}

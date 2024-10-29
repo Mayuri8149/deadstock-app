@@ -1,0 +1,76 @@
+mat-dialog-content {
+    min-height: 80px !important;
+    height: 110px;
+    overflow: hidden !important;
+    margin-left: -5%;
+}
+::ng-deep .mat-dialog-container {
+   overflow: hidden;
+}
+mat-dialog-actions {
+    display: block !important;
+    margin-top: -28%;
+}
+.dialog-header {
+    font-size: 30px; 
+    margin-top: 2%;
+}
+.action-btns {
+    margin: 4px 0;
+    margin-bottom: 6%;
+}
+.input-row {
+    display: flex;
+    height: 45px;
+    width: 100%;
+}
+.icon-wrap {
+    width: 34px;
+    height: 28px;
+    margin-top: 6%;
+}
+mat-form-field-infix {
+    border-top: 0 !important;
+}
+.page-heading {
+    color: #444444;
+    z-index: 5;
+    position: absolute;
+    display: block;
+    width: 22%;
+    margin-top: 8px;
+    font-size: 12px;
+}
+#forg {
+    font-size: 38px; 
+    margin-right: 60%; 
+    font-weight: 600;
+}
+#pass {
+    font-size: 36px; 
+    margin-right: 39%; 
+    margin-top: -2%; 
+    font-weight: 600;
+}
+.mat-form-field {
+    width: 245px;
+    height: 55px;
+    font-size: 14px;
+}
+.headingOtp {
+    color: #000;
+    font-size: 15px !important;
+    white-space: nowrap !important;
+    font-family: 'Roboto', Helvetica, Arial, serif !important;
+    font-style: normal !important;
+    text-align: center;
+}
+.subHeadingOtp {
+    color: var(--dove-gray-2);
+    font-size: 9px !important;
+    white-space: nowrap !important;
+    width: calc(100.00% - 31px);
+    font-family: 'Roboto', Helvetica, Arial, serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+}

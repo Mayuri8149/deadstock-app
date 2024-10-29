@@ -1,0 +1,8 @@
+<div class="container">
+	<div class="wrapper bg_white">
+        <div class="mat-header-btns" *ngIf="loginUser.reference.role=='sysadmin'">
+			<a><fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon></a>
+    </div>
+        <div echarts [options]="options | async" class="demo-chart"></div>
+    </div>
+</div>

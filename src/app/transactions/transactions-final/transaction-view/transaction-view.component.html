@@ -1,0 +1,401 @@
+<div #id_Container class="container">
+	<div class="wrapper bg_white">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<div id="affDiv">
+						<span id="addSpan">
+							<span *ngIf="actionFlag!='update'">View</span> 
+							<span *ngIf="actionFlag=='update'">Update</span> 
+							Transaction Details
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="search" >
+			<form [formGroup]="searchTransactionForms" autocomplete="off" #searchForm="ngForm" (ngSubmit)="updateTransaction(searchForm, transactionidForm)">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Entity Id" formControlName="organizationId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Entity Name" formControlName="organizationName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Module Id" formControlName="moduleId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Module Name" formControlName="moduleName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Transaction Type Id" formControlName="transtypeCode">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Transaction Type" formControlName="transactionTypeName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3" *ngIf="partnerId==true">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Partner Id" formControlName="partnerId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3" *ngIf="partnerName==true">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Partner Name" formControlName="partnerName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Branch/Location" formControlName="branchName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6"  *ngIf="refbranch==true">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Branch Name" formControlName="refbranchName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Transaction Id" formControlName="transactionid">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Transaction Date and Time" formControlName="transcationDateTime">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Status" formControlName="status">
+						</mat-form-field>
+					</div>
+					
+				</div>
+
+				<hr class="dashed_border">
+				<div class="row">				
+					<div class="col-lg-3" *ngIf="effectiveDateFlag == true ">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Effective Date" formControlName="effectiveDate">
+							<mat-datepicker #picker1></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3" *ngIf="expiryDateFlag == true">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Expiry Date" formControlName="expiryDate">
+							<mat-datepicker #picker2></mat-datepicker>
+						</mat-form-field>
+						</div>
+					<div class="col-lg-3" *ngIf="asset == true">
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Asset Id" formControlName="assetId">
+						</mat-form-field>
+					</div>
+
+					<hr class="dashed_border" *ngIf="asset == true">
+
+					<div class="col-lg-3" *ngIf='order == true'>
+						<mat-form-field class="w100p">
+							<input matInput placeholder="{{transaction.transactionTypeName}}" formControlName="assetOrderId">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3" *ngIf='assetCategory == true'>
+						<mat-form-field class="w100p">
+							<input matInput placeholder="Asset Category" formControlName="assetCategory">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6" *ngIf="order == false && refbranch == false">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Asset Name" formControlName="assetName">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6" *ngIf="order == false && refbranch == false">
+						<span *ngIf="actionFlag!='update'">
+							<mat-form-field class="w100p">
+								<input matInput type="number" placeholder="Quantity" formControlName="assetQuantity">
+							</mat-form-field>
+						</span>	
+						<span *ngIf="actionFlag=='update'">
+							<mat-form-field class="w100p">
+								<mat-select placeholder="Select UOM" 
+                                formControlName="assUom" id="id_entereduom1" [(ngModel)]="transaction.assUom" (selectionChange)="onChangeUOM($event.value)">
+                                	<mat-option *ngFor="let uomList of uomLists;" [value]='uomList.uom'>{{uomList.uom}}</mat-option>
+                            	</mat-select>
+							</mat-form-field>		
+						</span>
+					</div>	
+					<div class="col-lg-3 col-md-6 col-sm-6" *ngIf="order == false && refbranch == false">
+						<span *ngIf="actionFlag!='update'">
+							<mat-form-field class="w100p">
+								<input matInput placeholder="UOM" formControlName="assetUom">
+							</mat-form-field>
+						</span>
+						<span *ngIf="actionFlag=='update'">
+							<mat-form-field class="w100p">
+								<input matInput type="number" placeholder="Quantity" formControlName="assQuantity" [(ngModel)]="entereQuantity" (keyup)="getDecimal()" (keypress)="validateNo($event)" >
+							</mat-form-field>		
+						</span>
+					</div>
+					<div  class="col-lg-3 col-md-6 col-sm-6" *ngIf="Trxlocation == true && actionFlag!='update'">
+						<mat-form-field class="w100p">
+							<div>
+								<input matInput type="text" placeholder="Asset Location" formControlName="location" [readonly]="true">
+							</div>
+						</mat-form-field>
+					</div>
+					<div  class="col-lg-3 col-md-6 col-sm-6" *ngIf="actionFlag=='update' && !orderWithoutReference">
+						<mat-form-field class="w100p">
+							<div>
+								<input matInput placeholder="Location" formControlName="location" 
+									(input)="getCitySuggestion($event.target.value)"  
+									id="id_assetLocationAuto" 
+									[(ngModel)]="transaction.location" [matAutocomplete]="autoLocation">						
+									<mat-autocomplete class="autoCompleteAddress" (opened)="opened_AutoComplete('autoLocation')" panelWidth="auto" #autoLocation="matAutocomplete" (optionSelected)="onSellocation($event.option.value)" >
+										<mat-option *ngFor="let city of locationlist |filter:assetLocationAutoSuggest;let i = index;" id="location_option_{{i}}" [value]="city.address.formattedAddress+'|'+city.address.addressLine+'|'+city.address.adminDistrict+'|'+city.address.countryRegion+'|'+city.address.locality+'|'+city.address.postalCode">
+											<span *ngIf="city?.address?.formattedAddress">{{city?.address?.formattedAddress}}</span>                          
+										</mat-option>
+									</mat-autocomplete>
+								</div>
+						</mat-form-field>
+					</div>
+				</div>
+
+				<hr class="dashed_border" *ngIf="isProvenance == true">
+				<div class="row" *ngIf="isProvenance == true">
+					<div class="col-lg-12" *ngFor="let ipAsset of inputAsset" style="display: inline-flex;">					
+					
+					<div  class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Input Asset Id" formControlName="refAsset" [value]=ipAsset.inputAssetId>
+						</mat-form-field>
+					</div>
+
+					<div  class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Input Asset Name" formControlName="enteredAssetName" [value]=ipAsset.inputAssetName>
+						</mat-form-field>
+					</div>
+
+					<div  class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Input Asset Quantity" formControlName="enteredquantity" [value]=ipAsset.inputAssetQuantity>
+						</mat-form-field>
+					</div>
+
+					<div  class="col-lg-3 col-md-6 col-sm-6">
+						<mat-form-field class="w100p">
+							<input matInput type="text" placeholder="Input Asset UOM" formControlName="entereduom" [value]=ipAsset.inputAssetUom>
+						</mat-form-field>
+					</div>
+					</div>
+				</div>			
+
+				<hr style="border-style: dashed;">
+				<div class="row" [hidden]="isShownAddRecord">
+					<div class="col-lg-12">
+						<div style="color: red;" *ngIf="chkAddRecordItems"> <b>Do not allow to delete all record!</b></div>
+						<div class="list-container addRecordGrid"> 
+							<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8 gridWithoutSearch"  style="display: table !important;width: 100%;">
+								<ng-container *ngFor="let prop of displayedColumns;let j = index;">
+									<ng-container [matColumnDef]="prop" sticky *ngIf="prop=='actions'">
+										<mat-header-cell *matHeaderCellDef>Actions </mat-header-cell>
+										<mat-cell *matCellDef="let element"> 
+											<!--  [class.hidden] ='element.status === "Revoked"' -->
+											<span class="mobile-label">Actions:</span>
+											<a (click)="openDialogPopUp('Update',element)"><img class="sidebar-img" src="../../../assets/icons/edit.svg"></a>
+											<a (click)="openDialogPopUp('Delete',element)"><img class="sidebar-img" src="../../../assets/icons/delete (1).svg"></a>
+										</mat-cell>
+									</ng-container>
+									<ng-container [matColumnDef]="prop" *ngIf="prop!='actions'">
+										<mat-header-cell *matHeaderCellDef> {{displayedColumnsArr[prop]}} </mat-header-cell>
+										<mat-cell *matCellDef="let element;let i = index;">
+											<span class="mobile-label">{{displayedColumnsArr[prop]}}:</span>
+											<span>
+												<span *ngIf="previewViewSrc.hasOwnProperty(i) && previewViewSrc[i].hasOwnProperty(prop) && element[prop]!=''"><fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtns" *ngIf="element[prop]!=''" matTooltip="View" (click)="previewFiles(element[prop],i,false)"></fa-icon></span>  
+												<span>{{element[prop]}}</span>
+											</span> 
+										</mat-cell>
+									</ng-container>
+								</ng-container>
+						
+								<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+								<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+							</mat-table>
+						</div>
+					</div>
+               </div>  
+
+			   <hr style="border-style: dashed;" *ngIf='uploadFile == true || fileCertName == true'>
+				<div class="row"  *ngIf='uploadFile == true || fileCertName == true'>
+					<div class="col-lg-3 col-md-6 col-sm-6" *ngIf='uploadFile == true'>
+						<mat-form-field class="w100p">
+							<mat-label >Upload File</mat-label>
+							<input  matInput placeholder="Upload File" formControlName="upload_file" readonly>						
+						</mat-form-field>
+						<fa-icon *ngIf='uploadFile == true' [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" matTooltip="View" id="id_upload_file" (click)="previewFileStatic(this.transaction.upload_file)"></fa-icon>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6" *ngIf='fileCertName == true'>
+						<mat-form-field class="w100p">
+							<mat-label >Upload Certificate</mat-label>
+							<input  matInput placeholder="Upload Certificate" formControlName="uploadedCertificate" readonly>						
+						</mat-form-field>
+						<fa-icon *ngIf='fileCertName == true' [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" matTooltip="View" id="id_uploadedCertificate" (click)="previewCertificateFile(this.transaction.uploadedCertificate)"></fa-icon>
+					</div>
+				</div>
+
+				<form [formGroup]="transactionidFieldForms" autocomplete="off" #transactionidForm="ngForm"(ngSubmit)="updateTransaction(searchForm, transactionidForm)">
+					<div class="formfield">
+						<div class="row">
+								<ng-container *ngFor="let keys of object;let i = index" >
+										<div  class="col-lg-3 col-md-6 col-sm-6" *ngIf="keys[0]?.key && keys[0]?.fieldValue && actionFlag!='update'">
+
+											
+													<div *ngIf='keys[0].value == "String" && (keys[0].key != "date" ||keys[0].key != "Date")'>	
+														<mat-form-field class="w100p" *ngIf='keys[0].value == "String"'>
+															<mat-label >{{keys[0].key}}</mat-label>
+															<input  matInput 
+																	placeholder="{{keys[0]?.key}}"
+																	value="{{keys[0]?.fieldValue}}"
+																	formControlName="{{keys[0]?.key}}"
+																	[readonly]="readOnlyFlag">
+									
+														</mat-form-field>
+													</div>
+													<div *ngIf='keys[0].value == "Number"'>
+															<mat-form-field class="w100p" *ngIf='keys[0].value == "Number"'>
+																<mat-label>{{keys[0].key}}</mat-label>
+																<input  matInput type = "number"
+																		placeholder="{{keys[0]?.key}}"
+																		value="{{keys[0]?.fieldValue}}"
+																		formControlName="{{keys[0]?.key}}"
+																		[readonly]="readOnlyFlag">
+															</mat-form-field>
+													</div>
+													<div *ngIf='keys[0]?.value == "Date"'>
+													<mat-form-field class="w100p" *ngIf='keys[0].value == "Date"'>
+														<mat-label>{{keys[0].key}}</mat-label>
+														<input matInput [matDatepicker]="picker1" [formControlName]="keys[0].key" value="{{keys[0]?.fieldValue}}" readonly>
+														<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+														<mat-datepicker #picker1
+														startView="multi-year"
+														(yearSelected)="chosenYearHandler($event, keys[0]?.key)"
+														(monthSelected)="chosenMonthHandler($event, picker1, keys[0]?.key)"
+														panelClass="example-month-picker" [readonly]="readOnlyFlag">
+														></mat-datepicker>
+													</mat-form-field>
+													</div>
+													<div *ngIf='keys[0]?.value == "File"'>
+														<label *ngIf="!showImg[i]" for="files_{{keys[0]?.key}}" class="subBtn dynamicUploadFileBtn">Choose File</label>
+														<input id="files_{{keys[0].key}}" accept="image/png, image/jpeg,image/jpg,application/pdf" type="file" name="keys[0].key" (change)="chooseFile($event, keys[0]?.key,i)" style="white-space: normal;display: none" required>
+														<mat-form-field class="w100p" *ngIf='keys[0].value == "File"'>
+															<mat-label >{{keys[0].key}}</mat-label>
+															<input  matInput 
+																	placeholder="{{keys[0].key}}"
+																	value="{{keys[0].fieldValue}}"
+																	formControlName="{{keys[0].key}}"
+																	[readonly]="readOnlyFlag">
+														</mat-form-field>
+														<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf='showImg[i]' matTooltip="View" id="id_{{(keys[0]?.key).split(' ').join('')}}" (click)="previewFiles(keys[0].fieldValue,i,true)"></fa-icon>
+														<fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImg[i] && actionFlag=='update'" matTooltip="Delete" (click)="deletePreviewFile(keys[0].key,i,true)"></fa-icon>
+													</div>
+											</div>
+											<div  class="col-lg-3 col-md-6 col-sm-6" *ngIf="keys[0]?.key && actionFlag=='update'">
+												<div *ngIf='keys[0].value == "String" && (keys[0].key != "date" ||keys[0].key != "Date")'>	
+													<mat-form-field class="w100p" *ngIf='keys[0].value == "String"'>
+														<mat-label >{{keys[0].key}}</mat-label>
+														<input  matInput 
+																placeholder="{{keys[0]?.key}}"
+																value="{{keys[0]?.fieldValue}}"
+																formControlName="{{keys[0]?.key}}"
+																[readonly]="readOnlyFlag">
+								
+													</mat-form-field>
+												</div>
+												<div *ngIf='keys[0].value == "Number"'>
+														<mat-form-field class="w100p" *ngIf='keys[0].value == "Number"'>
+															<mat-label>{{keys[0].key}}</mat-label>
+															<input  matInput type = "number"
+																	placeholder="{{keys[0]?.key}}"
+																	value="{{keys[0]?.fieldValue}}"
+																	formControlName="{{keys[0]?.key}}"
+																	[readonly]="readOnlyFlag">
+														</mat-form-field>
+												</div>
+												<div *ngIf='keys[0]?.value == "Date"'>
+												<mat-form-field class="w100p" *ngIf='keys[0].value == "Date"'>
+													<mat-label>{{keys[0].key}}</mat-label>
+													<input matInput [matDatepicker]="picker1" [formControlName]="keys[0].key" value="{{keys[0]?.fieldValue}}" readonly>
+													<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+													<mat-datepicker #picker1
+													startView="multi-year"
+													(yearSelected)="chosenYearHandler($event, keys[0]?.key)"
+													(monthSelected)="chosenMonthHandler($event, picker1, keys[0]?.key)"
+													panelClass="example-month-picker" [readonly]="readOnlyFlag">
+													></mat-datepicker>
+												</mat-form-field>
+												</div>
+												<div *ngIf='keys[0]?.value == "File"'>
+													<label *ngIf="!showImg[i]" for="files_{{keys[0]?.key}}" class="subBtn dynamicUploadFileBtn">Choose File</label>
+													<input id="files_{{keys[0].key}}" accept="image/png, image/jpeg,image/jpg,application/pdf" type="file" name="keys[0].key" (change)="chooseFile($event, keys[0]?.key,i)" style="white-space: normal;display: none" required>
+													<mat-form-field class="w100p" *ngIf='keys[0].value == "File"'>
+														<mat-label >{{keys[0].key}}</mat-label>
+														<input  matInput 
+																placeholder="{{keys[0].key}}"
+																value="{{keys[0].fieldValue}}"
+																formControlName="{{keys[0].key}}"
+																[readonly]="readOnlyFlag">
+													</mat-form-field>
+													<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf='showImg[i]' matTooltip="View" id="id_{{(keys[0]?.key).split(' ').join('')}}" (click)="previewFiles(keys[0].fieldValue,i,true)"></fa-icon>
+													<fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImg[i] && actionFlag=='update'" matTooltip="Delete" (click)="deletePreviewFile(keys[0].key,i,true)"></fa-icon>
+													<div class="errCls" >{{imageError[i]}}</div>
+												</div>
+										</div>
+									</ng-container>										
+						</div>
+					</div>
+
+						<div class="action-btns text-center">
+							<button mat-raised-button class="subBtn" id="id_saveTransaction" *ngIf="actionFlag=='update'">Update</button>
+							<button mat-raised-button class="cancelBtn" type = "button" (click)="goBack()">Cancel</button>
+						</div>
+				</form> 
+		</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop:false}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 50px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span class="hide" (click)="hide()" style="padding: 0px 5px;">&times;</span> 
+        <div class="modal-body"  style="max-height: 80vh;overflow: scroll;"> 
+          <div class="text-center" *ngIf="urlSrc[indField] && modaleFlag==false">
+            <img [src]="traceChainUrl + '/' + urlSrc[indField]" *ngIf="urlSrc[indField] && isImage && !deleteDbFlag[indField]" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="traceChainUrl + '/' + urlSrc[indField]" *ngIf="urlSrc[indField] && isPdf && !deleteDbFlag[indField]" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+			<img [src]="urlSrc[indField]" *ngIf="urlSrc[indField] && isImage && deleteDbFlag[indField]" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="urlSrc[indField]" *ngIf="urlSrc[indField] && isPdf && deleteDbFlag[indField]" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+		</div>
+
+          <div class="text-center" *ngIf="urlSrcStatic && modaleFlag">
+            <img [src]="traceChainUrl + '/' + urlSrcStatic" *ngIf="urlSrcStatic && isImageStatic" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="traceChainUrl + '/' + urlSrcStatic" *ngIf="urlSrcStatic && isPdfStatic" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
+        </div>
+        </div>
+     </div>
+</div>

@@ -1,0 +1,218 @@
+
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<a>
+						<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+						</fa-icon>
+					</a>
+					<a mat-button class="subBtn SSFCompanyListGrid" *ngIf="!dashboard" (click)="getOrganization(id)">Add
+						Branch</a>
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" *ngIf="!dashboard">
+				<ng-container matColumnDef="deptId">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptId" (input)="selectdeptId($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch ID:</span>
+						{{element.code || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptName" (input)="selectdeptName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Name:</span>
+						{{element.name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptLocation">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Location</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptLocation" (input)="selectdeptLocation($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Location:</span>
+						{{element.branch_location || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptAddress">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Address</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptAddress" (input)="selectdeptAddress($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Address:</span>
+						{{element.branch_address || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Status</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters"[(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}" *matCellDef="let element">
+						<span class="mobile-label">Branch Status:</span>
+						{{element.status}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="actions" sticky>
+					<mat-header-cell *matHeaderCellDef>
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label">Actions:</span>						
+						<mat-slide-toggle class="toggle" [checked]="row.isActive==true"
+							(click)="openConfirmDialog(row)"></mat-slide-toggle>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" *ngIf="dashboard">
+				<ng-container matColumnDef="deptId">
+					JSON.stringify(dataSource)
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptId" (input)="selectdeptId($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch ID:</span>
+						{{element.code}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptName" (input)="selectdeptName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Name:</span>
+						{{element.name}}
+					</mat-cell>
+				</ng-container>
+				
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Status</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="selectstatus($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell [ngClass]="{'Approved': element.status == 'Approved','Invited': element.status == 'Invited','Signed-Up': element.status == 'Signed-Up','Active': element.status == 'Active','Inactive': element.status == 'Inactive'}" *matCellDef="let element">
+						<span class="mobile-label">Branch Status:</span>
+						{{element.status}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptLocation">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Location</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptLocation" (input)="selectdeptLocation($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Location:</span>
+						{{element.branch_location || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="deptAddress">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch Address</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.deptAddress" (input)="selectdeptAddress($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Address:</span>
+						{{element.branch_address || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="dashboardColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: dashboardColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalDept" [pageSize]="deptPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+				(page)="onChangedDept($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

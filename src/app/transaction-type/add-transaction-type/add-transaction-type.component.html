@@ -1,0 +1,284 @@
+<div class="container">
+  <div class="wrapper example-container">
+   <div class="outer-div">
+     <div class="inner-div header-btns">
+       <div class="mat-header-btns">
+         <a>
+            <fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon>
+         </a>
+         <div id="affDiv">
+           <span id="addSpan">
+             Transaction Type Details
+           </span>
+         </div>
+       </div>
+     </div>
+ </div>
+     <div linear>
+       <form [formGroup]="transTypeForm" autocomplete="off" #transactionTypeForm="ngForm" (ngSubmit)="addTransactionType(transactionTypeForm)">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="id!=undefined">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-label>Transaction Type ID</mat-label>
+               <input matInput
+               formControlName="transactionTypeCode"
+               [(ngModel)]="defaultTransactionTypeID"
+               required readonly>
+               <mat-error *ngIf="hasError('transactionTypeCode', 'required')">Transaction Type ID is required!</mat-error>
+               <mat-error *ngIf="hasError('transactionTypeCode', 'pattern')">Transaction Type ID is required without blank spaces!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-label>Transaction Type</mat-label>
+               <input matInput
+               formControlName="type"
+               required>
+               <mat-error *ngIf="hasError('type', 'required')">Transaction Type is required!</mat-error>
+               <mat-error *ngIf="hasError('type', 'pattern')">Transaction Type is should accept only alphanumeric!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-label>Description</mat-label>
+               <input matInput formControlName="additionalDescription" required>
+               <mat-error *ngIf="hasError('additionalDescription', 'required')">Additional Description is required!</mat-error>
+              <mat-error *ngIf="hasError('additionalDescription', 'pattern')">Additional Description should accept only alphanumeric!</mat-error>
+               </mat-form-field>
+            </div>
+          </div>        
+
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="form-fields w100p">
+                <mat-radio-group [(ngModel)]="defaultTransaction" formControlName="transaction" style="margin-bottom: 14px;" (change)="radioChange($event)">
+                  <mat-radio-button  style="margin: 0 10px 0 0px;" *ngFor="let transaction of transactions" [value]="transaction">{{transaction}}</mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <div class="form-fields w100p">
+                <mat-radio-group [(ngModel)]="defaultTransRole" formControlName="transRole" style="margin-bottom: 14px;">
+                  <mat-radio-button  style="margin: 0 10px 0 0px;" *ngFor="let transRole of transRoles" [value]="transRole">{{transRole}}</mat-radio-button>
+                  </mat-radio-group>
+               </div>
+            </div>
+            <!-- -----------------Asset fields-------------------------- --> 
+            <div class="col-lg-5 col-md-6 col-sm-6" *ngIf= "defaultTransaction == 'Asset'">
+              <div class="row">
+                <div *ngIf= "defaultTransaction == 'Asset'" class="form-fields  col-lg-6">
+                <mat-checkbox type="checkbox" [(ngModel)]="checkedserialized" formControlName="isSerialized">
+                    Serialized</mat-checkbox>               
+                </div> 
+                <div *ngIf= "defaultTransaction == 'Asset'" class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="checkedinput" formControlName="inputAsset">
+                      Input Asset
+                  </mat-checkbox>               
+                </div>
+                <div *ngIf= "defaultTransaction == 'Asset'" class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="checkedexpiry" formControlName="isExpiry">
+                    Expiry</mat-checkbox>               
+                </div> 
+                <div *ngIf= "defaultTransaction == 'Asset'" class="form-fields  col-lg-6">
+                    <mat-checkbox type="checkbox" [(ngModel)]="checkedprovenance" formControlName="isProvenance">
+                    Provenance</mat-checkbox>          
+                </div> 
+                <div class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="checkedVerifiable" formControlName="isVerifiable">
+                  Verifiable</mat-checkbox>          
+                </div>
+                <div class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="epr" formControlName="epr">
+                  EPR</mat-checkbox>          
+                </div>
+                <div class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprReceive" formControlName="eprReceive">
+                  EPR Receive</mat-checkbox>          
+                </div>
+                <div class="form-fields  col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprConsume" formControlName="eprConsume">
+                  EPR Consume</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprPrint" formControlName="eprPrint">
+                  EPR Print</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="nft" formControlName="nft">
+                  NFT</mat-checkbox>          
+                </div>
+                </div>
+            </div>
+            <!-- -----------------./Asset fields-------------------------- -->
+
+            <div class="col-lg-5 col-md-6 col-sm-6" *ngIf= "defaultTransaction == 'Order'">
+                 <mat-radio-group [(ngModel)]="defaultAssetType" formControlName="assetType" class="row">
+                  <mat-radio-button class="col-lg-6" *ngFor="let assetType of assetTypes" [value]="assetType">{{assetType}}</mat-radio-button>
+                </mat-radio-group>
+                <div class="row">
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="checkedVerifiable" formControlName="isVerifiable">
+                  Verifiable</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="assetWithoutReference" formControlName="assetWithoutReference">
+                  Asset without Reference</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="epr" formControlName="epr">
+                  EPR</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprReceive" formControlName="eprReceive">
+                  EPR Receive</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprConsume" formControlName="eprConsume">
+                  EPR Consume</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="eprPrint" formControlName="eprPrint">
+                  EPR Print</mat-checkbox>          
+                </div>
+                <div class="form-fields col-lg-6">
+                  <mat-checkbox type="checkbox" [(ngModel)]="nft" formControlName="nft">
+                  NFT</mat-checkbox>          
+                </div>
+                </div>
+               
+            </div>
+            <div *ngIf= "defaultTransaction == 'Asset' || defaultTransaction == 'Order'" class="col-lg-4 col-md-6 col-sm-6">
+                <mat-form-field  id="select-box" appearance="outline" class="w100p">
+                    <mat-select [(ngModel)]="selectedFromToEntity" class="placeholder_color" tabindex="5" placeholder="From/To Entity" formControlName="isFromToEntity" (ngModelChange)="changeFromEntity($event)" >
+                        <mat-option value="">None</mat-option>
+                        <mat-option value="self">Self</mat-option>
+                        <mat-option value="reference">Reference</mat-option>
+                        <mat-option value="partner">Partner</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+          </div>
+          
+          <hr style="border-style: dashed;">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-select [(ngModel)]="selected" class="placeholder_color" placeholder="Reference Module" [(value)]="selected" formControlName="refModule" (ngModelChange)="getTransTypeByModuleIdList($event)" >
+                  <mat-option value="">None</mat-option>
+                  <mat-option *ngFor="let module of modulesList;" [value]='module.code' >{{module.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-select [(ngModel)]="selectedRefTransType" class="placeholder_color" placeholder="Reference Transaction Type" [(value)]="selectedRefTransType" formControlName="refTransactionType" (ngModelChange)="getOrderReference()" >
+                  <mat-option value="">None</mat-option>
+                  <mat-option *ngFor="let transtype of transactionTypesList;" [value]='transtype.transactionTypeCode'>{{transtype.additionalDescription}}({{transtype.transactionTypeCode}})</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6" >
+              <div class="form-fields" style="margin-bottom: 14px;margin-left: 10px;">
+                <mat-radio-group [(ngModel)]="defaultOrderRef" formControlName="orderRef" >
+                  <mat-radio-button  style="margin: 0 5px 0 5px;" *ngFor="let orderReference of orderReferences" [value]="orderReference">{{orderReference}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>            
+          </div>
+          <div class="row">            
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-label>Auto Prefix</mat-label>
+               <input matInput formControlName="transactionTypePrefix" required [readonly]="readOnlyNumber">
+               <mat-error *ngIf="hasError('transactionTypePrefix', 'required')">Transaction Type Prefix is required!</mat-error>
+               <mat-error *ngIf="hasError('transactionTypePrefix', 'pattern')">Transaction Type Prefix should accept only alphabates!</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <mat-form-field appearance="outline" class="w100p">
+                <mat-label>Starting Number</mat-label>
+               <input  type="number" matInput formControlName="transactionTypeAutoNumber" (keypress)="validateNo($event)" required [readonly]="readOnlyNumber" >
+               <mat-error *ngIf="hasError('transactionTypeAutoNumber', 'required')">Transaction Type AutoNumber is required!</mat-error>
+              </mat-form-field>
+            </div>
+          </div>           
+                    
+          <hr style="border-style: dashed;">  
+             
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <mat-form-field appearance="outline" class="w100p">
+                    <mat-label>Add Fields</mat-label>
+                    <input matInput
+                    formControlName="fields"
+                    [(ngModel)] = "fields"
+                    required (keypress)="validateF($event)">
+                    <mat-error *ngIf="hasError('fields', 'required')">Fields is required!</mat-error>
+                    <mat-error *ngIf="hasError('fields', 'pattern')" style="width: max-content;margin-left: -6px;">Fields should accept only alphanumeric!</mat-error>
+  
+                    <!-- <mat-error *ngIf="hasError('fields', 'pattern')">
+                      <div *ngIf="transTypeForm.controls['fields'].hasError('required')">
+                        Fields are required!
+                      </div>
+                       <div *ngIf="transTypeForm.controls['fields'].hasError('pattern')">
+                        Special characters not allowed!
+                      </div>
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+                
+                <div class="form-fields" style="margin-bottom: 14px;">
+                  <mat-radio-group [(ngModel)]="favoriteSeason" formControlName="favorite" >
+                    <mat-radio-button  style="margin: 0 10px 0 0px;" *ngFor="let season of seasons" [value]="season">{{season}}</mat-radio-button>
+                    </mat-radio-group>
+                 </div>
+
+             <div *ngIf= "autogeneration == true && defaultTransaction == 'Transaction'" class="form-fields transactionid-checkbox">
+              <mat-checkbox style="vertical-align: sub;margin-bottom: 14px;" type="checkbox" name="remember" [(ngModel)]="checkbox"  formControlName="isHashField" disabled="disabled">
+               Use this field for Transaction ID</mat-checkbox>
+              </div>  
+
+             <div *ngIf= "!autogeneration && defaultTransaction == 'Transaction'" class="form-fields transactionid-checkbox">
+              <mat-checkbox style="vertical-align: sub;margin-bottom: 14px;" type="checkbox" name="remember" [(ngModel)]="checkbox"  formControlName="isHashField">
+                Use this field for Transaction ID</mat-checkbox>
+              </div> 
+             <div class="form-fields transactionid-checkbox">
+              <mat-checkbox  [(ngModel)]="check1" id="check1id" (change)="onCheckValue($event)" style="vertical-align: sub;margin-bottom: 14px;" type="checkbox" name="is_line_level"  formControlName="is_line_level">
+                Line Level</mat-checkbox>
+             </div> 
+             <div class="form-fields transactionid-checkbox">
+              <mat-checkbox  [(ngModel)]="check2" id="check2id" (change)="onCheckValue($event)" style="vertical-align: sub;margin-bottom: 14px;" type="checkbox" name="is_outside_level"  formControlName="is_outside_level">
+                OutSide Level</mat-checkbox>
+             </div> 
+             <div class="form-fields" style="margin-bottom: 23px;">
+                  <fieldset [disabled]="!fields" >
+                    <fa-icon [icon]="faPlusCircle" style="color: #3f51b5;" matPrefix class="fa-icon"  (click)="addFields()"></fa-icon> 
+                  </fieldset>
+              </div>
+              </div> 
+              <div class="form-fields transactionid-checkbox row">
+                
+              </div>
+        <!---------End Rohini KAmble (SCI-I681) 16/02/2021----------------- -->
+        <div class="row">      
+          <div class="col-lg-12">
+            <div *ngFor="let data of fieldKeyValue ; let i = index;">
+                <mat-grid-list cols="6" rowHeight="25px" style="padding-bottom:0px!important;background-color: rgb(193 193 193 / 18%);width: 100%;margin-right: 0px!important;">
+                <mat-grid-tile colspan="1">{{ i + 1 }}.</mat-grid-tile>
+                <mat-grid-tile colspan="1">{{data.key}}</mat-grid-tile>
+                <mat-grid-tile colspan="1">{{data.value}}</mat-grid-tile>
+                <mat-grid-tile colspan="1">{{data.is_line_level?"Line Level":data.is_outside_level?"Out Side Level":"Header Level"}}</mat-grid-tile>
+                <mat-grid-tile colspan="1" *ngIf= "defaultTransaction == 'Transaction'" class="caps" >{{data.transactionid}}</mat-grid-tile>
+                <mat-grid-tile colspan="1"><a class="btn" (click)="removeFromList(i)" style="color: red;margin-top: -5px;">X</a></mat-grid-tile>
+                </mat-grid-list>
+            </div>
+          </div>
+        </div>
+          <div id="affDiv" style="height: 0;border-bottom: none;"></div>            
+         <div class="action-btns text-center">
+           <button mat-raised-button class="subBtn" *ngIf="id==undefined">Save</button>
+           <button mat-raised-button class="subBtn" *ngIf="id!=undefined">Update</button>
+           <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>

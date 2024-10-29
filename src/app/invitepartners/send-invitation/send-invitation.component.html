@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="InvitationForm" autocomplete="off" #invitationForm="ngForm" (ngSubmit)="sendInvitation(invitationForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Invitation  Details
+                        </span>
+                    </div>
+                    <div class="row" style="margin-top: 14px;">
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput placeholder="Please Enter Company Name" formControlName="entityName"
+                                    required>
+                                    <mat-error *ngIf="InvitationForm.controls['entityName'].hasError('required')">Company Name is required!</mat-error>
+                                    <mat-error *ngIf="InvitationForm.controls['entityName'].hasError('pattern')">Company Name should accept only alphanumeric!</mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput placeholder="Please Enter Email Id" formControlName="email" email
+                                required>
+                               <mat-error *ngIf="hasError('email', 'required')">Email is required!</mat-error>
+                               <mat-error *ngIf="hasError('email', 'pattern')">Please enter valid email ID!</mat-error>
+                        </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn" [disabled]="!invitationForm.form.valid">Send</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

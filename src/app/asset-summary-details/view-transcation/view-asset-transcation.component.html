@@ -1,0 +1,619 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+					<a>
+						<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+						</fa-icon>
+					</a>
+				</div>
+			</div>
+			<span class="spacer"></span>
+			<div class="inner-div header-btns" style="text-align: right;">
+				<div class="mat-header-btns">
+					<button mat-raised-button class="subBtn" (click)="clearFilters()">Clear search</button>
+				</div>
+			</div>
+		</div>
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>	
+		<div class="list-container">			
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8"  matSort (matSortChange)="sortData($event)">
+				<ng-container matColumnDef="entityId">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Entity Name </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Name:</span>
+						{{element.transactionEntityName || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="branchLocation">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch/Location</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.branchLocation" (input)="searchField($event,filter.branchLocation)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.branchLocation" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.branchLocation='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch/Location:</span>
+						{{element.department?.branch_location || element.department?.name || element.branchLocation || '-'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="transcationEntity">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Entity Id </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Id:</span>
+						{{element.transactionEntity || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetId">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.assetId" (input)="searchField($event,filter.assetId)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Id:</span>
+						{{element.assetId || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Category </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.assetCategory" (input)="searchField($event,filter.assetCategory)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetCategory" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetCategory='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>
+						{{element.assetcategory?.assetCategory || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Name </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.assetName" (input)="searchField($event,filter.assetName)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						{{element.assetName || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="moduleId">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Module Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off" [(ngModel)]="filter.moduleId" (input)="searchField($event,filter.moduleId)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.moduleId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.moduleId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module Id:</span>
+						{{element.moduleCode || ''}}  
+					</mat-cell>
+				</ng-container>
+				
+				<ng-container matColumnDef="moduleName">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Module Name </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.moduleName" (input)="searchField($event,filter.moduleName)"  class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.moduleName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.moduleName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module Name:</span>
+						{{element.module.name || ''}}  
+					</mat-cell>
+				</ng-container>				
+				<ng-container matColumnDef="partnerEntity">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Partner Entity </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Partner Entity:</span>
+						{{element.refEntityName || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="partnerBranch">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Partner Branch </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Partner Branch:</span>
+						<span *ngIf="element.refEntityName">{{element.refbranch?.name || ''}} </span>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="transtypeCode">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Transcation Type Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.transactionTypeCode" (input)="searchField($event,filter.transactionTypeCode)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.transactionTypeCode" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.transactionTypeCode='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transcation Type Id:</span>
+						{{element.transtypeCode || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="transactionTypeName">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Transcation Type Name </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.transactionTypeName" (input)="searchField($event,filter.transactionTypeName)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.transactionTypeName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.transactionTypeName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transcation Type Name:</span>
+						{{element.transtype.transactionTypeName || element.transtype[0].transactionTypeName || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="transcationid">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Asset Transaction Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off" class="form-field"  [(ngModel)]="filter.transcationid" (input)="searchField($event,filter.transcationid)">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.transcationid" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.transcationid='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Transaction Id:</span>
+						{{element.transactionid || ''}}  
+					</mat-cell>
+				</ng-container>
+			
+				<ng-container matColumnDef="assetType">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Type</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Type:</span>
+						{{element.assetType || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="location">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Location </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.assetLocation" (input)="searchField($event,filter.assetLocation)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetLocation" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetLocation='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Location:</span>
+						{{element.location || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetQuantity">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Quantity </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity:</span> 
+						{{element.assetQuantity}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="assetUom">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> UOM </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">UOM:</span> 
+						{{element.assetUom || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="effectiveDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Manufacture Date</div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Manufacture Date:</span>
+						{{element.effectiveDate || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="expiryDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Expiry Date </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Expiry Date:</span>
+						{{element.expiryDate || ''}}  
+					</mat-cell>
+				</ng-container>
+			
+				<ng-container matColumnDef="refAsset">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Reference Asset </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Reference Asset:</span>
+						{{element.entityAsset || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="inputAsset">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Input Asset </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset:</span>
+						<img *ngIf= "element.inputAssets && element.inputAssets.length>0" class="sidebar-img" matTooltip="View" (click)="getInputAsset(element)" src="../assets/icons/view (1).svg"/> 
+						<ng-template #template>
+							<div class="modal-body">
+										<div class="">
+										<div class="list-container">
+											<mat-table [dataSource]="dataSources" *ngIf= "ModalFlag == true" class="mat-table-item inputAssetTable mat-elevation-z8" style=" width: 100%;min-width: 468px;">												
+												<ng-container matColumnDef="inputAssetId">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Id</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Id:</span> {{element.inputAssetId || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputAssetCategory">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Category</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Name:</span> {{element.inputAssets_details[0].assetCategoryDetails[0].assetCategory || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputAssetName">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Name</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Name:</span> {{element.inputAssets_details[0].assetName || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputAssetQuantity">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Quantity - UOM</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity - UOM:</span> {{element.inputAssetQuantity}} {{ ' ' }} {{element.inputAssetUom || ''}}</mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="entity_asset">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Entity Asset</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Asset:</span> {{element.entity_asset || '-'}} </mat-cell>                                         
+												</ng-container>												
+												<mat-header-row *matHeaderRowDef="displayedModalColumns"></mat-header-row>
+												<mat-row *matRowDef="let row; columns: displayedModalColumns;"></mat-row>
+											</mat-table>
+										</div>              
+									</div>
+						
+								<div class="row">
+									<div class="col-lg-12 text-center" style="margin-top: 10px;">
+										<a mat-button class="cancelBtn" style="padding: 0;" data-dismiss="modal" (click)="closedModal()">Cancel</a>
+									</div>
+								</div>							
+							</div>
+						</ng-template>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="refOrder">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Reference Order </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Reference Order:</span> 
+						{{element.refOrder || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="created_on">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Transcation Date and Time </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transcation Date and Time:</span> 
+						{{element.created_on || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetId">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.eprAssetId" (input)="searchField($event,filter.eprAssetId)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Id:</span>
+						{{element.eprAssetId || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Category </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.eprAssetCategory" (input)="searchField($event,filter.eprAssetCategory)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetCategory" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetCategory='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>
+						{{element.eprAssetcategory?.assetCategory || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Name </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off"  [(ngModel)]="filter.eprAssetName" (input)="searchField($event,filter.eprAssetName)" class="form-field">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						{{element.eprAssetName || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprTransactionid">
+					<mat-header-cell *matHeaderCellDef>
+						<div> Asset Transaction Id </div>
+						<div>
+							<mat-form-field>
+								<input matInput autocomplete="off" class="form-field"  [(ngModel)]="filter.eprTransactionid" (input)="searchField($event,filter.eprTransactionid)">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprTransactionid" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprTransactionid='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Transaction Id:</span>
+						{{element.eprTransactionid || ''}}  
+					</mat-cell>
+				</ng-container>
+			
+				<ng-container matColumnDef="eprAssetType">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Asset Type</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Type:</span>
+						{{element.eprAssetType || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetQuantity">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Quantity </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity:</span> 
+						{{element.eprAssetQuantity}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetUom">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> UOM </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">UOM:</span> 
+						{{element.eprAssetUom || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetMfgDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Manufacture Date</div>
+						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Manufacture Date:</span>
+						{{element.eprAssetMfgDate || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprAssetExpiryDate">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Expiry Date </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Expiry Date:</span>
+						{{element.eprAssetExpiryDate || ''}}  
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="inputEprAssets">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Input Asset </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset:</span>
+						<img *ngIf= "element.inputEprAssets && element.inputEprAssets.length>0" class="sidebar-img" matTooltip="View" (click)="geteprInputAsset(element)" src="../assets/icons/view (1).svg"/> 
+						<ng-template #template>
+							<div class="modal-body text-center">
+										<div class="outer-div">
+										<div class="list-container">
+											<mat-table [dataSource]="dataSources" *ngIf= "ModalFlag == true" class="mat-table-item inputAssetTable mat-elevation-z8" style=" width: 100%;min-width: 468px;">
+												<ng-container matColumnDef="inputEprAssetId">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Id</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Id:</span> {{element.inputEprAssetId || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputeprAssetCategory">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Category</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Name:</span> {{element.inputEprAssets_details[0].assetCategoryDetails[0].assetCategory || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputeprAssetName">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Input Asset Name</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Input Asset Name:</span> {{element.inputEprAssets_details[0].assetName || '-'}} </mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="inputEprAssetQuantity">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Quantity - UOM</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity - UOM:</span> {{element.inputEprAssetQuantity}} {{ ' ' }} {{element.inputEprAssetUom || ''}}</mat-cell>                                         
+												</ng-container>
+												<ng-container matColumnDef="entity_epr_asset">
+													<mat-header-cell *matHeaderCellDef style="min-height: 0px;">
+														<div>Entity Asset</div>
+														</mat-header-cell>
+													<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Entity Asset:</span> {{element.entity_epr_asset || '-'}} </mat-cell>                                         
+												</ng-container>												
+												<mat-header-row *matHeaderRowDef="displayedModalColumns"></mat-header-row>
+												<mat-row *matRowDef="let row; columns: displayedModalColumns;"></mat-row>
+											</mat-table>
+										</div>              
+									</div>						
+								<p class="mb-0"></p>
+							<a mat-button class="cancelBtn" style="padding: 0;" data-dismiss="modal" (click)="closedModal()">Cancel</a>
+							</div>
+						</ng-template>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprRefOrder">
+					<mat-header-cell *matHeaderCellDef>
+						<div  mat-sort-header> Reference Order </div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Reference Order:</span> 
+						{{element.eprRefOrder || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumn;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalAsset" [pageSize]="assetPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedAsset($event)">showFirstLastButtons</mat-paginator>		
+		</div>
+	</div>	
+</div>

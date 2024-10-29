@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper">
+    </div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="AssetCategoryForm" autocomplete="off" #assetCategoryForm="ngForm" (ngSubmit)="createAssetCategory(assetCategoryForm)">
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            Asset Category Details
+                        </span>
+                    </div>
+                    <div class="row" style="margin-top: 14px;">
+                        <div class="col-lg-5">
+                            <mat-form-field class="w100">
+                                <mat-select placeholder="Asset Category" formControlName="assetCategory" required  (ngModelChange)="btnTypes($event)">
+                                <mat-option style="color:#333!important" *ngFor="let assetCategory of assetCategoryDetails;"
+                                    [value]='assetCategory'>{{assetCategory.assetCategory}}</mat-option>
+                                <ng-container *ngIf="assetCategoryDetails?.length == '0'">
+                                <mat-option disabled>No Records Found</mat-option>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error *ngIf="hasError('assetCategory', 'required')">Asset Category is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput [(ngModel)]="provenanceTemplatePath" placeholder="Please Enter Provenance Template Path" formControlName="provenanceTemplatePath"
+                                    required>
+                                <mat-error *ngIf="hasError('provenanceTemplatePath', 'required')">Provenance Template Path is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-btns text-center">
+                    <button mat-raised-button class="subBtn" [disabled]="!assetCategoryForm.form.valid" *ngIf="flag == true">Add</button>
+                    <button mat-raised-button class="subBtn" [disabled]="!assetCategoryForm.form.valid" *ngIf="flag == false">Update</button>
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

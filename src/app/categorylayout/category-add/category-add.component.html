@@ -1,0 +1,145 @@
+<div class="container">
+    <div class="wrapper">
+    <!-- Add category box -->
+    <div class="credible-categoty-list add-category credibleme-wrapper"> 
+        <div class="card w-25 bg-white">
+            <div id="moduleDiv">
+                <span id="moduleSpan">
+                    Industry Details
+                </span>
+            </div>
+            <div class="card-body pt-0">
+                <form>
+                    <div class="form-group row" *ngFor="let category of selectedCategories; let i = index">
+                        <mat-form-field class="col-lg-5 offset-lg-3">
+                            <input matInput type="text" placeholder="Industry name" name="category-{{i}}" autocomplete="off">
+                            <!-- [(ngModel)]="category" -->
+                        </mat-form-field>
+                        <i class="cat-icon fa fa-minus-circle col-lg-1" style=" color: #3f51b5;text-align: center; margin-left: 0px;" (click)="removeSelectedCategory(i)"></i>
+                    </div>
+                    <div class="form-group row">
+                        <mat-form-field class="col-lg-5 offset-lg-3">
+                        <input matInput type="text" placeholder="Industry name" name="name" [(ngModel)]="categoryDetails.name" autocomplete="off">
+                        </mat-form-field>
+                        <i class="cat-icon fa fa-plus-circle col-lg-1" style=" color: #3f51b5;text-align: center; margin-left: 0px;" [disabled]="flagDisabledAddCat" (click)="addMoreCategory()"></i>
+                    </div>
+                    <div class="action-btns text-center">
+                        <button  mat-raised-button type="submit" class="subBtn"  (click)="addCategory()" >Save</button>                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row gridGlobalSearch">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <mat-form-field class="globalSerach_lbl search-input">
+                <mat-label>Search</mat-label>
+                <input matInput class="form-field filters" [(ngModel)]="filter.searchString" (ngModelChange)="onSearch($event)" autocomplete="off" >
+                <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                <button mat-button *ngIf="filter.searchString" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchString='')">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>	
+    <!-- Category technical table with pagination -->
+    <div class="credible-categoty-list  credibleme-wrapper category-main-list">
+        <div class="card bg-white">
+                    <div class="list-container">
+                        <mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8">
+                            <ng-container matColumnDef="select" sticky>
+                                <mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected() == true"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                    </mat-checkbox>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label"></span>                                    
+                                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectRow($event,element): null"
+                                        (change)="$event ? selection.toggle(element) : null"
+                                        [checked]="selection.isSelected(element) == true">
+                                    </mat-checkbox> 
+                                </mat-cell>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef>
+                                    <div>Name</div>
+                                    <div>
+                                        <mat-form-field class="search-input">
+                                            <input matInput class="form-field filters" autocomplete="off"
+                                            [(ngModel)]="filter.searchString" (ngModelChange)="onSearch($event)" [formControl]="departmentIdFilter">
+                                            <fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element">
+                                    <span class="mobile-label">Name:</span>
+                                    {{element.name || '-'}}
+                                </mat-cell>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="link">
+                                <mat-header-cell *matHeaderCellDef>
+                                    <div>Count</div>
+                                    <div>
+                                    </div>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let element" class="table-link" style="cursor: pointer;color: #007bff;text-decoration: none;background-color: transparent;" (click)="addNewCategory(element)" title="Add Sub Category">
+                                    <span class="mobile-label">Count:</span>
+                                    {{element.numberofCat || '0'}}
+                                </mat-cell>
+                               
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="actions" sticky>
+                                <mat-header-cell *matHeaderCellDef>
+                                    <div>Actions </div>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let row;index as i">
+                                    <span class="mobile-label">Actions:</span>
+                                    <img class="sidebar-img" matTooltip="Delete Industry"  data-toggle="modal"  (click)="selectedCat(template,row)" src="../assets/icons/delete (1).svg"/>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumn;"></mat-row>
+                        </mat-table>
+                        <div class="clsTxt" *ngIf="dataSource.length === 0">No records found</div>
+                    </div>
+                        <div class="text-right align-right">
+                            <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" (page)="onChangedPage($event)"></mat-paginator>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #template >
+          <div class="modal-body">Are you sure want to delete this Industry?</div>
+          <div class="mat-dialog-actions">
+            <button mat-button type="button" class="subBtn" autofocus (click)="confirm()">Yes</button>
+            <button mat-button style="margin-left: 8px;" class="cancelBtn" (click)="decline()" >No</button>
+          </div>
+    </ng-template>
+        <ng-template #errtemplate>
+            <div class="modal-body text-center">
+                <div class="">
+                    <span class="main-head">Duplicate Industries</span>
+                </div>
+                <table class="my-table">
+                    <thead class="my-table headers">
+                        <tr>
+                            <th>Industry Name</th>
+                        </tr>
+                    </thead>
+                    <tbody class="my-table body">
+                        <tr my-active *ngFor="let row of invalidCategoriesArr; index as rowIndex">
+                            <td>{{row}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mb-0"></p>
+                <button type="button" class="btn btn-secondary" style=" color: inherit;background: transparent;font-size: 14px;
+                      font-weight: 500;border: none;" data-dismiss="modal" (click)="decline()">Ok</button>
+            </div>
+        </ng-template>

@@ -1,0 +1,83 @@
+<style>
+  html, body {
+  background-color: #f0f0f7;
+  height: 100vh !important;
+}
+</style>
+<div class="row">
+<DIV class="banner-wrapper">
+  <img src="../../assets/img/about-nippyworld@1x.png" class="banner_image" alt="">
+</DIV>
+</div>
+<div class="clearfix"></div>
+<div class="row bg-img">
+<div class="row" style="width: 100%;">
+  <div class="col-lg-12 text-center m-lr-10 pad9_in_a800">
+    <img class="hide_above800 mx-auto" src="../../assets/img/Transparent.png" alt="" style="height: 100px;">
+    <DIV class="text_tracechain_n hide_below800">TraceChain</DIV>
+    <DIV class=text_trustacross_n>'Trust Across Supply Chain'</DIV>
+    <DIV class=text_blockchainenabled_n>Blockchain Enabled Asset Tracking & Provenance Platform</DIV>
+</div>
+</div>
+<div class="row w100p corpRegCls homepage_layout">
+  <div class="col-lg-4 hide_below800" style="position: relative;">
+    <img src="../../assets/img/Transparent.png" alt="" style="height: 100px;position: absolute;left: 35%;top: 21%;">
+  </div>
+  <div class="col-lg-5 col-sm-12 col-xs-12">
+    <form class="corporate-verifier1366 anima-screen" autocomplete="off" *ngIf="(router.url == '/partnerRegistration')" [formGroup]="companyDetails" #company="ngForm" (ngSubmit)="registerCorporate(company)">
+      <div class="row" style="background-color: rgb(243, 243, 248, .7);">
+        
+        <div class="col-lg-12 m-lr-10">
+          <div class="login_lbl">Sign Up</div>
+        </div>
+        <div class="col-lg-6 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+        		<input matInput tabindex="2" placeholder="First Name" formControlName="firstName" id="id_firstName" required>
+								<mat-error *ngIf="companyDetails.controls['firstName'].hasError('required')">First Name is required!</mat-error>
+								<mat-error *ngIf="companyDetails.controls['firstName'].hasError('pattern')">First Name should accept only characters!</mat-error>
+              </mat-form-field>
+         </div>        
+        <div class="col-lg-6 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+             <input matInput tabindex="3" placeholder="Last Name" formControlName="lastName" id="id_lastName" required>
+             <mat-error *ngIf="companyDetails.controls['lastName'].hasError('required')">Last Name is required!</mat-error>
+             <mat-error *ngIf="companyDetails.controls['lastName'].hasError('pattern')">Last Name should accept only characters!</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-6 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+            <input matInput tabindex="1" placeholder="Company Name" formControlName="companyName" id="id_companyName" required>
+            <mat-error *ngIf="companyDetails.controls['companyName'].hasError('required')">Company Name is required!</mat-error>
+            <mat-error *ngIf="companyDetails.controls['companyName'].hasError('pattern')">Company Name should accept only alphanumeric!</mat-error>
+          </mat-form-field>
+         </div>
+        <div class="col-lg-6 m-lr-5">
+          <mat-form-field appearance="outline" class="w100p">
+            <input matInput tabindex="4" placeholder="Official Mail ID" formControlName="email" id="id_officialemail" email required>
+            <mat-error *ngIf="companyDetails.controls['email'].hasError('required')">Email ID is required!</mat-error>
+            <mat-error *ngIf="companyDetails.controls['email'].hasError('email')">Please enter valid email!</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6 m-lr-5">
+          <div class="countryphone">
+            <mat-form-field appearance="outline" id="corp-reg" class="w100p">
+              <ngx-mat-intl-tel-input placeholder="Phone Number" formControlName="phoneNumber" id="id_phoneNumber" autocomplete="off" [preferredCountries]="['in','sg']" [enablePlaceholder]="true" [enableSearch]="true"
+               name="phoneNumber" #phoneNumber1 required>
+              </ngx-mat-intl-tel-input>
+              <mat-hint>eg : {{phoneNumber1.selectedCountry.placeHolder}}</mat-hint>
+              <mat-error *ngIf="companyDetails.controls['phoneNumber'].hasError('required')">Phone Number is required!</mat-error>
+              <mat-error *ngIf="companyDetails.controls['phoneNumber']?.errors?.validatePhoneNumber">Invalid Number</mat-error> 
+             </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-lg-12">
+          <span class="dont-have-account">Already have an Account? </span>
+          <span class="span1-oh3OiQ" (click)="goHomePage()" id="id_link_login">Log In</span>
+          <button tabindex="6" mat-raised-button id="id_btn_signup" class="subBtn pull-right">Sign Up</button>          
+        </div>  
+      </div>
+    </form>
+  </div>
+</div>
+</div>        

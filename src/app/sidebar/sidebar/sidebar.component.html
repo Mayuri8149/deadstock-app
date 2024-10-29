@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sidebar-container" (backdropClick)="close()">
+		<mat-sidenav-content class="sidebar-content">
+		<div class="main-body">
+			<mat-sidenav-container >
+				<mat-sidenav #sidenav [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+				[mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)" *ngIf="isUserLogin">
+						    <div class="page-sidebar" *ngIf="isUserLogin">
+								<app-page-sidebar></app-page-sidebar>
+							</div>
+				</mat-sidenav>
+			  
+				<mat-sidenav-content>				 
+				  <div class="page-content body-background">
+					  <div class="row" *ngIf="isUserLogin" style="background: #e9ecef;margin: 0;flex-wrap: nowrap;position: fixed;z-index: 5;width: 100%;">
+						  <div class="col-lg-2" style="max-width: max-content;padding: 2px 0;" *ngIf="isHandset$ | async">
+							<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" >
+								<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+							</button>
+						  </div>
+						  <div class="col-lg-10" style="padding: 10px 30px;">
+							<pp-breadcrumbs></pp-breadcrumbs>
+						  </div>
+					  </div>									
+					
+					<hr *ngIf="isUserLogin" style="margin: 0px;">
+					<router-outlet></router-outlet>
+					<footer class="footer" *ngIf="isUserLogin" style="bottom: 10px;padding-top: 8px;">
+						<span style="font-size: 10px; font-style: italic;color: gray;">Copyright © 2021 TraceChain | Powered by Snapper Future Tech</span>
+					</footer>
+				</div>
+				</mat-sidenav-content>
+			  </mat-sidenav-container>		
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

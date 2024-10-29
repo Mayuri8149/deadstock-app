@@ -1,0 +1,103 @@
+<div class="container">
+	<div class="wrapper bg_white">
+    <div class="mat-header-btns">
+			<a> 					
+				<fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()"></fa-icon>
+			</a>
+			<a mat-button class="subBtn"  [class.disabled-menu]="!isNotKYC" *ngIf="!fromAdmin" routerLink="/organizations/organizationDetails/organizationUpdate/{{organizationData._id}}">Update Organization Details</a>
+	</div>
+		<div class="details" style="padding: 0px;">
+			<div class="affDiv">
+				<span class="main-head addSpan">Organization Details</span>
+			</div>
+			
+			<div class="details-body">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization ID</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.code}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Name</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.name }}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Email Id</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.user?.email || '-'}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Phone Number</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.user?.phoneNumber || '-'}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Address</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData?.address || '-'}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Location</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData?.location || '-'}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Organization Website</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData?.website || '-'}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Entity Type</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.entityType}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Fabric Channel Id</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.fabricChannelId || '-'}}</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<span class="label-text">Fabric Organization Id</span>
+					</div>
+					<div class="col-lg-9 col-md-6 col-sm-6">
+						<span>{{organizationData.fabricOrgId || '-'}}</span>
+						</div>
+				</div>
+
+				<div class="action-btns text-center">					
+					<button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

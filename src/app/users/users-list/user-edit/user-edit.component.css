@@ -1,0 +1,58 @@
+.container {
+    padding: 40px 26px;
+}
+.heading-wrapper {
+    width: 100%;
+    margin: 5px 0;
+}
+.panel-primary > .panel-heading {
+    color: #696969;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 32px;
+    font-weight: 600;
+    color: inherit;
+}
+.form-wrapper {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #BFBFBF;
+    border-radius: 12px;
+    box-shadow: 5px 5px 15px 6px #bfb9b9;
+}
+.example-container {
+    padding: 12px 24px;
+}
+.action-btns {
+    padding: 18px 1px;
+}
+.head-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.btn-text {
+    color: #444444;
+}
+#userDiv {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid #6c757d;
+    text-align: center;
+    margin-bottom: 3%;
+}
+#userSpan {
+    font-size: 21px;
+    background-color: #F3F5F6;
+    color: #001f60;
+    font-weight: 500;
+    padding: 0 50px;
+}

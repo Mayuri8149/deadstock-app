@@ -1,0 +1,275 @@
+.container {
+    padding: 40px 26px;
+}
+.outer-div {
+    display: flex;
+    flex-direction: row;
+} 
+.spacer {
+    flex: 1 1 auto;
+}
+.inner-div {
+    display: flex;
+}
+.header-btns {
+    padding: 9px 2px;
+}
+.file-upload {
+    width: 100%;
+    height: 100%;
+}
+.mat-ink-bar{
+    background-color:#00ADEE;
+}
+.add-btn {
+   background-color: #e2be40;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    margin: 2px 4px;
+}
+.list-container {
+    height: inherit;
+    overflow-y: scroll;
+}
+.list-container::-webkit-scrollbar {
+    height: 9px;
+}  
+.list-container::-webkit-scrollbar-track::horizontal {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.list-container::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+.list-containers {
+    height: inherit;
+    overflow-y: initial;
+}
+.activeBatches {
+    width: 100%;
+    min-width: 1695px;
+}
+.passoutBatches {
+    width: 100%;
+    min-width: 1270px;
+}
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+.mat-header-cell {
+    display: block;
+    padding: 1px 10px;
+    color: #060303!important;
+}
+mat-column-star {
+    width: 20px;
+    padding-right: 8px;
+}
+mat-table-sticky:first-child{
+    border-right: 1px solid #e0e0e0;
+    padding: none;
+    min-height: 50px;
+}
+mat-table-sticky:last-child{
+    border-right: 1px solid #e0e0e0;
+    padding: none;
+    min-height: 50px;
+}
+mat-column-position, mat-column-position {
+    padding-left: 8px;
+}
+.mat-table {
+    width: 100%;
+    min-width: 2370px;
+}
+.mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+}
+.mat-table-sticky:last-child {
+    border-right: 1px solid #e0e0e0;
+}
+.mat-row {
+    min-height: 20px !important;
+}
+.mat-header-cell {
+    border-right: 1px solid #e0e0e0;  
+}
+.search {
+    color: #787b80;
+    font-size: 14px !important;
+    min-height: 12px !important;
+}
+.search-input {
+    display: inline;
+}
+.matInput {
+    margin-left: 20px;
+}
+.fa-icon {
+    margin-right: 8px;
+}
+.icon-back {
+    font-size: 25px;
+}
+.mat-row:nth-child(even) {
+    background-color: #dcdcdc;
+}
+.mat-header-row, .mat-row, .mat-footer-row {
+    border-bottom-width: 0; 
+}
+.mat-paginator {
+    font-size: 11px;
+}
+.mat-paginator-container {
+    min-height: 48px;
+    display: flex;
+}
+.active-btn {
+   background-color: #e2be40;
+    border-radius: 7px;
+    line-height: 0;
+    font-size: 13px;
+    height: 16px;
+    width: 55px;
+}
+.mat-column-select {
+    flex: 0 0 1% !important;
+    min-width: 35px !important;
+}
+.mat-column-id {
+    flex: 0 0 3% !important;
+    min-width: 65px !important;
+}
+.mat-column-Remove {
+    flex: 0 0 3% !important;
+    min-width: 60px !important;
+}
+.mat-column-select {
+    flex: 0 0 3% !important;
+    min-width: 60px !important;
+}
+.mat-column-certificateName {
+    flex: 0 0 3% !important;
+    min-width: 160px !important;
+}
+.mat-checkbox{
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 7px !important;
+}
+
+#select-box ::ng-deep .mat-form-field-flex > .mat-form-field-infix { 
+    padding: 0.1em 0px !important;
+    height: 40px;
+  }
+  ::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+  
+  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+      transform: translateY(-1.1em) scale(.75);
+  }
+
+::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: translateY(0%) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    margin-top: -0.45em !important;
+}
+
+::ng-deep .mat-select-placeholder {
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+.action-btns {
+    padding: 18px 1px;
+}
+.action-btn-c {
+    margin-left: 10px;
+}
+::ng-deep .cancelcheckbox.mat-checkbox-checked .mat-checkbox-background::after{
+    font-family: "FontAwesome" !important;
+    content: "\f00d" !important;
+    color: #fff;
+    margin-left: -10px;
+    font-size: 15px;
+}
+::ng-deep .cancelcheckbox.mat-checkbox-checked .mat-checkbox-background{
+    background: red!important;
+}
+::ng-deep .cancelcheckbox.mat-checkbox-checked .mat-checkbox-checkmark{
+    display: none !important;
+}
+
+.mat-elevation-z8 {
+    max-height: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 300px;
+  }
+
+  .mat-header-row{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .mat-column-effectiveDate,
+  .mat-column-transactionType,
+  .mat-column-assetName,
+  .mat-column-assetCategory,
+  .mat-column-inputAsset,
+  .mat-column-branch,
+  .mat-column-location,
+  .mat-column-quantity,
+  .mat-column-uom,
+  .mat-column-effectiveDate,
+  .mat-column-expiryDate,
+  .mat-column-verifiable,
+  .mat-column-variableField {
+    flex: none;
+    width: 85px;
+    text-align: center;
+}
+
+.mat-header-row .mat-column-organization,
+.mat-header-row .mat-column-moduleId,
+.mat-header-row .mat-column-courseId,
+.mat-header-row .mat-column-TansactionCode,
+.mat-header-row .mat-column-certificateName,
+.mat-header-row .mat-column-label{
+    flex: none;
+    width: 130px;
+    text-align: center;
+}
+
+.example-margin {
+    margin: 0 auto !important;
+}
+@media(max-width: 600px) {
+    .mobile-label {
+      width: 130px;
+    }
+    .mat-column-effectiveDate,
+  .mat-column-transactionType,
+  .mat-column-assetName,
+  .mat-column-assetCategory,
+  .mat-column-inputAsset,
+  .mat-column-branch,
+  .mat-column-location,
+  .mat-column-quantity,
+  .mat-column-uom,
+  .mat-column-effectiveDate,
+  .mat-column-expiryDate,
+  .mat-column-variableField {
+    flex: none;
+    width: 130px;
+    text-align: left;
+}
+}

@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="panel panel-primary heading-wrapper"></div>
+    <div class="form-wrapper">
+        <div class="example-container" linear>
+            <form [formGroup]="authUserForm" autocomplete="off" #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+                <!-- User Details Section -->
+                <div>
+                    <div id="userDiv">
+                        <span id="userSpan">
+                            User Details
+                        </span>
+                    </div>
+                    <div class="row">
+                        <!-- Input for Menu Name -->
+                        <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+                            <input matInput 
+                            placeholder="Menu Name" 
+                            formControlName="name"
+                            required>
+                            <mat-error *ngIf="hasError('name', 'required')">Name is required!</mat-error>
+                            <mat-error *ngIf="authUserForm.controls['name'].hasError('pattern')">Name should accept only characters!</mat-error>
+                        </mat-form-field>
+
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+							<label for="files" class="subBtn mat-focus-indicator mat-raised-button mat-button-base">Upload Photo</label>
+							<input id="files" class="file-upload" accept="image/png, image/jpeg,image/jpg" type="file" name="file" (change)="ChooseFile($event)" style="white-space: normal;display: none">		
+								 &nbsp;&nbsp;&nbsp;{{this.filename}}	
+								 <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)"></fa-icon>
+								<div class="errCls" >{{imageErrorStatic}}</div>
+								 <mat-form-field class="input-field" hidden>
+								 <input matInput  formControlName="profileImg">
+                            </mat-form-field>
+						</div>
+
+                        <!-- File Input -->
+                        <!-- <label for="files" class="subBtn dynamicUploadFileBtn" style="top: 10px;">Choose File</label>
+                        <input id="files" accept="image/png, image/jpeg, image/jpg, image/gif, application/pdf" type="file" name="file" (change)="chooseStaticUploadFile($event)" style="white-space: normal; display: none">
+                        <mat-form-field class="w100p">
+                            <input matInput
+                            placeholder="Upload File"
+                            [value]="imgNme || 'No file chosen'"
+                            formControlName="file"> 
+                        </mat-form-field> -->
+                    </div>
+                </div>
+                
+                <!-- Action Buttons Section -->
+                <div class="action-btns text-center">
+                    <!-- Add Button -->
+                    <button mat-raised-button class="subBtn" [disabled]="!userForm.form.valid">Add</button>
+                    <!-- Cancel Button -->
+                    <button type="button" mat-raised-button class="cancelBtn" (click)="goBack()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,633 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="row outer-div" style="padding: 0 15px;">
+			<div class="inner-div header-btns upload-btn-wrapper">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+			<span class="spacer"></span>
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8 passout-cert"  matSort (matSortChange)="sortData($event)">
+				<ng-container matColumnDef="select" sticky>
+					<mat-header-cell *matHeaderCellDef>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label"></span>						
+						<mat-checkbox (click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row) == true">
+						</mat-checkbox>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="companyName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Entity Name</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element"> 
+						<span class="mobile-label">Entity Name:</span>
+						{{element.companyName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="branchLocation">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Branch/Location</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.branchLocation" (input)="searchField($event,filter.branchLocation)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.branchLocation" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.branchLocation='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch/Location:</span>
+						{{element.department?.branch_location || element.department?.name || element.branchLocation || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="moduleName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Module Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.moduleName" (input)="searchField($event,filter.moduleName)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.moduleName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.moduleName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Module Name:</span>
+						{{element.module?.name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="refEntityName">
+					<mat-header-cell *matHeaderCellDef>
+						<div>Partner Name</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Partner Name:</span>
+						{{element.refEntityName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="refbranchName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Branch Name</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Branch Name:</span>
+						{{element.refbranch?.name || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="transactionTypeName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Transaction Type</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.transactionTypeName" (input)="searchField($event,filter.transactionTypeName)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.transactionTypeName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.transactionTypeName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transaction Type:</span>
+						{{element.transtype?.transactionTypeName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="orderId">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Order ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.orderId" (input)="searchField($event,filter.orderId)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.orderId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.orderId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Order ID:</span>						
+						{{element.orderId || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetId">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters"  [(ngModel)]="filter.assetId" (input)="searchField($event,filter.assetId)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset ID:</span>
+						{{element.assetId || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Category</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.assetCategory" (input)="searchField($event,filter.assetCategory)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetCategory" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetCategory='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>
+						{{element.assetcategory?.assetCategory || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.assetName" (input)="searchField($event,filter.assetName)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						{{element.assetName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetQuantity">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Quantity-UOM</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity-UOM:</span>
+						{{element.assetQuantity || ''}} {{ ' ' }} {{element.assetUom || ''}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetLocation">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Location</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.assetLocation" (input)="searchField($event,filter.assetLocation)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetLocation" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.assetLocation='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Location:</span>
+						{{element.location || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="effectivedate">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Effective Date</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Effective Date:</span>
+						{{element.effectiveDate || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="expirydate">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Expiry Date</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Expiry Date:</span>
+						{{element.expiryDate || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Status</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.status" (input)="searchField($event,filter.status)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.status" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.status='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Status:</span>
+						{{element.status | uppercase}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="created_on">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Transcation Date and Time</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Transcation Date and Time:</span>
+						{{element.created_on || '-'}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="eprOrderId">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Order ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.eprOrderId" (input)="searchField($event,filter.eprOrderId)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprOrderId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprOrderId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Order ID:</span>						
+						{{element.eprOrderId || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="eprAssetId">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset ID</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters"  [(ngModel)]="filter.eprAssetId" (input)="searchField($event,filter.eprAssetId)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetId" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetId='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset ID:</span>
+						{{element.eprAssetId || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="eprAssetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Category</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.eprAssetCategory" (input)="searchField($event,filter.eprAssetCategory)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetCategory" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetCategory='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>
+						{{element.eprAssetcategory?.assetCategory || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="eprAssetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filters" [(ngModel)]="filter.eprAssetName" (input)="searchField($event,filter.eprAssetName)" autocomplete="off" >
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.eprAssetName" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.eprAssetName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						{{element.eprAssetName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="eprAssetQuantity">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Quantity-UOM</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Quantity-UOM:</span>
+						{{element.eprAssetQuantity || ''}} {{ ' ' }} {{element.eprAssetUom || ''}}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="action" sticky>
+					<mat-header-cell *matHeaderCellDef>Actions </mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						<span class="mobile-label">Actions:</span>
+							<img *ngIf="row?.transtype?.assetType!='Receive Asset' && row.showRevokeDelete==true && transactionDetails.isDelete==true && row.status!='Closed'" class="sidebar-img" matTooltip="Revoke Transaction" (click)="openDialogPopUp('Delete',row)"
+							src="../assets/icons/delete (1).svg" id="revokeTrans_{{row.assetId}}" />
+							<img *ngIf="row?.transtype?.assetType!='Receive Asset' && row?.transtype?.transRole!='Digital' && row.showRevokeDelete==true && transactionDetails.isUpdate==true && row.status!='Closed'" class="sidebar-img" matTooltip="Edit Transaction" (click)="updateTransaction(row)"
+							src="../assets/icons/edit.svg" id="EditTrans_{{row.orderId}}" />
+						
+
+							<img *ngIf="row?.transtype?.transaction=='Asset' && row?.transtype?.transRole!='Digital' && transactionDetails.isRead==true" class="sidebar-img" matTooltip="View Transaction" (click)="viewTransaction(row)"
+							src="../assets/icons/view-cred.svg" id="viewTrans_{{row.assetId}}" />
+							
+							<img matTooltip="Attachment" (click)="viewattachment(row)" class="sidebar-img iconstyle" *ngIf="row.upload_file && row?.transtype?.transaction=='Asset' && row?.transtype?.transRole!='Digital'"
+							src="../assets/icons/attachment.svg" id="viewAttachment_{{row.assetId}}" />
+							
+							<img matTooltip="Verify" class="sidebar-img iconstyle" *ngIf="row.uploadedCertificate && row?.transtype?.transaction=='Asset' && row?.transtype?.transRole!='Digital'"
+							src="../assets/icons/Verifier.svg" id="viewVerify_{{row.assetId}}" />
+							<!-- (click)="viewVerifyCertificate(row)" -->
+							
+							<img class="sidebar-img" *ngIf="row?.transtype?.transaction=='Asset' && row?.transtype?.transRole!='Digital' && row.showCreateForm==true && row.customstatus=='Open' && writeAccessCount > 0" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip="Create Transaction"
+							src="../assets/icons/HTML_Create2.svg" id="showCreateHtml_{{row.assetId}}" />
+							
+							
+							<img *ngIf="row?.transtype?.transaction=='Order' && row?.transtype?.transRole!='Digital' && transactionDetails.isRead==true" class="sidebar-img" matTooltip="View Transaction" (click)="viewTransaction(row)"
+							src="../assets/icons/view-cred.svg" id="viewTrans_{{row.orderId}}" />
+							
+							<img matTooltip="Attachment" (click)="viewattachment(row)" class="sidebar-img iconstyle" *ngIf="row.upload_file && row?.transtype?.transaction=='Order' && row?.transtype?.transRole!='Digital'"
+							src="../assets/icons/attachment.svg" id="viewAttachment_{{row.orderId}}" />
+							
+							<img matTooltip="Verify" class="sidebar-img iconstyle" *ngIf="row.uploadedCertificate && row?.transtype?.transaction=='Order' && row?.transtype?.transRole!='Digital'"
+							src="../assets/icons/Verifier.svg" id="viewVerify_{{row.orderId}}" />
+							<!-- (click)="viewVerifyCertificate(row)" -->
+       
+							<img class="sidebar-img" *ngIf="row?.transtype?.transaction=='Order' && row?.transtype?.transRole!='Digital' && row.showCreateForm==true && row.customstatus=='Open' && writeAccessCount > 0" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip="Create Transaction" 
+							src="../assets/icons/HTML_Create2.svg" id="showCreateHtml_{{row.orderId}}" />
+       
+							<img *ngIf="row?.transtype?.transaction=='Asset' && row?.transtype?.transRole=='Digital'" class="sidebar-img" matTooltip="View Transaction" (click)="viewTransaction(row)"
+							src="../assets/icons/view-cred.svg" id="viewTrans_{{row.eprAssetId}}" />
+							
+							<img matTooltip="Attachment" (click)="viewattachment(row)" class="sidebar-img iconstyle" *ngIf="row.upload_file && row?.transtype?.transaction=='Asset' && row?.transtype?.transRole=='Digital'"
+							src="../assets/icons/attachment.svg" id="viewAttachment_{{row.eprAssetId}}" />
+							
+							<img matTooltip="Verify" class="sidebar-img iconstyle" *ngIf="row.uploadedCertificate && row?.transtype?.transaction=='Asset' && row?.transtype?.transRole=='Digital'"
+							src="../assets/icons/Verifier.svg" id="viewVerify_{{row.eprAssetId}}" />
+							<!-- (click)="viewVerifyCertificate(row)" -->
+							
+							<img class="sidebar-img" *ngIf="row?.transtype?.transaction=='Asset' && row?.transtype?.transRole=='Digital' && row.showCreateForm==true && row.customstatus=='Open' && isWriteshow==true" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip="Create Transaction"
+							style="margin-left: 5px;" src="../assets/icons/HTML_Create2.svg" id="showCreateHtml_{{row.eprAssetId}}" />
+							
+							
+							<img *ngIf="row?.transtype?.transaction=='Order' && row?.transtype?.transRole=='Digital'" class="sidebar-img" matTooltip="View Transaction" (click)="viewTransaction(row)"
+							src="../assets/icons/view-cred.svg" id="viewTrans_{{row.eprOrderId}}" />
+							
+							<img matTooltip="Attachment" (click)="viewattachment(row)" class="sidebar-img iconstyle" *ngIf="row.upload_file && row?.transtype?.transaction=='Order' && row?.transtype?.transRole=='Digital'"
+							src="../assets/icons/attachment.svg" id="viewAttachment_{{row.eprOrderId}}" />
+							
+							<img matTooltip="Verify" class="sidebar-img iconstyle" *ngIf="row.uploadedCertificate && row?.transtype?.transaction=='Order' && row?.transtype?.transRole=='Digital'"
+							src="../assets/icons/Verifier.svg" id="viewVerify_{{row.eprOrderId}}" />
+							<!-- (click)="viewVerifyCertificate(row)" -->
+							
+							<img class="sidebar-img" *ngIf="row?.transtype?.transaction=='Order' && row?.transtype?.transRole=='Digital' && row.showCreateForm==true && row.customstatus=='Open' && isWriteshow==true" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip="Create Transaction" 
+							style="margin-left: 5px;" src="../assets/icons/HTML_Create2.svg" id="showCreateHtml_{{row.eprOrderId}}" />
+							
+
+							<mat-menu #menu="matMenu" class="matmenu_in_grid" backdropClass="matmenu_in_grid_overlay" [overlapTrigger]="false">
+							<span  *ngFor="let reftrans of refTransactions">
+								<button mat-menu-item *ngIf="reftrans.showisWrite==true" (click)="createForm(row,reftrans)">
+								<span>Create {{reftrans.transactionTypeName}}</span>
+								</button>
+							</span>
+							</mat-menu>
+
+							<img class="sidebar-img" *ngIf="row.outsideCreate==true && outSideCount > 0 && row.showRevokeDelete==true" [matMenuTriggerFor]="menu1" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu();onClickMenu(row);" matTooltip="Create" 
+							src="../assets/icons/upload_docs.svg" />
+						
+							<mat-menu (closed)="close()" (clickOutside)="close()" #menu1="matMenu" class="matmenu_in_grid" backdropClass="matmenu_in_grid_overlay" [overlapTrigger]="false">
+								<span (mouseleave)="closeMenu()" (keydown)="$event.stopPropagation()">
+								<span  *ngFor="let valArrObj of outsideArr">
+									<button mat-menu-item (click)="createOutSideForm(row,valArrObj)">
+										<span><fa-icon [icon]="faCheck" matPrefix class="fa-icon icon clr-green" *ngIf="valArrObj.flag" style="font-size: 10px!important;color: green;background: #ddd;padding: 1px;"></fa-icon> </span> <span>{{valArrObj.key}}</span>
+									</button>
+								</span>
+								</span>
+							</mat-menu>
+
+							<img class="sidebar-img" *ngIf="row.outsideCreate==true && outSideCount > 0 && row.showRevokeDelete!=true && row.outSideVal==true" [matMenuTriggerFor]="menu2" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu();onClickOutsideMenu(row);" matTooltip="View Outside" 
+							src="../assets/icons/upload_docs.svg" />
+						
+							<mat-menu (closed)="close()" (clickOutside)="close()" #menu2="matMenu" class="matmenu_in_grid" backdropClass="matmenu_in_grid_overlay" [overlapTrigger]="false">
+								<span (mouseleave)="closeMenu()" (keydown)="$event.stopPropagation()">
+								<span  *ngFor="let valArrObj of outSArr">
+									<button mat-menu-item (click)="viewOutSideForm(row,valArrObj)">
+										<span><fa-icon [icon]="faCheck" matPrefix class="fa-icon icon clr-green" style="font-size: 10px!important;color: green;background: #ddd;padding: 1px;"></fa-icon> </span> <span>{{valArrObj.key}}</span>
+									</button>
+								</span>
+								</span>
+							</mat-menu>
+							
+						</mat-cell>
+
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalTransactions" [pageSize]="transactionsPerPage"
+				[pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" (page)="onChangedTransactions($event)"></mat-paginator>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" bsModal #myModel="bs-modal" [config]="{backdrop: false,ignoreBackdropClick: true}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 50px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span (click)="hide2()" style="padding: 0px 5px;cursor: pointer;" *ngIf="modalView==true">&times;</span> 
+          <span class="hide" (click)="hide2()" style="padding: 0px 5px;" *ngIf="modalView==false">&times;</span> 
+		  <div class="modal-body"  style="max-height: 80vh;overflow: auto;">   
+
+			<div class="text-center" *ngIf="modalView==false">
+				<form [formGroup]="transactionidFieldForms" autocomplete="off" #transactionidForm="ngForm" (ngSubmit)="submitTransaction(transactionidForm)">
+					<div class="formfield">
+						<div class="row">							
+								<ng-container >
+									<div class="col-lg-12">
+										<div id="affDiv">
+											<span id="addSpan" *ngIf="outsideValue=='File'"> Upload {{outsideKey}}</span>
+											<span id="addSpan" *ngIf="outsideValue=='String' || outsideValue=='Number' || outsideValue=='JSON' || outsideValue=='Date'"> Add {{outsideKey}}</span>
+										</div>
+									</div>
+											<div  class="col-lg-6 col-md-6 col-sm-6" style="margin: 0 auto;">
+												
+											<mat-form-field class="w100p" *ngIf="outsideValue=='String'">
+												<mat-label >{{outsideKey}}</mat-label>
+												<input  matInput 
+														placeholder="{{outsideKey}}"
+														formControlName="{{outsideKey}}" value="{{orderDetailsData}}" required>
+												<mat-error *ngIf="transactionidFieldForms.get(outsideKey).invalid">
+													<mat-error *ngIf="transactionidFieldForms.get(outsideKey).errors.required">{{outsideKey}} is required!!</mat-error>
+												</mat-error>
+											</mat-form-field>
+											
+											<mat-form-field class="w100p" *ngIf="outsideValue=='Number'">
+												<mat-label>{{outsideKey}}</mat-label>
+												<input  matInput type = "number"
+														placeholder="{{outsideKey}}"
+														formControlName="{{outsideKey}}" value="{{orderDetailsData}}" required>
+												<mat-error *ngIf="transactionidFieldForms.get(outsideKey).invalid">
+													<mat-error *ngIf="transactionidFieldForms.get(outsideKey).errors.required">{{outsideKey}} is required!!</mat-error>
+												</mat-error>	
+											</mat-form-field>
+
+											<mat-form-field class="w100p" *ngIf="outsideValue=='JSON'">
+												<mat-label >{{outsideKey}}</mat-label>
+												<input  matInput 
+														placeholder="{{outsideKey}}"
+														formControlName="{{outsideKey}}" value="{{orderDetailsData}}" required>
+												<mat-error *ngIf="transactionidFieldForms.get(outsideKey).invalid">
+													<mat-error *ngIf="transactionidFieldForms.get(outsideKey).errors.required">{{outsideKey}} is required!!</mat-error>
+												</mat-error>
+											</mat-form-field>
+											
+											<div *ngIf='outsideValue == "File"'>
+												<label *ngIf="!showImgStatic" for="files_{{outsideKey}}" class="subBtn dynamicUploadFileBtn" style="right: -30px">Choose File</label>
+												<input id="files_{{outsideKey}}" accept="image/png, image/jpeg,image/jpg,application/pdf" type="file" name="outsideKey" (change)="chooseStaticUploadFile($event)"  style="white-space: normal;display: none" required>
+													<mat-form-field class="w100p">
+															<input matInput readonly
+															placeholder="{{outsideKey}}" value="{{this.fileStaticName || 'No file Choosen'}}"
+															formControlName="{{outsideKey}}" required>
+													<mat-error *ngIf="transactionidFieldForms.get(outsideKey).invalid">
+														<mat-error *ngIf="transactionidFieldForms.get(outsideKey).errors.required">{{outsideKey}} is required!!</mat-error>
+													</mat-error>
+													</mat-form-field>
+													<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="found" matTooltip="View" (click)="previewFile(uploadedFileName)" style="top: 16px;right: -100px;"></fa-icon>
+													<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)" style="top: 16px;right: -100px;"></fa-icon>
+													<fa-icon [icon]="faTrash" matPrefix class="fa-icon icon clr-green dynamicDeleteFileBtn" *ngIf="showImgStatic" matTooltip="Delete" (click)="deleteStaticFile()" style="top: 18px;right: -50px;"></fa-icon>
+													
+													<div class="errCls" *ngIf="imageErrorStatic !=''">{{imageErrorStatic}}</div>
+											</div>
+											
+											<mat-form-field class="w100p" *ngIf='outsideValue == "Date"'>
+												<mat-label>{{outsideKey}}</mat-label>
+												<input matInput [matDatepicker]="picker1" [formControlName]="outsideKey" value="{{orderDetailsData}}" readonly required>
+												<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+												<mat-datepicker #picker1
+												startView="multi-year"
+												(yearSelected)="chosenYearHandler($event, outsideKey)"
+												(monthSelected)="chosenMonthHandler($event, picker1, outsideKey)"
+												panelClass="example-month-picker" readonly
+												></mat-datepicker>
+												<mat-error *ngIf="transactionidFieldForms.get(outsideKey).invalid">
+													<mat-error *ngIf="transactionidFieldForms.get(outsideKey).errors.required">{{outsideKey}} is required!!</mat-error>
+												</mat-error>
+											</mat-form-field>											
+											</div>
+									</ng-container>
+										
+						</div>
+					</div>
+
+					<div class="action-btns text-center" style="margin: 15px 0px;">
+						<button mat-raised-button class="subBtn" [disabled]="!transactionidForm.form.valid">Save</button>
+						<button type="button" mat-raised-button class="cancelBtn" data-dismiss="modal" (click)="hide2()">Cancel</button>
+					  </div>
+				</form> 
+			</div>
+			<div class="text-center" *ngIf="modalView==true">
+				<form [formGroup]="transactionidFieldViewForms" autocomplete="off" #transactionidForms="ngForm">
+					<div class="formfield">
+						<div class="row">							
+								<ng-container >
+									<div class="col-lg-12">
+										<div id="affDiv">
+											<span id="addSpan" *ngIf="outsideValue=='File'"> View Upload {{outsideKey}}</span>
+											<span id="addSpan" *ngIf="outsideValue=='String' || outsideValue=='Number' || outsideValue=='JSON' || outsideValue=='Date'"> View {{outsideKey}}</span>
+										</div>
+									</div>
+											<div  class="col-lg-6 col-md-6 col-sm-6" style="margin: 0 auto;">
+												
+											<mat-form-field class="w100p" *ngIf="outsideValue=='String'">
+												<mat-label >{{outsideKey}}</mat-label>
+												<input  matInput readonly placeholder="{{outsideKey}}" formControlName="{{outsideKey}}" value="{{orderDetailsData}}">
+											</mat-form-field>
+											
+											<mat-form-field class="w100p" *ngIf="outsideValue=='Number'">
+												<mat-label>{{outsideKey}}</mat-label>
+												<input  matInput type = "number" readonly placeholder="{{outsideKey}}" formControlName="{{outsideKey}}" value="{{orderDetailsData}}">
+											</mat-form-field>
+
+											<mat-form-field class="w100p" *ngIf="outsideValue=='JSON'">
+												<mat-label >{{outsideKey}}</mat-label>
+												<input  matInput readonly placeholder="{{outsideKey}}" formControlName="{{outsideKey}}" value="{{orderDetailsData}}">
+											</mat-form-field>
+											
+											<div *ngIf='outsideValue == "File"'>
+												<input id="files_{{outsideKey}}" accept="image/png, image/jpeg,image/jpg,application/pdf" type="file" name="outsideKey" (change)="chooseStaticUploadFile($event)"  style="white-space: normal;display: none" required>
+													<mat-form-field class="w100p">
+															<input matInput readonly placeholder="{{outsideKey}}" value="{{orderDetailsData}}" formControlName="{{outsideKey}}">
+													</mat-form-field>
+													<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green dynamicViewFileBtn" *ngIf="found" matTooltip="View" (click)="previewFile(uploadedFileName)" style="top: 16px;right: -100px;"></fa-icon>
+											</div>
+											
+											<mat-form-field class="w100p" *ngIf='outsideValue == "Date"'>
+												<mat-label>{{outsideKey}}</mat-label>
+												<input matInput formControlName="{{outsideKey}}" value="{{orderDetailsData}}" readonly>
+											</mat-form-field>
+											
+											</div>
+									</ng-container>										
+						</div>
+					</div>
+				</form> 
+			</div>
+        </div>
+        </div>
+     </div>
+</div>
+
+<div class="modal fade" bsModal #myModel1="bs-modal" [config]="{backdrop:false,ignoreBackdropClick: true}"
+    tabindex="-1" role="dialog"
+    aria-hidden="true" style="top: 50px;z-index: 1000;background: rgb(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">  
+          <span (click)="hide1()" style="padding: 0px 5px;cursor: pointer;">&times;</span> 
+        <div class="modal-body" style="max-height: 80vh;overflow: scroll;">
+			<div class="text-center" *ngIf="urlSrcStatic1 && modaleFlag && modaleFlagCert">
+				<img [src]="urlSrcStatic1" *ngIf="urlSrcStatic1 && isImageStatic" class="imgPlaceholder" style="width: 100%;">
+				<pdf-viewer [src]="urlSrcStatic1" *ngIf="urlSrcStatic1 && isPdfStatic" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+			</div>
+          <div class="text-center" *ngIf="urlSrcStatic && modaleFlag">
+            <img [src]="traceChainUrl + '/' + urlSrcStatic" *ngIf="urlSrcStatic && isImageStatic" class="imgPlaceholder" style="width: 100%;">
+            <pdf-viewer [src]="traceChainUrl + '/' + urlSrcStatic" *ngIf="urlSrcStatic && isPdfStatic" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>         
+        </div>
+        </div>
+     </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+			<span class="spacer"></span>
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey" (ngModelChange)="onSearch($event)" autocomplete="off" >
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>	
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" matSort (matSortChange)="sortData($event)">
+				<ng-container matColumnDef="action" sticky>
+					<mat-header-cell *matHeaderCellDef> 
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row;index as i">
+						<span class="mobile-label">Actions:</span>					
+						<img class="sidebar-img" matTooltip="Delete" (click)="goToDelete(row)" src="../assets/icons/delete (1).svg"/>
+						<img class="sidebar-img" matTooltip="Edit" (click)="edit(row)" src="../assets/icons/edit.svg"/>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="uom">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>UOM</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filter" [(ngModel)]="filter.uom" (input)="selectuom($event)"  autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.uom" matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter($event,filter.uom='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">UOM:</span>						
+						{{element.uom || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="decimal">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Decimal</div>						
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Decimal:</span>						
+						{{element.decimal || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayeColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayeColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}" style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+		
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalRecord" [pageSize]="recordPerPage" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+				(page)="onChangedPage($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

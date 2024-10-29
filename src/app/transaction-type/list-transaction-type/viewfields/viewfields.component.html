@@ -1,0 +1,226 @@
+<div class="container">
+	<div class="wrapper bg_white">
+		<div id="affDiv">
+			<span id="addSpan"> Transaction Type Details </span>
+		</div>
+		
+			<div class="details">
+				<div class="row tbl_tran_type_details">
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Transaction Type Id:</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.transactionTypeCode}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Transaction Type: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.transactionTypeName}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Description: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.additionalDescription}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Transaction Type:</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.transaction}}</span>
+					</div>							
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Reference Module:</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.refModule && this.modulesList!=undefined?this.modulesList[result?.transType?.refModule].name:"-"}}</span>
+					</div>						
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Ref Transaction Type:</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);" *ngIf="refTransDesc!=undefined">{{refTransDesc?refTransDesc:"-"}}({{result?.transType?.refTransType?result?.transType?.refTransType:''}})</span>
+						<span style="color: rgba(0,0,0,.54);" *ngIf="refTransDesc==undefined">-</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Reference Flag:</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.orderReference?result?.transType?.orderReference:"-"}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Prefix: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.transactionTypePrefix}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Auto Series: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span style="color: rgba(0,0,0,.54);">{{result?.transType?.transactionTypeAutoNumber}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Serialized: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.serialized}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> Input Asset: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.inputAsset}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Expiry: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.isExpiry}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> Provenance: </span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.provenance}}</span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Order'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Asset Type: </span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Order'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.assetType?result?.transType?.assetType:"-"}}</span>
+					  </div>
+					  
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction != 'Transaction'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> From /To Entity: </span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction != 'Transaction'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.fromToEntity}}</span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Order'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Asset without Reference: </span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Order'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.assetWithoutReference?result?.transType?.assetWithoutReference:"False"}}</span>
+					  </div>
+					  
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> Verifiable: </span>
+					  </div>
+					  <div class="col-lg-2 col-md-3 col-sm-3" *ngIf = "result?.transType?.transaction == 'Asset'">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.verifiable}}</span>
+					  </div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> EPR: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.epr?result?.transType?.epr:"False"}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">EPR Receive: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.eprReceive?result?.transType?.eprReceive:"False"}}</span>
+					</div>
+					
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);"> EPR Consume: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.eprConsume?result?.transType?.eprConsume:"False"}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">EPR Print: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.eprPrint?result?.transType?.eprPrint:"False"}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf="result?.transType?.transRole">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">Transaction Role: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3" *ngIf="result?.transType?.transRole">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.transRole}}</span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="label-text"  style="color: rgba(0,0,0,.54);">NFT: </span>
+					</div>
+					<div class="col-lg-2 col-md-3 col-sm-3">
+						<span class="caps" style="color: rgba(0,0,0,.54);">{{result?.transType?.nft?result?.transType?.nft:"False"}}</span>
+					</div>
+				</div>				
+			</div>
+
+		<mat-card-title style="color: #001f60;">TransactionType Field Details</mat-card-title>
+
+			<mat-card-content>
+				<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8">
+					<ng-container matColumnDef="select" sticky>
+						<mat-header-cell *matHeaderCellDef>
+							<mat-checkbox   (change)="$event ? masterToggle() : null"
+							[checked]="selection.hasValue() && isAllSelected() == true"
+							[indeterminate]="selection.hasValue() && !isAllSelected()">
+							</mat-checkbox>
+						</mat-header-cell>
+						<mat-cell *matCellDef="let row">
+							<span class="mobile-label"></span>							
+							<mat-checkbox (click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row) == true">
+							</mat-checkbox>
+						</mat-cell>
+					</ng-container>
+					
+					<ng-container *ngFor="let disCol of displayedFields; index as i; let element = index" [matColumnDef]="disCol">
+							<mat-header-cell *matHeaderCellDef>
+								<div *ngIf="disCol=='key'"> FieldName</div>
+								<div *ngIf="disCol=='value'"> FieldDataType</div>
+								<div *ngIf="disCol=='is_header_level'"> Header Level</div>
+								<div *ngIf="disCol=='is_line_level'"> Line Level</div>
+								<div *ngIf="disCol=='is_outside_level'"> Outside Level</div>
+							</mat-header-cell>
+							<mat-cell *matCellDef="let element; index as j">
+								<span class="mobile-label" *ngIf="disCol=='key'">FieldName:</span>
+								<span class="mobile-label" *ngIf="disCol=='value'">FieldDataType:</span>
+								<span class="mobile-label" *ngIf="disCol=='is_header_level'"> Header Level:</span>	
+								<span class="mobile-label" *ngIf="disCol=='is_line_level'"> Line Level:</span>	
+								<span class="mobile-label" *ngIf="disCol=='is_outside_level'"> Outside Level:</span>													
+								<span *ngIf="disCol=='key'">{{element[disCol]}}</span>
+								<span *ngIf="disCol=='value'">{{element[disCol]}}</span>
+								<span *ngIf="disCol=='is_header_level'">{{element[disCol]?element[disCol]:"false"}}</span>
+								<span *ngIf="disCol=='is_line_level'">{{element[disCol]?element[disCol]:"false"}}</span>
+								<span *ngIf="disCol=='is_outside_level'">{{element[disCol]?element[disCol]:"false"}}</span>
+							</mat-cell>
+					</ng-container>						
+					<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					<mat-row *matRowDef="let row; columns: displayedColumns; let i = index;">{{row}} {{displayedColumns[i]}}</mat-row>
+				</mat-table>
+			</mat-card-content>		
+
+		<div class="row">
+			<div *ngIf = "dynamicPDF" class="btn-wrapper">
+				<a mat-raised-button class="add-btn" (click)="showDiv.pdf = !showDiv.pdf" >VIEW PDF</a>
+			</div>
+
+			<div *ngIf="showDiv.pdf" >
+				<pdf-viewer appNoRightClick style="margin-left: 22px; border:1px  solid black ; display: block; height: 612px; width: 792px;" [src]="dynamicPDFURL" [original-size]="false" ></pdf-viewer>
+				<!-- (error)="onError($event)" -->
+			</div>
+			<div class="col-md-12" id="pdfManager" style="display:block;" *ngIf = "result?.transType?.pdffield == 'true'">	
+				<div class="row" id="selectorContainer">
+					<div id="parametriContainer">
+					</div>				
+					<div class="col-fixed-605" style="margin-left: 20px;">
+						<div id="pageContainer" class="pdfViewer singlePageView dropzone nopadding" style="background-color:transparent">
+							<canvas id="the-canvas" style="border:1px  solid black ;"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+
+		<div class="text-cls" style="margin-top: 30px;">
+			<button type="button" mat-button mat-raised-button class="cancelBtn" (click)="goBack()">Back</button>
+		</div>
+	</div>
+</div>

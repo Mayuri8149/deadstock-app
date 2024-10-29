@@ -1,0 +1,141 @@
+<div #Id_Container class="container" style="background-color: rgba(0,0,0,.03);">
+    <div class="wrapper">
+    <div class="credible-categoty-list credibleme-wrapper search-category">
+        <div class="card bg-white">
+                <div class="card-header card-sub-header search-category-header pt-0 mb-3 border-0" style="padding-top: 10px !important;padding-bottom: 6px;">
+                    <form [formGroup]="traceabilityFrm" #searchForm="ngForm">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-3 col-sm-3 pl-0" style="left: 15px;">
+                            <div class="d-flex position-relative">
+                              <a>
+                                <fa-icon [icon]="faHandPointLeft" matPrefix class="fa-icon icon-back" (click)="goBack()">
+                                </fa-icon>
+                              </a>
+                            </div> 
+                          </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="d-flex position-relative">
+                                    <mat-form-field appearance="outline" class="tracebility_autocomplete w100p" style="line-height: unset !important;">
+                                      <input matInput
+                                          aria-label="purchaseOrder"
+                                          [matAutocomplete]="autoPurchaseOrder"
+                                          formControlName="transactionId" [(ngModel)]="readonlyOrderId" placeholder='Search Asset Name/Asset ID/entityAsset ID' (input)="unsetArrEvent($event)">
+                                      <mat-autocomplete (opened)="opened_AutoComplete()" panelWidth="auto" #autoPurchaseOrder="matAutocomplete" (optionSelected)="onSelectInput($event.option.value)">
+                                        <ng-container *ngIf="this.assetDataList?.length>0">
+                                          <mat-option *ngFor="let asset of assetDataList |filter:readonlyOrderId" [value]="asset.assetName+'|'+asset.assetId+'|'+asset.entityAsset+'|'+asset.assetCategory">
+                                              <span *ngIf="asset.assetName">  {{asset.assetName}}</span>
+                                              <span *ngIf="asset.assetId">  |{{asset.assetId}}</span>                                              
+                                              <span *ngIf="asset.entityAsset"> | {{asset.entityAsset}}</span>           
+                                          </mat-option>
+                                        </ng-container>
+                                      </mat-autocomplete>
+                                      <button class="clear_autocomplete" type="button" mat-button *ngIf="readonlyOrderId" matSuffix mat-icon-button aria-label="Clear" (click)="clearInputBox()">
+                                          <mat-icon>close</mat-icon>
+                                      </button>
+                                   </mat-form-field>
+                                   </div> 
+                                 
+                            </div>
+                            <!-- <div class="col-lg-3 col-md-3 col-sm-3"> <button id="id_popup_success" class="subBtn" mat-button (click)="blockchinTraceability()">Blockchain Traceability</button></div> -->
+                        </div>
+                    </form>
+                </div>
+                <div class="container" style="padding: 30px 0px !important;">
+                      <section class="col-lg-6 offset-lg-3" id="info">
+                        <div class="line" style="margin-bottom: 30px;"></div>
+                        <div style="width: 100%;">
+                          <div id="Ingradient" class="info-boxes" *ngFor="let item of finalSqArr;let i=index;">
+                            <div class="circle"></div>
+                            <div class="sourcing-info box arrow-left">
+                              <div class="head"  *ngIf="selectedArr[item.transtypeCode]?.label!=''">
+                                <p class="box-title">{{selectedArr[item.transtypeCode]?.label}}</p>
+                              </div>
+                              <div class="info-box">
+                                <hr style="margin-bottom: 10px;margin-top: 10px;">
+                                <div class="col-lg-12 trace_wrapper">
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isAssetCategory">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Asset Category:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{assetCategoryList[item.assetCategory]?.assetCategory!=undefined?assetCategoryList[item.assetCategory]?.assetCategory:assetCategoryList[assetCategory]?.assetCategory}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isAssetName">                                    
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Asset Name:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.assetName}}
+                                      <span *ngIf="item.assetId!=undefined && item.assetId!=''">({{item.assetId}})</span>
+                                      <span *ngIf="item.assetId==undefined || item.assetId==''">({{assetId}})</span>
+                                      </div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isBranch">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft" *ngIf="item.corporateDetails[0]!=undefined"><b>Entity Name:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft" *ngIf="item.branchDetails[0]!=undefined"><b>Entity,Branch Name:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value"><span *ngIf="item.branchDetails[0]!=undefined">{{item.organizations_details[0]?.name}},</span>{{item?.corporateDetails[0]!=undefined?item?.corporateDetails[0]?.companyName:item?.branchDetails[0]?.branch_location}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isEffectiveDate">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Manufacturing Date:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.effectiveDate || '-'}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isExpiryDate">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Expiry Date:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.expiryDate || '-'}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isAssetLocation">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Asset Location:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{tracebilityLoc[item.transtypeCode]?tracebilityLoc[item.transtypeCode]:"-"}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isQuantity">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Quantity:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{tracebilityQty[item.transtypeCode]?tracebilityQty[item.transtypeCode]:item.quantity}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isUom">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>UOM:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.uom}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isTransactionType">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Transaction Type Name:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.transtype[0]?.transactionTypeName?item.transtype[0]?.transactionTypeName:'-'}}({{item.transtypeCode}})</div>
+                                  </div>
+                                  <div class="row"  *ngIf="selectedArr[item.transtypeCode]?.label!=''">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Transaction Date and Time:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{item.created_on || '-'}}</div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isInputAsset">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Input Asset Name:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value" *ngIf="inputAssArr[item.transtypeCode]!=undefined">
+                                      <img class="sidebar-img"  *ngIf="inputAssArr[item.transtypeCode]!=undefined" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()" matTooltip="I/p Asset Name"
+						style="margin-left: 5px;" src="../assets/icons/ellipsis-v-solid.svg" />
+                                      <mat-menu #menu="matMenu" class="matmenu_in_grid" backdropClass="matmenu_in_grid_overlay" [overlapTrigger]="false" >
+                                      <span  *ngFor="let inputEle of inputAssetShowArr[item.transtypeCode]">
+                                        <button mat-menu-item *ngIf="inputEle!=undefined">
+                                          <span (click)="openRefTRace(inputEle)">{{inputEle.inputAssetId}} -Qty({{inputEle.inputAssetQuantity}})</span>
+                                        </button>
+                                      </span>
+                                      </mat-menu>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value" *ngIf="inputAssArr[item.transtypeCode]==undefined">-</div>
+                                  </div>
+                                  <div *ngIf="selectedArr[item.transtypeCode].fields !==undefined">
+                                    <div class="row" *ngFor="let subItem of selectedArr[item.transtypeCode].fields;let in=ind;">
+                                      <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft" *ngIf="subItem!=null"><b>{{subItem.key}}:</b></div>
+                                      <div class="col-lg-6 col-md-6 col-sm-6 trace_value" *ngIf="subItem!=null">{{item.extrainfo_fields!=undefined && item.extrainfo_fields[subItem.key]!=""?item.extrainfo_fields[subItem.key]:"-"}}<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="displayMediaArr.hasOwnProperty(item.transtypeCode) && displayMediaArr[item.transtypeCode].hasOwnProperty(subItem.key)" [matTooltip]="displayMediaArr[item.transtypeCode][subItem.key]" style="cursor: pointer"  (click)="openFile(displayMediaArr[item.transtypeCode][subItem.key])"></fa-icon></div>
+                                    </div>
+                                  </div>
+                                  <div class="row" *ngIf="selectedArr[item.transtypeCode].isVerifiable">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_lblleft"><b>Upload Certificate:</b></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 trace_value">{{tracebilityCert[item.transtypeCode]?tracebilityCert[item.transtypeCode]:'-'}}<fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="tracebilityCert[item.transtypeCode]" [matTooltip]="tracebilityCert[item.transtypeCode]" style="cursor: pointer"  (click)="openFileCert(tracebilityCert[item.transtypeCode])"></fa-icon></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+              </div>
+             
+    </div>
+    <div class="text-cls" style="margin-top: 30px;text-align: center;">
+      <button type="button" mat-button mat-raised-button class="cancelBtn" (click)="goBack()" >Back</button>
+      <!-- *ngIf="backFlag" -->
+      <!-- <button type="button" mat-button mat-raised-button class="cancelBtn" (click)="goBackComplete()" *ngIf="!backFlag">Back</button> -->
+    </div>
+  </div>
+  </div>
+  </div>    

@@ -1,0 +1,120 @@
+<div class="container">
+	<div class="wrapper">
+		<div class="outer-div">
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+			<span class="spacer"></span>
+			<div class="inner-div header-btns">
+				<div class="mat-header-btns">
+				</div>
+			</div>
+		</div>
+		<div class="row gridGlobalSearch">
+			<div class="col-lg-4 col-md-6 col-sm-6">
+				<mat-form-field class="globalSerach_lbl search-input">
+					<mat-label>Search</mat-label>
+					<input matInput class="form-field filters" [(ngModel)]="filter.searchKey"
+						(ngModelChange)="onSearch($event)" autocomplete="off">
+					<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+					<button mat-button *ngIf="filter.searchKey" matSuffix mat-icon-button aria-label="Clear"
+						(click)="clearFilter($event,filter.searchKey='')">
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="list-container">
+			<mat-table [dataSource]="dataSource" class="mat-table-item mat-elevation-z8" matSort
+				(matSortChange)="sortData($event)">
+				<ng-container matColumnDef="action" sticky>
+					<mat-header-cell *matHeaderCellDef>
+						<div>Actions </div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row;index as i">
+						<span class="mobile-label">Actions:</span>
+						<img class="sidebar-img" matTooltip="Delete" (click)="goToDelete(row)"
+							src="../assets/icons/delete (1).svg" />
+						<img class="sidebar-img" matTooltip="Edit" (click)="edit(row)" src="../assets/icons/edit.svg" />
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetCategory">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Category</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filter" [(ngModel)]="filter.assetCategory"
+									(input)="selectassetCategory($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetCategory" matSuffix mat-icon-button
+									aria-label="Clear" (click)="clearFilter($event,filter.assetCategory='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Category:</span>
+						{{element.assetCategory || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetName">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Name</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filter" [(ngModel)]="filter.assetName"
+									(input)="selectassetCatName($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetName" matSuffix mat-icon-button aria-label="Clear"
+									(click)="clearFilter($event,filter.assetName='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Name:</span>
+						{{element.assetList.assetName || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="assetDescription">
+					<mat-header-cell *matHeaderCellDef>
+						<div mat-sort-header>Asset Description</div>
+						<div>
+							<mat-form-field class="search-input">
+								<input matInput class="form-field filter" [(ngModel)]="filter.assetDescription"
+									(input)="selectassetCatDes($event)" autocomplete="off">
+								<fa-icon [icon]="faSearch" matPrefix class="fa-icon"></fa-icon>
+								<button mat-button *ngIf="filter.assetDescription" matSuffix mat-icon-button
+									aria-label="Clear" (click)="clearFilter($event,filter.assetDescription='')">
+									<mat-icon>close</mat-icon>
+								</button>
+							</mat-form-field>
+						</div>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						<span class="mobile-label">Asset Description:</span>
+						{{element.assetList.assetDescription || '-'}}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="noData">
+					<mat-footer-cell *matFooterCellDef>
+						No Records Found!
+					</mat-footer-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayeColumns"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: displayeColumns;"></mat-row>
+				<mat-footer-row *matFooterRowDef="['noData']"
+					[ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}"
+					style="border-top: 1px solid whitesmoke;"></mat-footer-row>
+			</mat-table>
+		</div>
+		<div>
+			<mat-paginator [length]="totalRecord" [pageSize]="recordPerPage" [pageIndex]="pageIndex"
+				[pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

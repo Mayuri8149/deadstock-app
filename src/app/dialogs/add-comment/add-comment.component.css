@@ -1,0 +1,43 @@
+.content-wrapper {
+	min-height: 60px;
+}
+.actions {
+	display: inherit;
+	margin-bottom: 0;
+}
+.comment-value {
+	margin: 2px 6px;
+    width: 300px;
+    font-size: 14px;
+}
+.comment-add {
+	margin: 11px 12px;
+    font-size: 32px;
+    color: #e2be40;
+}
+.detail {
+	padding: 1px 1px;
+    display: flex;
+}
+.mat-form-field {
+	width: 300px;
+}
+.input-field {
+    margin-top: 4%;
+}
+.action-btns {
+	margin: 4px 0;
+    padding: 18px 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.action-btn {
+    background-color: #e2be40;
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+	width: 40%; 
+	border-radius: 10px;
+}
