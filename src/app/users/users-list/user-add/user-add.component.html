@@ -10,9 +10,9 @@
                             User Details
                         </span>
                     </div>
-                    <div class="row">
-                        <!-- Input for Menu Name -->
-                        <mat-form-field class="input-field" fxFlex.gt-md="29%" fxFlex.lt-md="100%" fxFlex.md="40%">
+                    <!-- Input for Menu Name -->
+                    <div class="col-md-4">
+                        <mat-form-field class="input-field" fxFlex="100%">
                             <input matInput 
                             placeholder="Menu Name" 
                             formControlName="name"
@@ -20,30 +20,53 @@
                             <mat-error *ngIf="hasError('name', 'required')">Name is required!</mat-error>
                             <mat-error *ngIf="authUserForm.controls['name'].hasError('pattern')">Name should accept only characters!</mat-error>
                         </mat-form-field>
+                    </div>
+                   
+                    <!-- Submenu Section -->
+                    <div *ngIf="submenus.controls.length > 0" formArrayName="submenus">
+                        <div *ngFor="let submenu of submenus.controls; let i = index" [formGroupName]="i">
+                            <div class="submenu-row">
+                                <!-- Submenu Name -->
+                               
+                                    <mat-form-field class="input-field col-md-4">
+                                        <input matInput placeholder="Submenu Name" formControlName="name">
+                                        <mat-error *ngIf="submenu.get('name').hasError('required')">Submenu Name is required!</mat-error>
+                                    </mat-form-field>
+                               
+                                <!-- Submenu URL -->
+                               
+                                    <mat-form-field class="input-field col-md-4">
+                                        <input matInput placeholder="Submenu URL" formControlName="url">
+                                        <mat-error *ngIf="submenu.get('url').hasError('required')">Submenu URL is required!</mat-error>
+                                    </mat-form-field>
+                                
 
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-							<label for="files" class="subBtn mat-focus-indicator mat-raised-button mat-button-base">Upload Photo</label>
-							<input id="files" class="file-upload" accept="image/png, image/jpeg,image/jpg" type="file" name="file" (change)="ChooseFile($event)" style="white-space: normal;display: none">		
-								 &nbsp;&nbsp;&nbsp;{{this.filename}}	
-								 <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)"></fa-icon>
-								<div class="errCls" >{{imageErrorStatic}}</div>
-								 <mat-form-field class="input-field" hidden>
-								 <input matInput  formControlName="profileImg">
-                            </mat-form-field>
-						</div>
+                                <!-- Remove Submenu Button -->
+                                <button type="button" mat-raised-button color="warn" (click)="removeSubmenu(i)" class="remove-submenu-btn">
+                                     X
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- Add Submenu Button -->
+                            <button type="button" mat-raised-button color="primary" (click)="addSubmenu()">
+                                Add Submenu
+                            </button>
+                    </div>
 
-                        <!-- File Input -->
-                        <!-- <label for="files" class="subBtn dynamicUploadFileBtn" style="top: 10px;">Choose File</label>
-                        <input id="files" accept="image/png, image/jpeg, image/jpg, image/gif, application/pdf" type="file" name="file" (change)="chooseStaticUploadFile($event)" style="white-space: normal; display: none">
-                        <mat-form-field class="w100p">
-                            <input matInput
-                            placeholder="Upload File"
-                            [value]="imgNme || 'No file chosen'"
-                            formControlName="file"> 
-                        </mat-form-field> -->
+                    <!-- File Upload Section -->
+                    <div class="col-lg-4">
+                        <label for="files" class="subBtn mat-focus-indicator mat-raised-button mat-button-base">Upload Photo</label>
+                        <input id="files" class="file-upload" accept="image/png, image/jpeg, image/jpg" type="file" name="file" (change)="ChooseFile($event)" style="display: none">		
+                        &nbsp;&nbsp;&nbsp;{{this.filename}}	
+                        <fa-icon [icon]="faEye" matPrefix class="fa-icon icon clr-green" *ngIf="showImgStatic" matTooltip="View" (click)="previewFileStatic(fileUploadedStatic)"></fa-icon>
+                        <div class="errCls">{{imageErrorStatic}}</div>
+                        <mat-form-field class="input-field" hidden>
+                            <input matInput formControlName="file">
+                        </mat-form-field>
                     </div>
                 </div>
-                
                 <!-- Action Buttons Section -->
                 <div class="action-btns text-center">
                     <!-- Add Button -->

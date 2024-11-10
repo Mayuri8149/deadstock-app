@@ -62,3 +62,70 @@
 .input-field {
     margin-top: 1%;
 }
+
+/* General Layout for Form Rows */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust spacing between fields */
+}
+
+/* Submenu Fields Layout - Name and URL on the same line */
+.submenu-row .input-field {
+    flex: 1 1 45%; /* Flex properties for submenu fields */
+}
+
+/* Remove Submenu Button (Red Cross Icon) */
+.remove-submenu-btn {
+    background-color: red;
+    color: white;
+}
+
+/* Add Submenu Button (Blue Plus Icon) */
+button mat-icon.icon.clr-blue {
+    color: blue;
+    margin-right: 5px;
+}
+
+/* File Upload Section */
+.col-lg-4 {
+    margin-top: 15px;
+}
+
+/* File Upload Button Styles */
+.subBtn {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Icon Styles */
+.fa-icon {
+    font-size: 18px; /* Adjust icon size */
+}
+
+.clr-red {
+    color: red;
+}
+
+.clr-blue {
+    color: blue;
+}
+
+.clr-green {
+    color: green;
+}
+
+/* Action Buttons */
+.action-btns button {
+    margin: 10px;
+}
+
+/* File Upload Input */
+.file-upload {
+    display: none;
+}
+
+.errCls {
+    color: red;
+    margin-top: 5px;
+}
