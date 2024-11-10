@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators,FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -20,7 +20,8 @@ export class UserAddComponent implements OnInit, OnDestroy {
 	url: String;
 	user: any = {
 		name: '',
-		file:''
+		file:'',
+    	submenu:''
 	};
 	loggedInUser;
 	role;
@@ -85,47 +86,61 @@ export class UserAddComponent implements OnInit, OnDestroy {
 		this.inst_id = this.loggedInUser.reference.organizationId;
 		this.authUserForm = this._formBuilder.group({
 			name: [''],
-			file:['']
+			file:[''],
+			submenus: this._formBuilder.array([])
 			});
 	}
 
-		public hasError = (controlName: string, errorName: string) =>{
-			return  this.authUserForm.controls[controlName].hasError(errorName);
-		}
-
+	get submenus(): FormArray {
+		return this.authUserForm.get('submenus') as FormArray;
+	  }
 	
+	  addSubmenu() {
+		this.submenus.push(this.createSubmenu());
+	  }
+	
+	  removeSubmenu(index: number) {
+		this.submenus.removeAt(index);
+	  }
+	
+	  createSubmenu(): FormGroup {
+		return this._formBuilder.group({
+		  name: ['', Validators.required],
+		  url: ['', Validators.required] 
+		});
+	  }
+
+	  
+	  hasError(controlName: string, errorName: string) {
+		return this.authUserForm.get(controlName)?.hasError(errorName);
+	  }
+	
+
+	  goBack() {
+		this.location.back();
+	}
 		addUser() {
 
-			// if(userData.invalid) {
-			// 	return false;
-			// }
-			// var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-			// this.url = '/menu/create';
-			// this.user.name = userData.value.name;
-			// this.subscriptions.push(this.apiService.post(this.url, this.user)
-			// 	.subscribe((response: any) => {
-			// 		if(response.success == true) {
-			// 			this.snackbarService.openSuccessBar("User added successfully", "User");
-			// 			this.router.navigate(['/users/userList']);
-			// 		}
-			// }));
-
-
-			/////////////
 			if (this.authUserForm.invalid) {
 			  return false;
 			}
 			this.url = '/menu/create';
 			const formData = new FormData();
 			formData['name'] = this.authUserForm.value.name;
-			console.log('this.authUserForm.value.name',this.authUserForm.value.name)
-			console.log('this.uploadImage',this.uploadImage)
+
+			const submenuArray = this.authUserForm.value.submenus.filter((submenu) => submenu.name || submenu.url);
+
+			submenuArray.forEach((submenu, index) => {
+				formData.append(`submenus[${index}][name]`, submenu.name);
+				formData.append(`submenus[${index}][url]`, submenu.url);
+			});
+		
 			const headers = new HttpHeaders();
 			headers.append('Content-Type', 'multipart/form-data'); // Ensure the boundary is correctly set automatically
-			console.log('formData----',formData);
 
 			this.url = '/menu/create';
 			this.user.name = this.authUserForm.value.name;
+      		this.user.submenu = submenuArray;
 			this.user.file = this.uploadImage;
 
 			this.subscriptions.push(this.apiService.post(this.url, this.user)
@@ -136,14 +151,6 @@ export class UserAddComponent implements OnInit, OnDestroy {
 					}
 			}));
 
-			/*this.subscriptions.push(
-				this.apiService.post1(this.url, formData, { headers }).subscribe((response: any) => {
-				  if (response.success) {
-					this.snackbarService.openSuccessBar('User added successfully', 'User');
-					this.router.navigate(['/users/userList']);
-				  }
-				})
-			);*/
 		  }
 		
 		  chooseStaticUploadFile(event) {
